@@ -43,7 +43,7 @@
 	import moment from 'moment'
     import 'moment/locale/ru';
     export default { 
-        data() {
+        data: function () {
             return {
 				viewMonthShift: 0,
             }

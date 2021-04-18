@@ -26,16 +26,18 @@
       </section>
       <section class="notes">
         <p v-purple>Заметки</p>
-        <div>
-        <input type="text" class="daily-todo">
-        <input type="text" class="daily-todo">
-        <input type="text" class="daily-todo">
-        <input type="text" class="daily-todo">
-        <input type="text" class="daily-todo">
+        <div class="input-notes">
+          <input type="text" class="notes-todo">
+          <input type="text" class="notes-todo">
+          <input type="text" class="notes-todo">
+          <input type="text" class="notes-todo">
+          <input type="text" class="notes-todo">
+          <input type="text" class="notes-todo">
+          <input type="text" class="notes-todo">
         </div>
       </section>
       <section class="two-months"> 
-        <p v-red>Календарь</p>
+        <p>Календарь</p>
         <MiniCalendar class="mini-calendar1"/>
       </section>
     </section>
@@ -50,7 +52,7 @@ import MiniCalendar from '@/components/MiniCalendar'
 
 export default { 
     name: 'TodoList',
-    data() {
+    data: function () {
       return {
         todos: [],
         filter: 'all',
@@ -62,7 +64,7 @@ export default {
         inserted: function(el)  {
           el.style.color = 'purple'
         }
-      }
+      },
     },
     components: {
         AddTodo, TodoItem, MiniCalendar
@@ -121,7 +123,14 @@ export default {
   }
   .notes {
     text-align:center;
-    border: 1px solid rgb(183, 181, 186);
+    padding: 0.5rem;
+  }
+  .notes-todo {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: hidden;
+    border-bottom: 1px dotted rgb(162, 160, 160);
+    width: calc(100% - 1em);
   }
   .two-months {
     text-align:center;

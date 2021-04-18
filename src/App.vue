@@ -3,7 +3,7 @@
     <head>
       <!-- <link rel="stylesheet" type="text/css" href="/static/bootstrap.min.css"> -->
     </head>
-    <section class="main-calendar">
+    <section class="main-calendar" >
       <Menu/>
       <TodoList/>
       <Calendar/>

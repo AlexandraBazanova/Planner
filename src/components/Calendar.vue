@@ -10,17 +10,12 @@
           v-for="(day, indexDays) in shiftWeekDays"
           :key="indexDays"
         >
-          <div class="date-of-the-day">
-            {{ displayDate(day.dayMonth) }}
-          </div>
-          <input
-            class="daily-todo"
-            v-on:keyup.13="addTodo($event.target.value, day.dayMonth._d)"
-          />
-
-          <div v-for="(item, index) in day.todos" :key="index">
-            <span>{{ item }}</span>
-          </div>
+          <Day
+            :day="day"
+            @updateInput = "updateInput"
+          >
+          </Day>
+         
         </div>
       </div>
     </section>
@@ -37,13 +32,20 @@
 <script type = "text/javascript">
 import moment from "moment";
 import "moment/locale/ru";
+import Day from './Day';
+
 export default {
-  data() {
+  name: 'Calendar',
+  data: function () {
     return {
       viewWeekShift: 0,
       todos: {},
     };
   },
+   components: {
+     Day,
+    },
+
   computed: {
     shiftWeekDays: {
       get: function () {
@@ -62,9 +64,12 @@ export default {
   },
 
   methods: {
+    updateInput() {
+      console.log(this.todos)
+    },
     addTodo(value, id) {
       this.todos[id] = value;
-      console.log('value '+value);
+      console.log('value '+ value);
     },
 
     filterTodos(dateOfTheDay) {
@@ -84,12 +89,12 @@ export default {
     getShiftWeeks(viewWeekShift, amount, item) {
       const g = this;
       const startOfWeek = moment().startOf("week").add(viewWeekShift, "week");
-      
       return new Array(amount * 7).fill(null).map(function (item, index) {
         return {
           dayMonth: moment(startOfWeek).add(index, "days"),
           // todos: this.todos[moment(startOfWeek).add(index, "days")],
-          todos: g.getValueTodo(index)
+          // todos: g.getValueTodo(index)
+          todos: ['a', '12']
         };
       });
     },
@@ -102,9 +107,8 @@ export default {
       }
       return weekdays;
     },
-    displayDate(date, formatType) {
-      return moment(date).format("D MMMM");
-    },
+
+    
   },
 };
 </script>
@@ -134,17 +138,5 @@ export default {
 .button-future {
   background-color: rgb(199, 204, 204);
   font-size: calc(10px + 0.3vw);
-}
-.date-of-the-day {
-  text-align: center;
-  font-size: calc(10px + 0.3vw);
-  width: calc(100% - 1em);
-}
-.daily-todo {
-  width: calc(100% - 1em);
-  font-size: calc(9px + 0.3vw);
-  text-align: left;
-  border: hidden;
-  border-bottom: 1px dotted rgb(162, 160, 160);
 }
 </style>
