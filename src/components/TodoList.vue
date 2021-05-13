@@ -26,15 +26,7 @@
       </section>
       <section class="notes">
         <p v-purple>Заметки</p>
-        <div class="input-notes">
-          <input type="text" class="notes-todo">
-          <input type="text" class="notes-todo">
-          <input type="text" class="notes-todo">
-          <input type="text" class="notes-todo">
-          <input type="text" class="notes-todo">
-          <input type="text" class="notes-todo">
-          <input type="text" class="notes-todo">
-        </div>
+        <Notes/>
       </section>
       <section class="two-months"> 
         <p>Календарь</p>
@@ -49,6 +41,7 @@ import TodoList from './TodoList'
 import TodoItem from '@/components/TodoItem'
 import AddTodo from '@/components/AddTodo'
 import MiniCalendar from '@/components/MiniCalendar'
+import Notes from '@/components/Notes'
 
 export default { 
     name: 'TodoList',
@@ -67,7 +60,7 @@ export default {
       },
     },
     components: {
-        AddTodo, TodoItem, MiniCalendar
+        AddTodo, TodoItem, MiniCalendar, Notes,
     },
     methods: {
      
@@ -121,16 +114,9 @@ export default {
     text-align:center;
     background-color: rgb(253, 242, 248);
   }
-  .notes {
+ .notes {
     text-align:center;
     padding: 0.5rem;
-  }
-  .notes-todo {
-    display: grid;
-    grid-template-columns: 1fr;
-    border: hidden;
-    border-bottom: 1px dotted rgb(162, 160, 160);
-    width: calc(100% - 1em);
   }
   .two-months {
     text-align:center;

@@ -3,37 +3,38 @@
     <div class="date-of-the-day">
       {{ displayDate(day.dayMonth) }}
     </div>
-    <form
-      class="day-form"
-      @addTodo.prevent="addTodo"
-      v-if="todos !== undefined"
-    >
-      <div v-for="(item, index) in day.todos" :key="index">
-        <input
-          class="daily-todo"
-          v-on:keyup.13="addTodo($event.target.value, day.dayMonth._d)"
-          v-bind:value="item"
-          v-on:change="$emit('updateInput', $event.target.value)"
-        />
-      </div>
-    </form>
+    <DayAddTodo :day="day" 
+      v-on:updateInput="updateInput"
+        
+    > </DayAddTodo>
+    <DayDisplayTodo />
   </div>
 </template>
 
 <script type = "text/javascript">
 import moment from "moment";
 import "moment/locale/ru";
+import DayAddTodo from "@/components/DayAddTodo";
+import DayDisplayTodo from "@/components/DayDisplayTodo";
 
 export default {
   name: "Day",
   data: function () {
     return {
-      todos: {},
+     
     };
   },
 
+  components: {
+    DayAddTodo,
+    DayDisplayTodo,
+  },
+
   props: {
-    day: Object,
+    day: {
+      type: Object,
+      required: true,
+    },  
   },
 
   created: function () {
@@ -53,7 +54,9 @@ export default {
     displayDate(date, formatType) {
       return moment(date).format("D MMMM");
     },
-   
+     updateInput(todoValue, dateOfTodo) {
+       this.$emit('updateTodoList', {todoValue, dateOfTodo})
+    },
   },
 };
 </script>
@@ -63,16 +66,5 @@ export default {
   text-align: center;
   font-size: calc(10px + 0.3vw);
   width: calc(100% - 1em);
-}
-.daily-todo {
-  width: calc(100% - 1em);
-  font-size: calc(9px + 0.3vw);
-  text-align: left;
-  border: hidden;
-  border-bottom: 1px dotted rgb(162, 160, 160);
-}
-.day-form {
-  display: grid;
-  grid-template-columns: 1fr;
 }
 </style>

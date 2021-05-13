@@ -10,15 +10,13 @@
           v-for="(day, indexDays) in shiftWeekDays"
           :key="indexDays"
         >
-          <Day
-            :day="day"
-            @updateInput = "updateInput"
-          >
-          </Day>
-         
+          <Day :day="day" v-on:updateTodoList="updateTodoList"> </Day>
         </div>
       </div>
     </section>
+    <button @click="todos.push({ title: 'testtso' })" class="button-test">
+      button-test
+    </button>
     <br />
     <button @click="viewWeekShift -= 1" class="button-past">
       Тёмное прошлое &#11014;
@@ -32,31 +30,47 @@
 <script type = "text/javascript">
 import moment from "moment";
 import "moment/locale/ru";
-import Day from './Day';
+import Day from "@/components/Day";
 
 export default {
-  name: 'Calendar',
+  name: "Calendar",
   data: function () {
     return {
       viewWeekShift: 0,
-      todos: {},
+      todos: [
+        {
+          title: "",
+          dateOfTodo: "",
+        },
+      ],
     };
   },
-   components: {
-     Day,
-    },
+  components: {
+    Day,
+  },
 
   computed: {
     shiftWeekDays: {
       get: function () {
+        const g = this;
         const shift = this.viewWeekShift;
-        let days = this.getShiftWeeks(shift, 4);
+        const startOfWeek = moment().startOf("week").add(shift, "week");
+        let days = new Array(28).fill(null).map(function (todo, index) {
+          return {
+            dayMonth: moment(startOfWeek).add(index, "days"),
+            // todos: this.todos[moment(startOfWeek).add(index, "days")],
+            // todos: g.getValueTodo(index)
+            // todos: g.getValueTodo(shift, index)
+            todos: g.filterTodos(startOfWeek, index),
+          };
+        });
         return days;
       },
-      set: function (value) {
-        this.days.filteredTodos = value;
-      },
+      // set: function (value) {
+      //   this.days.filteredTodos = value;
+      // },
     },
+
     weekday() {
       const week = this.getWeekday(7);
       return week;
@@ -64,41 +78,39 @@ export default {
   },
 
   methods: {
-    updateInput() {
-      console.log(this.todos)
+    filterTodos(startOfWeek, index) {
+      return this.todos.filter((e) => {
+        e.dateOfTodo ===
+          moment(startOfWeek).add(index, "days").format("DDMMYYYY");
+      });
     },
-    addTodo(value, id) {
-      this.todos[id] = value;
-      console.log('value '+ value);
-    },
-
-    filterTodos(dateOfTheDay) {
-      const g = this;
-      const filteredTodos = g.todos.filter(
-        (e) => e.dateOfTheDay == dateOfTheDay
-      );
-      return filteredTodos();
+    updateInput(todoValue, dateOfTodo) {
+      console.log(todoValue, dateOfTodo);
     },
 
     getValueTodo(viewWeekShift, index) {
       const startOfWeek = moment().startOf("week").add(viewWeekShift, "week");
-     // console.log(moment(startOfWeek).add(index, "days"))
-      return this.todos[moment(startOfWeek).add(index, "days")]
+      return this.todos[
+        moment(startOfWeek).add(index, "days").format("DDMMYYYY")
+      ];
     },
-    
-    getShiftWeeks(viewWeekShift, amount, item) {
-      const g = this;
-      const startOfWeek = moment().startOf("week").add(viewWeekShift, "week");
-      return new Array(amount * 7).fill(null).map(function (item, index) {
-        return {
-          dayMonth: moment(startOfWeek).add(index, "days"),
-          // todos: this.todos[moment(startOfWeek).add(index, "days")],
-          // todos: g.getValueTodo(index)
-          todos: ['a', '12']
-        };
-      });
+    updateTodoList(e) {
+      this.todos.push(e);
     },
-    
+
+    // getShiftWeeks(viewWeekShift, amount, item) {
+    //   const g = this;
+    //   const startOfWeek = moment().startOf("week").add(viewWeekShift, "week");
+    //   return new Array(amount * 7).fill(null).map(function (item, index) {
+    //     return {
+    //       dayMonth: moment(startOfWeek).add(index, "days"),
+    //       // todos: this.todos[moment(startOfWeek).add(index, "days")],
+    //       // todos: g.getValueTodo(index)
+    //       todos: g.todos
+    //     };
+    //   });
+    // },
+
     getWeekday(daysInWeek) {
       const startOfWeek = moment().startOf("week");
       const weekdays = [];
@@ -107,8 +119,6 @@ export default {
       }
       return weekdays;
     },
-
-    
   },
 };
 </script>
@@ -128,7 +138,7 @@ export default {
 .day-card {
   border: 1px solid rgb(183, 181, 186);
   padding: 5px;
-  height: 10rem;
+  height: 15rem;
 }
 .button-past {
   background-color: rgb(112, 110, 115);
