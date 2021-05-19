@@ -39,8 +39,8 @@ export default {
       viewWeekShift: 0,
       todos: [
         {
-          title: "",
-          dateOfTodo: "",
+          dateOfTodo: null,
+          todoValue: null,
         },
       ],
     };
@@ -58,9 +58,6 @@ export default {
         let days = new Array(28).fill(null).map(function (todo, index) {
           return {
             dayMonth: moment(startOfWeek).add(index, "days"),
-            // todos: this.todos[moment(startOfWeek).add(index, "days")],
-            // todos: g.getValueTodo(index)
-            // todos: g.getValueTodo(shift, index)
             todos: g.filterTodos(startOfWeek, index),
           };
         });
@@ -79,37 +76,24 @@ export default {
 
   methods: {
     filterTodos(startOfWeek, index) {
-      return this.todos.filter((e) => {
-        e.dateOfTodo ===
-          moment(startOfWeek).add(index, "days").format("DDMMYYYY");
-      });
+
+      const compareElements = function(a, b){
+        return parseInt(a, 10) === parseInt(b, 10)
+      }
+      
+      return this.todos.filter((e) =>
+        compareElements(e.dateOfTodo, moment(startOfWeek).add(index, "days").format("DDMMYYYY"))
+      );
     },
+
     updateInput(todoValue, dateOfTodo) {
       console.log(todoValue, dateOfTodo);
     },
 
-    getValueTodo(viewWeekShift, index) {
-      const startOfWeek = moment().startOf("week").add(viewWeekShift, "week");
-      return this.todos[
-        moment(startOfWeek).add(index, "days").format("DDMMYYYY")
-      ];
-    },
     updateTodoList(e) {
       this.todos.push(e);
+      // console.log(typeof(e.dateOfTodo))
     },
-
-    // getShiftWeeks(viewWeekShift, amount, item) {
-    //   const g = this;
-    //   const startOfWeek = moment().startOf("week").add(viewWeekShift, "week");
-    //   return new Array(amount * 7).fill(null).map(function (item, index) {
-    //     return {
-    //       dayMonth: moment(startOfWeek).add(index, "days"),
-    //       // todos: this.todos[moment(startOfWeek).add(index, "days")],
-    //       // todos: g.getValueTodo(index)
-    //       todos: g.todos
-    //     };
-    //   });
-    // },
 
     getWeekday(daysInWeek) {
       const startOfWeek = moment().startOf("week");

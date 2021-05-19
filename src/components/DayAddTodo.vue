@@ -5,7 +5,7 @@
         <div v-for="(todo, index) in day.todos" :key="index">
           <input
             class="daily-todo"
-            v-on:keyup.13="addTodo()"
+            v-on:keyup.13="addTodo"
             v-on:change="
               $emit(
                 'updateInput',
@@ -23,7 +23,7 @@
       <div v-else>
         <input
           class="daily-todo"
-          v-on:keyup.13="addTodo()"
+          v-on:keyup.13="addTodo"
           v-on:change="
             $emit(
               'updateInput',
@@ -61,8 +61,11 @@ export default {
       return moment(date).format("DDMMYYYY");
     },
 
-    addTodo(value, dateOfTodo) {
-      console.log("1");
+    addTodo(todoValue, dateOfTodo) {
+       this.$emit('updateTodoList', {todoValue, dateOfTodo})
+    },
+     updateInput(todoValue, dateOfTodo) {
+       this.$emit('updateTodoList', {todoValue, dateOfTodo})
     },
   },
 };
