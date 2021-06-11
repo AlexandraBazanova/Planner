@@ -37,7 +37,6 @@
 </template>
 
 <script type = "text/javascript" >
-import TodoList from './TodoList'
 import TodoItem from '@/components/TodoItem'
 import AddTodo from '@/components/AddTodo'
 import MiniCalendar from '@/components/MiniCalendar'

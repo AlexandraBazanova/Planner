@@ -1,16 +1,13 @@
 <template>
   <div id='app'>
     <head>
-      <!-- <link rel="stylesheet" type="text/css" href="/static/bootstrap.min.css"> -->
     </head>
     <section class="main-calendar" >
       <Menu/>
       <TodoList/>
       <Calendar/>
     <section class="footer-calendar">
-    <!-- <h1>{{now.time}}</h1>
-    <button @click='now = time()'>Мул</button>
-    <button @click="logthis">зыс</button> -->
+   
     </section>
     </section>
   </div>
@@ -39,17 +36,9 @@
       logthis: function() {
         console.log(this)
       },
-      // time: function() {
-      //   const now = moment().format('dddd, LL, LTS')
-      //   return {
-      //     time: now,
-      //   }
-      // },
+     
     },
-    // created() {
-    //  this.now = this.time()
-    
-    // },
+   
     components: {
       Menu, TodoList, Calendar
     },

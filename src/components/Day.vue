@@ -4,10 +4,16 @@
       {{ displayDate(day.dayMonth) }}
     </div>
     <DayAddTodo :day="day" 
-      v-on:updateInput="updateInput"
         
     > </DayAddTodo>
-    <DayDisplayTodo />
+    <DayDisplayTodo
+    :day="day"
+    v-for="(todo) in day.todos"
+            :key="todo.id"
+    
+    v-on:remove-todo="removeTodo"
+    >
+    </DayDisplayTodo>
   </div>
 </template>
 
@@ -54,9 +60,15 @@ export default {
     displayDate(date, formatType) {
       return moment(date).format("D MMMM");
     },
-     updateInput(todoValue, dateOfTodo) {
-       this.$emit('updateTodoList', {todoValue, dateOfTodo})
-    },
+    //  updateInput(todoValue, dateOfTodo, id) {
+    //    this.$emit('updateTodoList', {todoValue, dateOfTodo, id})
+    // },
+    removeTodo(id) {
+      console.log('Day')
+      console.log(this.day.todos)
+         this.day.todos = this.day.todos.filter(t => t.id !== t.id)
+      console.log(this.day.todos)
+      },
   },
 };
 </script>

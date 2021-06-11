@@ -3,35 +3,19 @@
     <div class="day-form">
       <div v-if="day.todos.length !== 0">
         <div v-for="(todo, index) in day.todos" :key="index">
-          <input
-            class="daily-todo"
-            v-on:keyup.13="addTodo"
-            v-on:change="
-              $emit(
-                'updateInput',
-                $event.target.value,
-                displayDateNumberFormat(day.dayMonth._d)
-              )
-            "
-          />
+          <input class="daily-todo"
+           type="text"
+            v-on:change="updateinput(todo)"
+          v-on:remove-todo="removeTodo" />
           {{ todo }}
-          <!-- {{ day.todos }}
-        {{ index }}
-        {{ displayDateNumberFormat(day.dayMonth._d) }} -->
         </div>
       </div>
+
       <div v-else>
-        <input
-          class="daily-todo"
-          v-on:keyup.13="addTodo"
-          v-on:change="
-            $emit(
-              'updateInput',
-              $event.target.value,
-              displayDateNumberFormat(day.dayMonth._d)
-            )
-          "
-        />
+        <input class="daily-todo" type="text" 
+        v-on:change="updateinput($event.target.value)"
+
+        v-on:remove-todo="removeTodo" />
       </div>
     </div>
   </div>
@@ -40,6 +24,7 @@
 <script type = "text/javascript">
 import moment from "moment";
 import "moment/locale/ru";
+import { eventBus } from "../main";
 
 export default {
   name: "DayAddTodo",
@@ -56,16 +41,26 @@ export default {
 
   computed: {},
 
+  created() {
+    
+  },
+
   methods: {
     displayDateNumberFormat(date, formatType) {
       return moment(date).format("DDMMYYYY");
     },
 
-    addTodo(todoValue, dateOfTodo) {
-       this.$emit('updateTodoList', {todoValue, dateOfTodo})
+    updateinput(todo) {
+      const day = this.day
+      eventBus.$emit("updateTodoList", {day, todo});
+      console.log(day)
+
+      // this.$emit("updateTodoList", { todoValue, dateOfTodo, id });
     },
-     updateInput(todoValue, dateOfTodo) {
-       this.$emit('updateTodoList', {todoValue, dateOfTodo})
+
+    removeTodo(id) {
+      console.log("2");
+      this.day.todos = this.day.todos.filter((t) => t.id !== id);
     },
   },
 };

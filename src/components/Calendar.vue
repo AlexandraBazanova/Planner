@@ -10,13 +10,13 @@
           v-for="(day, indexDays) in shiftWeekDays"
           :key="indexDays"
         >
-          <Day :day="day" v-on:updateTodoList="updateTodoList"> </Day>
+          <Day :day="day"
+          v-on:removeTodo="removeTodo"
+          > </Day>
         </div>
       </div>
     </section>
-    <button @click="todos.push({ title: 'testtso' })" class="button-test">
-      button-test
-    </button>
+    
     <br />
     <button @click="viewWeekShift -= 1" class="button-past">
       Тёмное прошлое &#11014;
@@ -31,6 +31,8 @@
 import moment from "moment";
 import "moment/locale/ru";
 import Day from "@/components/Day";
+import { eventBus } from '../main';
+
 
 export default {
   name: "Calendar",
@@ -38,10 +40,7 @@ export default {
     return {
       viewWeekShift: 0,
       todos: [
-        {
-          dateOfTodo: null,
-          todoValue: null,
-        },
+        
       ],
     };
   },
@@ -74,7 +73,15 @@ export default {
     },
   },
 
+  created() {
+   eventBus.$on("updateTodoList", (todo) => {
+    this.todos.push(todo);
+    console.log(todo)
+    });
+  },
+
   methods: {
+    
     filterTodos(startOfWeek, index) {
 
       const compareElements = function(a, b){
@@ -86,14 +93,16 @@ export default {
       );
     },
 
-    updateInput(todoValue, dateOfTodo) {
-      console.log(todoValue, dateOfTodo);
-    },
+    // updateTodoList(todo) {
+    //   todo.id = todo.dateOfTodo + '' + todo.todoValue;
+    //   this.todos.push(todo);
+    // //   console.log(todo)
+    // },
 
-    updateTodoList(e) {
-      this.todos.push(e);
-      // console.log(typeof(e.dateOfTodo))
-    },
+    removeTodo(id) {
+      console.log('1')
+        this.day.todos = this.day.todos.filter(t => t.id !== id)
+      },
 
     getWeekday(daysInWeek) {
       const startOfWeek = moment().startOf("week");
