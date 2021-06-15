@@ -7,11 +7,11 @@
         
     > </DayAddTodo>
     <DayDisplayTodo
-    :day="day"
-    v-for="(todo) in day.todos"
-            :key="todo.id"
+    :day="day" 
+    :todo="todo"
+    v-for="(todo, index) in day.todos"
+            :key="index"
     
-    v-on:remove-todo="removeTodo"
     >
     </DayDisplayTodo>
   </div>
@@ -20,6 +20,7 @@
 <script type = "text/javascript">
 import moment from "moment";
 import "moment/locale/ru";
+import lodash from 'lodash';
 import DayAddTodo from "@/components/DayAddTodo";
 import DayDisplayTodo from "@/components/DayDisplayTodo";
 
@@ -60,15 +61,7 @@ export default {
     displayDate(date, formatType) {
       return moment(date).format("D MMMM");
     },
-    //  updateInput(todoValue, dateOfTodo, id) {
-    //    this.$emit('updateTodoList', {todoValue, dateOfTodo, id})
-    // },
-    removeTodo(id) {
-      console.log('Day')
-      console.log(this.day.todos)
-         this.day.todos = this.day.todos.filter(t => t.id !== t.id)
-      console.log(this.day.todos)
-      },
+   
   },
 };
 </script>

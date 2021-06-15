@@ -11,12 +11,12 @@
           :key="indexDays"
         >
           <Day :day="day"
-          v-on:removeTodo="removeTodo"
-          > </Day>
+          > 
+           </Day>
         </div>
       </div>
     </section>
-    
+
     <br />
     <button @click="viewWeekShift -= 1" class="button-past">
       Тёмное прошлое &#11014;
@@ -30,18 +30,16 @@
 <script type = "text/javascript">
 import moment from "moment";
 import "moment/locale/ru";
+import lodash from 'lodash'
 import Day from "@/components/Day";
-import { eventBus } from '../main';
-
+import { eventBus } from "../main";
 
 export default {
   name: "Calendar",
   data: function () {
     return {
       viewWeekShift: 0,
-      todos: [
-        
-      ],
+      todos: [],
     };
   },
   components: {
@@ -74,22 +72,27 @@ export default {
   },
 
   created() {
-   eventBus.$on("updateTodoList", (todo) => {
-    this.todos.push(todo);
-    console.log(todo)
+    eventBus.$on("updateTodoList", (todo) => {
+      this.todos.push(todo);
+    });
+
+    eventBus.$on("removeTodo", (id) => {
+      this.todos = this.todos.filter(t => t.idTodo !== id)
+
     });
   },
 
   methods: {
-    
     filterTodos(startOfWeek, index) {
+      const compareElements = function (a, b) {
+        return parseInt(a, 10) === parseInt(b, 10);
+      };
 
-      const compareElements = function(a, b){
-        return parseInt(a, 10) === parseInt(b, 10)
-      }
-      
       return this.todos.filter((e) =>
-        compareElements(e.dateOfTodo, moment(startOfWeek).add(index, "days").format("DDMMYYYY"))
+        compareElements(
+          e.dateOfTodo,
+          moment(startOfWeek).add(index, "days").format("DDMMYYYY")
+        )
       );
     },
 
@@ -99,10 +102,12 @@ export default {
     // //   console.log(todo)
     // },
 
-    removeTodo(id) {
-      console.log('1')
-        this.day.todos = this.day.todos.filter(t => t.id !== id)
-      },
+    // removeTodo(todo) {
+    //   console.log(this.day.todos);
+    //   const indexTodo = _.findIndex(this.day.todos, todo);
+    //   this.day.todos.splice(indexTodo, 1);
+    //   console.log(this.day.todos);
+    // },
 
     getWeekday(daysInWeek) {
       const startOfWeek = moment().startOf("week");

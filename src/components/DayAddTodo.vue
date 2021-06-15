@@ -5,9 +5,8 @@
         <div v-for="(todo, index) in day.todos" :key="index">
           <input class="daily-todo"
            type="text"
-            v-on:change="updateinput(todo)"
-          v-on:remove-todo="removeTodo" />
-          {{ todo }}
+            v-on:change="updateinput($event.target.value)"
+          />
         </div>
       </div>
 
@@ -15,7 +14,7 @@
         <input class="daily-todo" type="text" 
         v-on:change="updateinput($event.target.value)"
 
-        v-on:remove-todo="removeTodo" />
+         />
       </div>
     </div>
   </div>
@@ -50,18 +49,14 @@ export default {
       return moment(date).format("DDMMYYYY");
     },
 
-    updateinput(todo) {
-      const day = this.day
-      eventBus.$emit("updateTodoList", {day, todo});
-      console.log(day)
-
-      // this.$emit("updateTodoList", { todoValue, dateOfTodo, id });
+    updateinput(todoValue) {
+      const dateOfTodo = this.displayDateNumberFormat(this.day.dayMonth._d);
+      const idTodo = moment().format("x");
+      const isComplete = false;
+      eventBus.$emit("updateTodoList", {dateOfTodo, todoValue, idTodo, isComplete});
     },
 
-    removeTodo(id) {
-      console.log("2");
-      this.day.todos = this.day.todos.filter((t) => t.id !== id);
-    },
+    
   },
 };
 </script>  
