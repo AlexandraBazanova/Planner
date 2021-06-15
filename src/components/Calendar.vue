@@ -96,18 +96,6 @@ export default {
       );
     },
 
-    // updateTodoList(todo) {
-    //   todo.id = todo.dateOfTodo + '' + todo.todoValue;
-    //   this.todos.push(todo);
-    // //   console.log(todo)
-    // },
-
-    // removeTodo(todo) {
-    //   console.log(this.day.todos);
-    //   const indexTodo = _.findIndex(this.day.todos, todo);
-    //   this.day.todos.splice(indexTodo, 1);
-    //   console.log(this.day.todos);
-    // },
 
     getWeekday(daysInWeek) {
       const startOfWeek = moment().startOf("week");

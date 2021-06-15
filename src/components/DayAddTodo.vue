@@ -1,21 +1,14 @@
 <template>
   <div>
     <div class="day-form">
-      <div v-if="day.todos.length !== 0">
-        <div v-for="(todo, index) in day.todos" :key="index">
-          <input class="daily-todo"
-           type="text"
+          <input
+            class="daily-todo"
+            type="text"
             v-on:change="updateinput($event.target.value)"
+            v-model="todoValue"
+            v-if="day.todos.length < 7"
+            v-focus="day.dayMonth._d"
           />
-        </div>
-      </div>
-
-      <div v-else>
-        <input class="daily-todo" type="text" 
-        v-on:change="updateinput($event.target.value)"
-
-         />
-      </div>
     </div>
   </div>
 </template>
@@ -28,7 +21,9 @@ import { eventBus } from "../main";
 export default {
   name: "DayAddTodo",
   data: function () {
-    return {};
+    return {
+      todoValue: ''
+    };
   },
 
   props: {
@@ -40,8 +35,21 @@ export default {
 
   computed: {},
 
-  created() {
-    
+  created() {},
+
+  directives: {
+    'focus': {
+      inserted: function (el, binding) {
+        if(binding.value.toString().substr(0, 15) == moment()._d.toString().substr(0, 15)){
+          el.focus()
+        }
+      },
+      update: function (el, binding) {
+        if(binding.value.toString().substr(0, 15) == moment()._d.toString().substr(0, 15)){
+          el.focus()
+        }
+      },
+    },
   },
 
   methods: {
@@ -53,10 +61,14 @@ export default {
       const dateOfTodo = this.displayDateNumberFormat(this.day.dayMonth._d);
       const idTodo = moment().format("x");
       const isComplete = false;
-      eventBus.$emit("updateTodoList", {dateOfTodo, todoValue, idTodo, isComplete});
+      eventBus.$emit("updateTodoList", {
+        dateOfTodo,
+        todoValue,
+        idTodo,
+        isComplete,
+      });
+       this.todoValue = "";
     },
-
-    
   },
 };
 </script>  

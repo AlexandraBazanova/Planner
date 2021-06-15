@@ -3,7 +3,10 @@
       <div class="input-notes">
           <input type="text" class="notes-todo">
           <input type="text" class="notes-todo">
-          
+          <input type="text" class="notes-todo">
+          <input type="text" class="notes-todo">
+          <input type="text" class="notes-todo">
+          <input type="text" class="notes-todo">
         </div>
   </div>
 </template>
@@ -32,5 +35,6 @@ export default {
     border: hidden;
     border-bottom: 1px dotted rgb(162, 160, 160);
     width: calc(100% - 1em);
+    height: 1.2rem;
 } 
 </style>
