@@ -1,19 +1,18 @@
 <template>
   <li>
-    <span v-bind:class="{done: todo.isComplete}">
-      <label class="custom-checkbox"
-      >
-        <input type="checkbox" 
-        v-on:change = completeTodo(todo)
-        v-bind:checked="todo.isCommplete"
+    <span v-bind:class="{ done: todo.isComplete }">
+      <label class="custom-checkbox">
+        <input
+          type="checkbox"
+          v-on:change="completeTodo(todo)"
+          v-bind:checked="todo.isCommplete"
         />
-        <span >
+        <span>
+        <input  class="input-time" type="time" :value="todo.timeValue"  v-bind:class="{ done: todo.isComplete }"/>
           {{ todo.todoValue }}
         </span>
       </label>
-      <button class="rm"
-      
-       v-on:click="removeOneTodo(todo.idTodo)">
+      <button class="rm" v-on:click="removeOneTodo(todo.idTodo)"  v-bind:class="{ done: todo.isComplete }">
         &times;
       </button>
     </span>
@@ -36,7 +35,6 @@ export default {
       type: Object,
       required: true,
     },
-    
   },
 
   methods: {
@@ -49,8 +47,8 @@ export default {
     },
 
     removeOneTodo(idTodo) {
-      eventBus.$emit("removeTodo", idTodo)
-      },
+      eventBus.$emit("removeTodo", idTodo);
+    },
   },
 };
 </script>  
@@ -66,8 +64,19 @@ li {
   background: none;
   border: none;
 }
+
+input[type="time"]{
+  border: none;
+}
+
+::-webkit-calendar-picker-indicator {
+   display: none; 
+}
+
 .done {
   color: rgb(215, 211, 220);
   text-decoration: line-through;
 }
+
+
 </style>

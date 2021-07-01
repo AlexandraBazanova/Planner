@@ -1,14 +1,20 @@
 <template>
   <div>
     <div class="day-form">
-          <input
-            class="daily-todo"
-            type="text"
-            v-on:change="updateinput($event.target.value)"
-            v-model="todoValue"
-            v-if="day.todos.length < 7"
-            v-focus="day.dayMonth._d"
-          />
+      <div>
+        <input type="time" v-model="timeValue" />
+      </div>
+
+      <div>
+        <input
+          class="daily-todo"
+          type="text"
+          v-on:change="updateinput($event.target.value)"
+          v-model="todoValue"
+          v-if="day.todos.length < 7"
+          v-focus="day.dayMonth._d"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -20,9 +26,11 @@ import { eventBus } from "../main";
 
 export default {
   name: "DayAddTodo",
+
   data: function () {
     return {
-      todoValue: ''
+      todoValue: "",
+      timeValue: null,
     };
   },
 
@@ -38,15 +46,21 @@ export default {
   created() {},
 
   directives: {
-    'focus': {
+    focus: {
       inserted: function (el, binding) {
-        if(binding.value.toString().substr(0, 15) == moment()._d.toString().substr(0, 15)){
-          el.focus()
+        if (
+          binding.value.toString().substr(0, 15) ==
+          moment()._d.toString().substr(0, 15)
+        ) {
+          el.focus();
         }
       },
       update: function (el, binding) {
-        if(binding.value.toString().substr(0, 15) == moment()._d.toString().substr(0, 15)){
-          el.focus()
+        if (
+          binding.value.toString().substr(0, 15) ==
+          moment()._d.toString().substr(0, 15)
+        ) {
+          el.focus();
         }
       },
     },
@@ -61,28 +75,46 @@ export default {
       const dateOfTodo = this.displayDateNumberFormat(this.day.dayMonth._d);
       const idTodo = moment().format("x");
       const isComplete = false;
+      const timeValue = this.timeValue;
       eventBus.$emit("updateTodoList", {
         dateOfTodo,
         todoValue,
         idTodo,
         isComplete,
+        timeValue,
       });
-       this.todoValue = "";
+      this.todoValue = "";
+      this.timeValue = "";
     },
   },
 };
 </script>  
 
 <style scoped>
+.day-form {
+  display: flex;
+}
 .daily-todo {
-  width: calc(100% - 1em);
+  width: calc(90% + 0.3vw);
   font-size: calc(9px + 0.3vw);
   text-align: left;
   border: hidden;
   border-bottom: 1px dotted rgb(162, 160, 160);
+  float: left;
+  margin-left: 0.5em;
 }
-.day-form {
-  display: grid;
-  grid-template-columns: 1fr;
+.button-chooseTime {
+  background-color: white;
+  float: left;
 }
+
+input[type="time"]{
+  border: none;
+}
+
+::-webkit-calendar-picker-indicator {
+   display: none; 
+}
+
+
 </style>

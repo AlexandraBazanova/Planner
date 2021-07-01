@@ -14,6 +14,7 @@ export default {
   data: function () {
     return {
       title: "",
+      
     };
   },
   methods: {

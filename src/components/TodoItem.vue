@@ -2,7 +2,8 @@
     <li>
     <span v-bind:class="{done: todo.completed}">
         <label  class="custom-checkbox">
-        <input type='checkbox'   v-on:change="todo.completed = !todo.completed">
+        <input type='checkbox' 
+        v-on:change="$emit('complete-todo', todo.id)">
         <span>{{todo.title}}</span>
         </label>
     </span>
@@ -13,12 +14,19 @@
 
 <script>
 export default {
+  data: function() {
+    return{
+      
+    }
+  },
+
     props:{
         todo: {
             type: Object,
             required: true
         },
-        index: Number
+        index: Number,
+
     }
 }
 </script>
