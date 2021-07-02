@@ -2,7 +2,7 @@
   <div>
     <div class="day-form">
       <div>
-        <input type="time" v-model="timeValue" />
+        <input type="time" v-model="timeValue" required/>
       </div>
 
       <div>
@@ -116,5 +116,8 @@ input[type="time"]{
    display: none; 
 }
 
+input[type="time"]::-webkit-clear-button {
+    display: none;
+}
 
 </style>

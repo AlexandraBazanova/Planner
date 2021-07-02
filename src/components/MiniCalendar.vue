@@ -6,45 +6,68 @@
           <button @click="viewMonthShift -= 1" class="mini-button-past">
             &#60;
           </button>
-          <div class="month-card" v-for="el in showMonth" :key="el">
-            {{ el }}
+          <div class="month-card" v-for="(el, index) in showMonth" :key="index">
+            {{ el.format("MMMM YYYY") }}
           </div>
           <button @click="viewMonthShift += 1" class="mini-button-future">
             &#62;
           </button>
         </div>
-        <div class="mini-days-grid">
+
+        <div class="minicontainer-weekday">
           <div class="mini-weekday" v-for="element in weekday" :key="element">
             {{ element }}
           </div>
-          <div class="mini-dayscard" v-for="(day, ind) in showDays" :key="ind">
-            {{ day }}
+        </div>
+
+        <div class="mini-days-grid">
+          <div
+            class="mini-dayscard"
+            v-for="(day, index) in showDays"
+            :key="index"
+            v-bind:class="{
+              notactualymonth: !isThisMonth(day),
+              daytoday: isToday(day),
+            }"
+          >
+            {{ day.format("D") }}
           </div>
         </div>
       </section>
+
+
       <section class="next-month">
         <div class="minicalendar-top">
           <button @click="viewMonthShift -= 1" class="mini-button-past">
             &#60;
           </button>
-          <div class="month-card" v-for="el in showNextMonth" :key="el">
-            {{ el }}
+          <div
+            class="month-card"
+            v-for="(el, index) in showNextMonth"
+            :key="index"
+          >
+            {{ el.format("MMMM YYYY") }}
           </div>
           <button @click="viewMonthShift += 1" class="mini-button-future">
             &#62;
           </button>
         </div>
-        <div class="mini-days-grid">
+        <div class="minicontainer-weekday">
           <div class="mini-weekday" v-for="element in weekday" :key="element">
             {{ element }}
           </div>
+        </div>
+        <div class="mini-days-grid">
           <div
             class="mini-dayscard"
             v-for="(day, index) in showNextDays"
             :key="index"
-			v-notShow
+            v-bind:class="{
+              notactualymonth: !isNextMonth(day),
+              daytoday: isToday(day),
+            }"
           >
-            {{ day }}
+            {{ day.format("D") }}
           </div>
         </div>
       </section>
@@ -89,6 +112,27 @@ export default {
   },
 
   methods: {
+    isThisMonth(date) {
+      return (
+        date._d.toString().substr(4, 3) ===
+        this.showMonth[0]._d.toString().substr(4, 3)
+      );
+    },
+
+    isNextMonth(date) {
+      return (
+        date._d.toString().substr(4, 3) ===
+        this.showNextMonth[0]._d.toString().substr(4, 3)
+      );
+    },
+
+    isToday(date) {
+      return date._d.toString().substr(0, 15) ===
+        moment()._d.toString().substr(0, 15)
+        ? true
+        : false;
+    },
+
     getMonthShift(viewMonthShift) {
       const getMonth = function (viewMonthShift) {
         const startOfMonth = moment()
@@ -96,7 +140,7 @@ export default {
           .add(viewMonthShift, "month");
         const months = [];
         for (let i = 0; i <= 0; i++) {
-          months.push(moment(startOfMonth).add(i, "days").format("MMMM"));
+          months.push(moment(startOfMonth).add(i, "days"));
         }
         return months;
       };
@@ -147,12 +191,9 @@ export default {
             subt = 6;
         }
         if (startOfMonth.daysInMonth() === 28) {
-          for (let i = 0; i <= 27; i++) {
+          for (let i = 0; i <= 34; i++) {
             allDays.push(
-              moment(startOfMonth)
-                .subtract(subt, "day")
-                .add(i, "days")
-                .format("D")
+              moment(startOfMonth).subtract(subt, "day").add(i, "days")
             );
           }
         } else if (
@@ -161,59 +202,32 @@ export default {
         ) {
           for (let i = 0; i <= 41; i++) {
             allDays.push(
-              moment(startOfMonth)
-                .subtract(subt, "day")
-                .add(i, "days")
-                .format("D")
+              moment(startOfMonth).subtract(subt, "day").add(i, "days")
             );
           }
         } else if (weekDayOfFirstDay === 7) {
           for (let i = 0; i <= 41; i++) {
             allDays.push(
-              moment(startOfMonth)
-                .subtract(subt, "day")
-                .add(i, "days")
-                .format("D")
+              moment(startOfMonth).subtract(subt, "day").add(i, "days")
             );
           }
         } else {
           for (let i = 0; i <= 34; i++) {
             allDays.push(
-              moment(startOfMonth)
-                .subtract(subt, "day")
-                .add(i, "days")
-                .format("D")
+              moment(startOfMonth).subtract(subt, "day").add(i, "days")
             );
           }
         }
-        // console.log(startOfMonth);
-        // console.log(weekDayOfFirstDay);
-        // console.log(startOfMonth.daysInMonth());
 
         return allDays;
       };
       return daysPush(viewMonthShift);
     },
   },
-
-  directives: {
-    notShow: {
-      inserted: function (el, binding) {
-        // console.log(el)
-        //   el.style.color = white;
-        
-      },
-      update: function (el, binding) {
-        
-        }
-      },
-    },
-  
-
 };
 </script>
 
-<style>
+<style >
 .mini-calendar {
   display: grid;
   grid-template-columns: repeat(2, minmax(20px, 2fr));
@@ -221,6 +235,7 @@ export default {
   font-size: calc(10px + 0.3vw);
   margin: 0.1rem;
   border: 1px solid rgb(12, 177, 92);
+  justify-content: space-around;
 }
 .current-month {
   display: grid;
@@ -231,32 +246,58 @@ export default {
   margin: 0.1rem;
 }
 .minicalendar-top {
-  border: 1px solid rgb(100, 13, 230);
-  display: grid;
+  border: 1px solid rgb(183, 181, 186);
+  display: flex;
+  justify-content: space-between;
   grid-template-columns: repeat(3, minmax(20px, 1fr));
   grid-gap: 1px;
   font-size: calc(11px + 0.3vw);
   margin: 0.2rem;
+  height: 1.5rem;
 }
 .month-card {
-  border: 1px solid rgb(213, 20, 209);
+  border: 1px solid rgb(183, 181, 186);
+  text-align: center;
+  flex-grow: 3;
+}
+.minicontainer-weekday {
+  border: 1px solid rgb(183, 181, 186);
+  display: flex;
+  justify-content: space-around;
+}
+.mini-weekday {
+  border: 1px solid rgb(183, 181, 186);
+  flex-grow: 1;
   text-align: center;
 }
+
+
 .mini-days-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(20px, 1fr));
   grid-gap: 1px;
   border: 1px solid rgb(183, 181, 186);
-}
-.mini-weekday {
-  border: 1px solid rgb(183, 181, 186);
-  text-align: center;
+  height: 8rem;
 }
 .mini-dayscard {
   border: 1px solid rgb(183, 181, 186);
-  text-align: center;
 }
-.color {
-  color: red;
+
+
+.notactualymonth {
+  color: rgb(223, 219, 219);
+}
+.daytoday {
+  background-color: #b2d9d0;
+  font-weight: bolder;
+}
+.mini-button-future {
+  background-color: #b2d9d0;
+  width: 2rem;
+}
+
+.mini-button-past {
+  background-color: #b2d9d0;
+  width: 2rem;
 }
 </style>

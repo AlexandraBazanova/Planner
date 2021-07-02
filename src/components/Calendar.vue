@@ -45,6 +45,7 @@ export default {
   components: {
     Day,
   },
+  
 
   computed: {
     shiftWeekDays: {
@@ -127,12 +128,26 @@ export default {
   height: 15rem;
 }
 .button-past {
-  background-color: rgb(112, 110, 115);
+  background-color: #b2d9d0;
+  border-color:#93c9bd;
   font-size: calc(10px + 0.3vw);
+  border-radius: 6px;
 }
 
 .button-future {
-  background-color: rgb(199, 204, 204);
+  background-color: #b2d9d0;
+  border-color:#93c9bd;
   font-size: calc(10px + 0.3vw);
+  border-radius: 6px;
+}
+.button-future:hover {
+    background-color: #93c9bd;
+    color: white;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.button-past:hover {
+    background-color: #93c9bd;
+    color: white;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 </style>

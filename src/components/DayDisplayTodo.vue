@@ -7,15 +7,15 @@
           v-on:change="completeTodo(todo)"
           v-bind:checked="todo.isCommplete"
         />
-        <span>
-        <input  class="input-time" type="time" :value="todo.timeValue"  v-bind:class="{ done: todo.isComplete }"/>
+        <span class="todo-value">
+        <input  class="input-time" type="time" :value="todo.timeValue"  v-bind:class="{ done: todo.isComplete }" required/>
           {{ todo.todoValue }}
         </span>
       </label>
+    </span>
       <button class="rm" v-on:click="removeOneTodo(todo.idTodo)"  v-bind:class="{ done: todo.isComplete }">
         &times;
       </button>
-    </span>
   </li>
 </template>
 
@@ -38,9 +38,7 @@ export default {
   },
 
   methods: {
-    // displayDateNumberFormat(date, formatType) {
-    //   return moment(date).format("DDMMYYYY");
-    // },
+ 
 
     completeTodo(todo) {
       todo.isComplete = !todo.isComplete;
@@ -57,20 +55,28 @@ export default {
 li {
   display: flex;
   border-bottom: 1px dotted rgb(162, 160, 160);
+  justify-content: space-between;
 }
-
-.rm {
-  color: rgb(32, 28, 28);
-  background: none;
-  border: none;
+.todo-value {
+  font-size: calc(9px + 0.3vw);
+  margin-left: 0.1em;
+  align-self: flex-start;
 }
 
 input[type="time"]{
   border: none;
+  font-size: calc(9px + 0.3vw);
+  align-self: flex-start;
 }
 
 ::-webkit-calendar-picker-indicator {
    display: none; 
+}
+.rm {
+  color: rgb(32, 28, 28);
+  background: none;
+  border: none;
+  align-self: flex-end;
 }
 
 .done {

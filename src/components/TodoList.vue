@@ -66,7 +66,6 @@ export default {
       this.todos = this.todos.filter((t) => t.id !== id);
     },
     completeTodo(id) {
-      console.log(this.todos.filter((t) => t.id === id)[0]);
       this.todos.filter((t) => t.id === id)[0].completed = !this.todos.filter(
         (t) => t.id === id
       )[0].completed;
@@ -99,6 +98,8 @@ ul {
 p {
   font-size: calc(10px + 0.3vw);
   text-decoration: underline;
+  align-self: center;
+  margin: 0.1rem;
 }
 .select-todo {
   font-size: calc(9px + 0.3vw);
@@ -124,5 +125,7 @@ p {
 .two-months {
   text-align: center;
   border: 1px solid rgb(183, 181, 186);
+  display: flex;
+  flex-direction: column;
 }
 </style>
