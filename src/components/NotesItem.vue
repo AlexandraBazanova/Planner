@@ -1,6 +1,6 @@
 <template>
   <li class="notes-item">
-    <span>{{ note.message }}</span>
+    <div class="notes-value">{{ note.message }}</div>
     <button class="rm-note" v-on:click="$emit('remove-note', note.id)">
       &times;
     </button>
@@ -27,28 +27,36 @@ export default {
 </script>  
 
 <style scoped>
-li {
+
+.notes-item {
   display: flex;
   border-bottom: 1px dotted rgb(162, 160, 160);
-}
-
-.rm-note {
-  color: rgb(32, 28, 28);
-  background: none;
-  border: none;
-}
-.notes-item {
-  width: calc(99% + 0.3vw);
   border: 2px dashed #b2d9d0;
   border-radius: 10px;
   cursor: move;
   background-color: #dff2ef;
   padding: 0.2em;
   margin: 0.1em;
+  overflow: hidden;
+  /* white-space: wrap; */
 }
-.notes-item:last-child {
-  margin-bottom: 0;
+.notes-value {
+  width: 95%;
+  text-align: start;
+  text-overflow: clip;
+  /* text-overflow: ellipsis; */
+  white-space: pre-line;
+  float: left;
+  padding-left: 0.5rem;
 }
+
+.rm-note {
+  color: rgb(32, 28, 28);
+  background: none;
+  border: none;
+  float: right;
+}
+
 .selected {
   opacity: 0.6;
 }

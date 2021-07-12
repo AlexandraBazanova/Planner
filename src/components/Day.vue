@@ -51,12 +51,21 @@ export default {
         ? true
         : false;
     },
+
+    // sortTodo() {
+    //   console.log(this.timeValue);
+    //   return _.orderBy(this.day.todos, [this.timeValue], ['asc', 'desc'])
+    // },
+
   },
 
   methods: {
     displayDate(date, formatType) {
       return moment(date).format("D MMMM");
     },
+
+    
+
   },
 };
 </script>
@@ -65,10 +74,11 @@ export default {
 .date-of-the-day {
   text-align: center;
   font-size: calc(10px + 0.3vw);
-  width: calc(100% - 1em);
+  /* width: 100%; */
 }
 .daytoday {
-  background-color: #b2d9d0;
-  font-weight: bolder;
+  background-color: #93c9bd;
+  color: white;
+
 }
 </style>

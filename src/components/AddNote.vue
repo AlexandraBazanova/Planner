@@ -5,6 +5,7 @@
       v-on:change="getNote"
       v-model="message"
       class="note-text"
+      wrap="soft"
     >
     </textarea>
   </form>
@@ -43,7 +44,8 @@ form {
   display: flex;
 }
 .note-text {
-  width: calc(99% + 0.3vw);
-  font-size: calc(9px + 0.3vw);
+  width: 100%;
+  font-size: calc(10px + 0.3vw);
+  /* resize: vertical; */
 }
 </style>

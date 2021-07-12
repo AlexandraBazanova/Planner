@@ -10,9 +10,7 @@
           v-for="(day, indexDays) in shiftWeekDays"
           :key="indexDays"
         >
-          <Day :day="day"
-          > 
-           </Day>
+          <Day :day="day"> </Day>
         </div>
       </div>
     </section>
@@ -30,7 +28,7 @@
 <script type = "text/javascript">
 import moment from "moment";
 import "moment/locale/ru";
-import lodash from 'lodash'
+import lodash from "lodash";
 import Day from "@/components/Day";
 import { eventBus } from "../main";
 
@@ -45,9 +43,20 @@ export default {
   components: {
     Day,
   },
+
+    created() {
+      eventBus.$on("updateTodoList", (todo) => {
+        this.todos.push(todo);
+        this.sortTimeValue;
+      });
   
+      eventBus.$on("removeTodo", (id) => {
+        this.todos = this.todos.filter((t) => t.idTodo !== id);
+      });
+    },
 
   computed: {
+
     shiftWeekDays: {
       get: function () {
         const g = this;
@@ -61,29 +70,28 @@ export default {
         });
         return days;
       },
-      // set: function (value) {
-      //   this.days.filteredTodos = value;
-      // },
     },
 
     weekday() {
       const week = this.getWeekday(7);
       return week;
     },
-  },
 
-  created() {
-    eventBus.$on("updateTodoList", (todo) => {
-      this.todos.push(todo);
-    });
+    sortTimeValue() {
+      const convertTime = this.convertTime;
+      return this.todos.sort((a, b) =>  convertTime(a.timeValue) - convertTime(b.timeValue))
+    },
 
-    eventBus.$on("removeTodo", (id) => {
-      this.todos = this.todos.filter(t => t.idTodo !== id)
-
-    });
   },
 
   methods: {
+
+    convertTime(stringTime) {
+     return  stringTime !== "" ? Number(stringTime.split(':').join('')) : 0
+      
+    },
+
+
     filterTodos(startOfWeek, index) {
       const compareElements = function (a, b) {
         return parseInt(a, 10) === parseInt(b, 10);
@@ -107,10 +115,11 @@ export default {
       return weekdays;
     },
   },
+
 };
 </script>
 
-<style>
+<style >
 .weekday-card {
   border: 1px solid rgb(183, 181, 186);
   text-align: center;
@@ -129,25 +138,25 @@ export default {
 }
 .button-past {
   background-color: #b2d9d0;
-  border-color:#93c9bd;
+  border-color: #93c9bd;
   font-size: calc(10px + 0.3vw);
   border-radius: 6px;
 }
 
 .button-future {
   background-color: #b2d9d0;
-  border-color:#93c9bd;
+  border-color: #93c9bd;
   font-size: calc(10px + 0.3vw);
   border-radius: 6px;
 }
 .button-future:hover {
-    background-color: #93c9bd;
-    color: white;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  background-color: #93c9bd;
+  color: white;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .button-past:hover {
-    background-color: #93c9bd;
-    color: white;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  background-color: #93c9bd;
+  color: white;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 </style>

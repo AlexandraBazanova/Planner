@@ -96,7 +96,7 @@ ul {
   margin: 0;
 }
 p {
-  font-size: calc(10px + 0.3vw);
+  font-size: calc(11px + 0.3vw);
   text-decoration: underline;
   align-self: center;
   margin: 0.1rem;
@@ -106,14 +106,15 @@ p {
 }
 .widget-bar {
   display: grid;
-  grid-template-columns: repeat(3, minmax(20px, 1fr));
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
   grid-gap: 1px;
   font-size: calc(11px + 0.3vw);
   border: 1px solid rgb(183, 181, 186);
   margin: 0.2rem;
+  vertical-align: baseline;
 }
 .urgent-todos {
-  font-size: calc(10px + 0.3vw);
+  font-size: calc(11px + 0.3vw);
   border: 1px solid rgb(183, 181, 186);
   text-align: center;
   background-color: rgb(253, 242, 248);

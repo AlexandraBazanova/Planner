@@ -1,5 +1,10 @@
 # plan
 
+## Demo
+```
+https://alexandrabazanova.github.io/planner/
+```
+
 ## Project setup
 ```
 npm install

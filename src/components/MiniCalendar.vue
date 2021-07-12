@@ -27,14 +27,13 @@
             :key="index"
             v-bind:class="{
               notactualymonth: !isThisMonth(day),
-              daytoday: isToday(day),
+              minidaytoday: isToday(day),
             }"
           >
             {{ day.format("D") }}
           </div>
         </div>
       </section>
-
 
       <section class="next-month">
         <div class="minicalendar-top">
@@ -64,7 +63,7 @@
             :key="index"
             v-bind:class="{
               notactualymonth: !isNextMonth(day),
-              daytoday: isToday(day),
+              minidaytoday: isToday(day),
             }"
           >
             {{ day.format("D") }}
@@ -191,7 +190,7 @@ export default {
             subt = 6;
         }
         if (startOfMonth.daysInMonth() === 28) {
-          for (let i = 0; i <= 34; i++) {
+          for (let i = 0; i <= 41; i++) {
             allDays.push(
               moment(startOfMonth).subtract(subt, "day").add(i, "days")
             );
@@ -212,7 +211,7 @@ export default {
             );
           }
         } else {
-          for (let i = 0; i <= 34; i++) {
+          for (let i = 0; i <= 41; i++) {
             allDays.push(
               moment(startOfMonth).subtract(subt, "day").add(i, "days")
             );
@@ -232,21 +231,25 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, minmax(20px, 2fr));
   grid-gap: 1px;
-  font-size: calc(10px + 0.3vw);
+  /* font-size: calc(10px + 0.3vw); */
   margin: 0.1rem;
-  border: 1px solid rgb(12, 177, 92);
+  border: none;
   justify-content: space-around;
+  align-items: center;
+  
 }
 .current-month {
   display: grid;
-  margin: 0.1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .next-month {
   display: grid;
-  margin: 0.1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .minicalendar-top {
-  border: 1px solid rgb(183, 181, 186);
+  border: none;
   display: flex;
   justify-content: space-between;
   grid-template-columns: repeat(3, minmax(20px, 1fr));
@@ -256,48 +259,53 @@ export default {
   height: 1.5rem;
 }
 .month-card {
-  border: 1px solid rgb(183, 181, 186);
+  border: none;
   text-align: center;
   flex-grow: 3;
 }
 .minicontainer-weekday {
-  border: 1px solid rgb(183, 181, 186);
+  border-bottom: none;
   display: flex;
   justify-content: space-around;
 }
 .mini-weekday {
-  border: 1px solid rgb(183, 181, 186);
+  border-bottom: 1px solid rgb(183, 181, 186);
   flex-grow: 1;
   text-align: center;
 }
-
 
 .mini-days-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(20px, 1fr));
   grid-gap: 1px;
-  border: 1px solid rgb(183, 181, 186);
+  border: none;
   height: 8rem;
 }
-.mini-dayscard {
-  border: 1px solid rgb(183, 181, 186);
-}
 
+.mini-dayscard {
+  border: none;
+  
+}
 
 .notactualymonth {
   color: rgb(223, 219, 219);
 }
-.daytoday {
-  background-color: #b2d9d0;
-  font-weight: bolder;
+
+.minidaytoday {
+  background-color: #93c9bd;
+  border-radius: 50%;
+  color: white;
+
 }
 .mini-button-future {
-  background-color: #b2d9d0;
-  width: 2rem;
+  background-color: white;
+  border: none;
+  width: 1rem;
 }
 
 .mini-button-past {
-  background-color: #b2d9d0;
-  width: 2rem;
+  background-color: white;
+  border: none;
+  width: 1rem;
 }
 </style>

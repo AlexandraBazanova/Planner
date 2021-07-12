@@ -30,7 +30,7 @@ export default {
   data: function () {
     return {
       todoValue: "",
-      timeValue: null,
+      timeValue: "",
     };
   },
 
