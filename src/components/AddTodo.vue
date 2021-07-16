@@ -1,10 +1,10 @@
 <template>
   <form @submit.prevent="onSubmit">
     <input
-      v-on:change="onSubmit"
-      type="text"
-      v-model="title"
       class="urgent-todo"
+      type="text"
+      v-on:change="onSubmit"
+      v-model="title"
     />
   </form>
 </template>
@@ -14,7 +14,6 @@ export default {
   data: function () {
     return {
       title: "",
-      
     };
   },
   methods: {

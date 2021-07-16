@@ -2,7 +2,7 @@
   <div>
     <div class="day-form">
       <div>
-        <input type="time" v-model="timeValue" required/>
+        <input class="input-time" type="time" v-model="timeValue" required />
       </div>
 
       <div>
@@ -94,9 +94,12 @@ export default {
 .day-form {
   display: flex;
 }
+.input-time {
+  font-size: calc(11px + 0.3vw);
+}
 .daily-todo {
   width: calc(90% + 0.3vw);
-  font-size: calc(9px + 0.3vw);
+  font-size: calc(11px + 0.3vw);
   text-align: left;
   border: hidden;
   border-bottom: 1px dotted rgb(162, 160, 160);
@@ -108,16 +111,15 @@ export default {
   float: left;
 }
 
-input[type="time"]{
+input[type="time"] {
   border: none;
 }
 
 ::-webkit-calendar-picker-indicator {
-   display: none; 
+  display: none;
 }
 
 input[type="time"]::-webkit-clear-button {
-    display: none;
+  display: none;
 }
-
 </style>

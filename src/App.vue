@@ -52,7 +52,6 @@
     left: 0;
     top: 0;
     width: 100%;
-    /* height: 100%; */
     border: 2px solid rgb(233, 104, 238);
   }
   .footer-calendar {

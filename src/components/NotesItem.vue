@@ -1,7 +1,11 @@
 <template>
   <li class="notes-item">
-    <div class="notes-value">{{ note.message }}</div>
-    <button class="rm-note" v-on:click="$emit('remove-note', note.id)">
+    <div class="notes-value">
+      {{ note.message }}
+      </div>
+    <button
+     class="rm-note" 
+     v-on:click="$emit('remove-note', note.id)">
       &times;
     </button>
   </li>
@@ -27,7 +31,6 @@ export default {
 </script>  
 
 <style scoped>
-
 .notes-item {
   display: flex;
   border-bottom: 1px dotted rgb(162, 160, 160);
@@ -38,13 +41,11 @@ export default {
   padding: 0.2em;
   margin: 0.1em;
   overflow: hidden;
-  /* white-space: wrap; */
 }
 .notes-value {
   width: 95%;
   text-align: start;
   text-overflow: clip;
-  /* text-overflow: ellipsis; */
   white-space: pre-line;
   float: left;
   padding-left: 0.5rem;

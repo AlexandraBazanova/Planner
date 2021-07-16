@@ -3,19 +3,26 @@
     <section class="mini-calendar">
       <section class="current-month">
         <div class="minicalendar-top">
-          <button @click="viewMonthShift -= 1" class="mini-button-past">
+          <button
+            class="mini-button-past"
+           @click="viewMonthShift -= 1" >
             &#60;
           </button>
-          <div class="month-card" v-for="(el, index) in showMonth" :key="index">
+          <div class="month-card"
+           v-for="(el, index) in showMonth" :key="index">
             {{ el.format("MMMM YYYY") }}
           </div>
-          <button @click="viewMonthShift += 1" class="mini-button-future">
+          <button
+            class="mini-button-future"
+           @click="viewMonthShift += 1" >
             &#62;
           </button>
         </div>
 
         <div class="minicontainer-weekday">
-          <div class="mini-weekday" v-for="element in weekday" :key="element">
+          <div 
+          class="mini-weekday" 
+          v-for="element in weekday" :key="element">
             {{ element }}
           </div>
         </div>
@@ -37,7 +44,9 @@
 
       <section class="next-month">
         <div class="minicalendar-top">
-          <button @click="viewMonthShift -= 1" class="mini-button-past">
+          <button
+            class="mini-button-past"
+           @click="viewMonthShift -= 1" >
             &#60;
           </button>
           <div
@@ -47,12 +56,16 @@
           >
             {{ el.format("MMMM YYYY") }}
           </div>
-          <button @click="viewMonthShift += 1" class="mini-button-future">
+          <button
+            class="mini-button-future"
+           @click="viewMonthShift += 1" >
             &#62;
           </button>
         </div>
         <div class="minicontainer-weekday">
-          <div class="mini-weekday" v-for="element in weekday" :key="element">
+          <div
+           class="mini-weekday" 
+           v-for="element in weekday" :key="element">
             {{ element }}
           </div>
         </div>
@@ -154,6 +167,7 @@ export default {
       }
       return weekdays;
     },
+
     getShiftDays(viewMonthShift) {
       const daysPush = function (viewMonthShift) {
         const allDays = [];
@@ -231,27 +245,25 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, minmax(20px, 2fr));
   grid-gap: 1px;
-  /* font-size: calc(10px + 0.3vw); */
-  margin: 0.1rem;
+  margin: 0.5rem;
   border: none;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  
 }
 .current-month {
   display: grid;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 .next-month {
   display: grid;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 .minicalendar-top {
   border: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   grid-template-columns: repeat(3, minmax(20px, 1fr));
   grid-gap: 1px;
   font-size: calc(11px + 0.3vw);
@@ -284,7 +296,6 @@ export default {
 
 .mini-dayscard {
   border: none;
-  
 }
 
 .notactualymonth {
@@ -295,17 +306,16 @@ export default {
   background-color: #93c9bd;
   border-radius: 50%;
   color: white;
-
 }
 .mini-button-future {
   background-color: white;
   border: none;
-  width: 1rem;
+  width: 4rem;
 }
 
 .mini-button-past {
   background-color: white;
   border: none;
-  width: 1rem;
+  width: 4rem;
 }
 </style>

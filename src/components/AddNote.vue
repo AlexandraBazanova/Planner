@@ -1,10 +1,10 @@
 <template>
   <form @submit.prevent="getNote">
     <textarea
+      class="note-text"
       type="text"
       v-on:change="getNote"
       v-model="message"
-      class="note-text"
       wrap="soft"
     >
     </textarea>
@@ -29,7 +29,6 @@ export default {
           id: Date.now(),
           message: this.message,
           draggable: true,
-
         };
         this.$emit("add-note", newNote);
         this.message = "";
@@ -46,6 +45,5 @@ form {
 .note-text {
   width: 100%;
   font-size: calc(10px + 0.3vw);
-  /* resize: vertical; */
 }
 </style>

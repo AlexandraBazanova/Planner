@@ -4,7 +4,7 @@
       <AddNote @add-note="addNote"> </AddNote>
       <NotesItem
         v-for="(note, index) in notes"
-            :key="note.id"
+        :key="note.id"
         v-bind:note="note"
         v-bind:index="index"
         v-on:remove-note="removeNote"
@@ -42,7 +42,6 @@ export default {
       this.notes.push(note);
     },
   },
-  
 };
 </script>  
 

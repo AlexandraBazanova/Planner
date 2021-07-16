@@ -39,11 +39,6 @@ export default {
     },
   },
 
-  created: function () {
-    // console.log(this.day);
-    // console.log(this.day.todos);
-  },
-
   computed: {
     isToday() {
       return this.day.dayMonth._d.toString().substr(0, 15) ===
@@ -51,21 +46,12 @@ export default {
         ? true
         : false;
     },
-
-    // sortTodo() {
-    //   console.log(this.timeValue);
-    //   return _.orderBy(this.day.todos, [this.timeValue], ['asc', 'desc'])
-    // },
-
   },
 
   methods: {
     displayDate(date, formatType) {
       return moment(date).format("D MMMM");
     },
-
-    
-
   },
 };
 </script>
@@ -74,11 +60,9 @@ export default {
 .date-of-the-day {
   text-align: center;
   font-size: calc(10px + 0.3vw);
-  /* width: 100%; */
 }
 .daytoday {
   background-color: #93c9bd;
   color: white;
-
 }
 </style>

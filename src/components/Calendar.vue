@@ -1,5 +1,12 @@
 <template>
   <div>
+    <button class="button-past" @click="viewWeekShift -= 1">
+      Назад &#11014;
+    </button>
+    <button class="button-future" @click="viewWeekShift += 1">
+      Вперёд &#11015;
+    </button>
+    <br />
     <section class="calendar">
       <div class="calendar-grid">
         <div class="weekday-card" v-for="element in weekday" :key="element">
@@ -14,14 +21,6 @@
         </div>
       </div>
     </section>
-
-    <br />
-    <button @click="viewWeekShift -= 1" class="button-past">
-      Тёмное прошлое &#11014;
-    </button>
-    <button @click="viewWeekShift += 1" class="button-future">
-      Светлое будущее &#11015;
-    </button>
   </div>
 </template>
 
@@ -44,28 +43,27 @@ export default {
     Day,
   },
 
-    created() {
-      eventBus.$on("updateTodoList", (todo) => {
-        this.todos.push(todo);
-        this.sortTimeValue;
-      });
-  
-      eventBus.$on("removeTodo", (id) => {
-        this.todos = this.todos.filter((t) => t.idTodo !== id);
-      });
-    },
+  created() {
+    eventBus.$on("updateTodoList", (todo) => {
+      this.todos.push(todo);
+      this.sortTimeValue;
+    });
+
+    eventBus.$on("removeTodo", (id) => {
+      this.todos = this.todos.filter((t) => t.idTodo !== id);
+    });
+  },
 
   computed: {
-
     shiftWeekDays: {
       get: function () {
-        const g = this;
+        const filterTodos = this.filterTodos;
         const shift = this.viewWeekShift;
         const startOfWeek = moment().startOf("week").add(shift, "week");
         let days = new Array(28).fill(null).map(function (todo, index) {
           return {
             dayMonth: moment(startOfWeek).add(index, "days"),
-            todos: g.filterTodos(startOfWeek, index),
+            todos: filterTodos(startOfWeek, index),
           };
         });
         return days;
@@ -79,18 +77,16 @@ export default {
 
     sortTimeValue() {
       const convertTime = this.convertTime;
-      return this.todos.sort((a, b) =>  convertTime(a.timeValue) - convertTime(b.timeValue))
+      return this.todos.sort(
+        (a, b) => convertTime(a.timeValue) - convertTime(b.timeValue)
+      );
     },
-
   },
 
   methods: {
-
     convertTime(stringTime) {
-     return  stringTime !== "" ? Number(stringTime.split(':').join('')) : 0
-      
+      return stringTime !== "" ? Number(stringTime.split(":").join("")) : 0;
     },
-
 
     filterTodos(startOfWeek, index) {
       const compareElements = function (a, b) {
@@ -105,7 +101,6 @@ export default {
       );
     },
 
-
     getWeekday(daysInWeek) {
       const startOfWeek = moment().startOf("week");
       const weekdays = [];
@@ -115,13 +110,12 @@ export default {
       return weekdays;
     },
   },
-
 };
 </script>
 
 <style >
 .weekday-card {
-  border: 1px solid rgb(183, 181, 186);
+  /* border: 1px solid rgb(222, 220, 224); */
   text-align: center;
   font-size: calc(10px + 0.3vw);
 }
@@ -132,7 +126,7 @@ export default {
   border: 1px solid rgb(183, 181, 186);
 }
 .day-card {
-  border: 1px solid rgb(183, 181, 186);
+  border: 1px dotted rgb(222, 220, 224);
   padding: 5px;
   height: 15rem;
 }
@@ -141,6 +135,7 @@ export default {
   border-color: #93c9bd;
   font-size: calc(10px + 0.3vw);
   border-radius: 6px;
+  margin: 0.2rem;
 }
 
 .button-future {

@@ -47,7 +47,7 @@ export default {
       filter: "all",
     };
   },
-  // props: ['todos'],
+
   directives: {
     purple: {
       inserted: function (el) {
@@ -55,12 +55,14 @@ export default {
       },
     },
   },
+
   components: {
     AddTodo,
     TodoItem,
     MiniCalendar,
     Notes,
   },
+
   methods: {
     removeTodo(id) {
       this.todos = this.todos.filter((t) => t.id !== id);
@@ -74,6 +76,7 @@ export default {
       this.todos.push(todo);
     },
   },
+  
   computed: {
     filteredTodos() {
       if (this.filter === "all") {

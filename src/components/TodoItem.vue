@@ -1,16 +1,20 @@
 <template>
   <li>
-    <span v-bind:class="{ done: todo.completed }" >
+    <span v-bind:class="{ done: todo.completed }">
       <label class="custom-checkbox">
         <input
           type="checkbox"
           :checked="todo.completed"
           v-on:change="$emit('complete-todo', todo.id)"
         />
-        <span class="todo-title">{{ todo.title }}</span>
+        <span class="todo-title">
+          {{ todo.title }}
+        </span>
       </label>
     </span>
-    <button class="rm" v-on:click="$emit('remove-todo', todo.id)">
+    <button
+     class="rm"
+      v-on:click="$emit('remove-todo', todo.id)">
       &times;
     </button>
   </li>
@@ -57,19 +61,6 @@ li {
   opacity: 0;
 }
 .custom-checkbox > span::before {
-  /* content: "";
-  display: inline-block;
-  width: 0.7em;
-  height: 0.7em;
-  flex-shrink: 0;
-  flex-grow: 0;
-  border: 1px solid rgb(218, 196, 209);
-  border-radius: 0.25em;
-  margin-right: 0.5em;
-  margin-top: 0.25em;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 50% 50%; */
   display: none;
 }
 /* стили при наведении курсора на checkbox */

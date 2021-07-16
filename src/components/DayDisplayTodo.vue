@@ -7,9 +7,7 @@
           v-on:change="completeTodo(todo)"
           v-bind:checked="todo.isCommplete"
         />
-        <span class="todo-value"
-        
-        >
+        <span class="todo-value">
           <input
             class="input-time"
             type="time"
