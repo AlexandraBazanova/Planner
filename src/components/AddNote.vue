@@ -45,5 +45,8 @@ form {
 .note-text {
   width: 100%;
   font-size: calc(10px + 0.3vw);
+  outline: none;
+  resize: none;
+  overflow: hidden;
 }
 </style>

@@ -62,7 +62,8 @@ export default {
   font-size: calc(10px + 0.3vw);
 }
 .daytoday {
-  background-color: #93c9bd;
+  background-color: #b2d9d0;
   color: white;
+  border-radius: 4px;
 }
 </style>

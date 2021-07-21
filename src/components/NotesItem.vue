@@ -35,13 +35,17 @@ export default {
   display: flex;
   border-bottom: 1px dotted rgb(162, 160, 160);
   border: 2px dashed #b2d9d0;
-  border-radius: 10px;
+  border-radius: 4px;
   cursor: move;
   background-color: #dff2ef;
-  padding: 0.2em;
-  margin: 0.1em;
+  padding: 0.1em;
+  margin: 1.5px;
   overflow: hidden;
 }
+.notes-item:hover {
+background-color: #d0ebe7
+}
+
 .notes-value {
   width: 95%;
   text-align: start;

@@ -93,26 +93,31 @@ export default {
 <style scoped>
 .day-form {
   display: flex;
+  padding: 0.1rem;
 }
 .input-time {
-  font-size: calc(11px + 0.3vw);
+  font-size: calc(10px + 0.3vw);
 }
 .daily-todo {
   width: calc(90% + 0.3vw);
-  font-size: calc(11px + 0.3vw);
+  font-size: calc(9px + 0.3vw);
   text-align: left;
   border: hidden;
   border-bottom: 1px dotted rgb(162, 160, 160);
   float: left;
   margin-left: 0.5em;
+  outline-color: rgb(220, 211, 211);
 }
 .button-chooseTime {
-  background-color: white;
+  background-color: rgb(162, 160, 160);
   float: left;
 }
 
 input[type="time"] {
   border: none;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: calc(9px + 0.3vw);
+  outline-color: rgb(220, 211, 211);
 }
 
 ::-webkit-calendar-picker-indicator {

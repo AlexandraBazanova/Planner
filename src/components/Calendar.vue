@@ -49,6 +49,17 @@ export default {
       this.sortTimeValue;
     });
 
+    eventBus.$on("editTodoValue", (todo) => {
+      const indexOfEditValue = this.todos.findIndex((t) => t.idTodo === todo.todoId);
+      this.todos[indexOfEditValue].todoValue = todo.todoNewValue
+    });
+
+    eventBus.$on("editTodoTime", (todo) => {
+      const indexOfEditTime = this.todos.findIndex((t) => t.idTodo === todo.todoId);
+      this.todos[indexOfEditTime].timeValue = todo.todoNewTime
+      this.sortTimeValue;
+    });
+
     eventBus.$on("removeTodo", (id) => {
       this.todos = this.todos.filter((t) => t.idTodo !== id);
     });
@@ -128,30 +139,38 @@ export default {
 .day-card {
   border: 1px dotted rgb(222, 220, 224);
   padding: 5px;
-  height: 15rem;
+  height: 9rem;
 }
 .button-past {
   background-color: #b2d9d0;
-  border-color: #93c9bd;
+  border-color: white;
+  border: none;
   font-size: calc(10px + 0.3vw);
-  border-radius: 6px;
-  margin: 0.2rem;
+  border-radius: 4px;
+  color: white;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  margin: 0.1rem;
 }
 
 .button-future {
   background-color: #b2d9d0;
-  border-color: #93c9bd;
+  border-color: white;
+  border: none;
   font-size: calc(10px + 0.3vw);
-  border-radius: 6px;
+  border-radius: 4px;
+  color: white;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  
 }
 .button-future:hover {
   background-color: #93c9bd;
   color: white;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .button-past:hover {
   background-color: #93c9bd;
   color: white;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 </style>

@@ -1,7 +1,12 @@
 <template>
   <div>
     <ul class="notes-list">
-      <AddNote @add-note="addNote"> </AddNote>
+      <AddNote
+       @add-note="addNote"
+      v-if="notes.length < 7"
+      
+      > 
+      </AddNote>
       <NotesItem
         v-for="(note, index) in notes"
         :key="note.id"

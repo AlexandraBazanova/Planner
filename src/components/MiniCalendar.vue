@@ -245,10 +245,8 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, minmax(20px, 2fr));
   grid-gap: 1px;
-  margin: 0.5rem;
+  margin: 0.2rem;
   border: none;
-  justify-content: space-between;
-  align-items: center;
 }
 .current-month {
   display: grid;
@@ -266,14 +264,14 @@ export default {
   justify-content: space-around;
   grid-template-columns: repeat(3, minmax(20px, 1fr));
   grid-gap: 1px;
-  font-size: calc(11px + 0.3vw);
-  margin: 0.2rem;
-  height: 1.5rem;
+  font-size: calc(10px + 0.3vw);
+  margin: 0.1rem;
 }
 .month-card {
   border: none;
   text-align: center;
   flex-grow: 3;
+  height: 100%;
 }
 .minicontainer-weekday {
   border-bottom: none;
@@ -287,15 +285,13 @@ export default {
 }
 
 .mini-days-grid {
+  font-size: calc(9px + 0.3vw);
   display: grid;
   grid-template-columns: repeat(7, minmax(20px, 1fr));
   grid-gap: 1px;
   border: none;
-  height: 8rem;
-}
-
-.mini-dayscard {
-  border: none;
+  height: 100%; 
+  line-height: 1.5em; 
 }
 
 .notactualymonth {
@@ -303,8 +299,10 @@ export default {
 }
 
 .minidaytoday {
-  background-color: #93c9bd;
-  border-radius: 50%;
+  background-color: #b2d9d0;
+  /* clip-path: circle(36%);
+   */
+   border-radius: 4px;
   color: white;
 }
 .mini-button-future {

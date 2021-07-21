@@ -11,11 +11,29 @@
           <input
             class="input-time"
             type="time"
-            :value="todo.timeValue"
             v-bind:class="{ done: todo.isComplete }"
+            v-model="todo.timeValue"
+            v-on:click="editTimeValue"
             required
           />
+
+          <span
+           class="input-todovalue"
+           v-if="!editTodo"
+           v-on:dblclick="editTodo = true"
+           >
           {{ todo.todoValue }}
+          </span>
+
+          <input
+           type="text"
+            v-else
+            v-focus
+            v-model="todo.todoValue"
+            v-on:change="editValue"
+          >
+
+
         </span>
       </label>
     </span>
@@ -24,7 +42,7 @@
       v-on:click="removeOneTodo(todo.idTodo)"
       v-bind:class="{ done: todo.isComplete }"
     >
-      &times;
+      &cross;
     </button>
   </li>
 </template>
@@ -37,7 +55,11 @@ import { eventBus } from "../main";
 export default {
   name: "DayDisplayTodo",
   data: function () {
-    return {};
+    return {
+      // todoValue: "",
+      // timeValue: "",
+      editTodo: false,
+    };
   },
 
   props: {
@@ -52,10 +74,32 @@ export default {
       todo.isComplete = !todo.isComplete;
     },
 
+    editTimeValue() {
+      const todoNewTime = this.todo.timeValue;
+      const todoId = this.todo.idTodo;
+      eventBus.$emit("editTodoTime", {todoId, todoNewTime});
+    },
+
+    editValue() {
+      const todoNewValue = this.todo.todoValue;
+      const todoId = this.todo.idTodo;
+      eventBus.$emit("editTodoValue", {todoId, todoNewValue});
+      this.editTodo = false;
+    },
+
     removeOneTodo(idTodo) {
       eventBus.$emit("removeTodo", idTodo);
     },
   },
+
+directives: {
+    focus: {
+      inserted: function (el) {
+          el.focus();
+        }
+    } 
+  },
+
 };
 </script>  
 
@@ -75,7 +119,9 @@ li {
 input[type="time"] {
   border: none;
   font-size: calc(9px + 0.3vw);
+  font-family: 'Times New Roman', Times, serif;
   align-self: flex-start;
+  outline-color: rgb(220, 211, 211);
 }
 
 ::-webkit-calendar-picker-indicator {
@@ -86,6 +132,7 @@ input[type="time"] {
   background: none;
   border: none;
   align-self: flex-end;
+  font-size: calc(5px + 0.3vw);
 }
 
 .done {

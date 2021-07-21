@@ -51,7 +51,7 @@ export default {
   directives: {
     purple: {
       inserted: function (el) {
-        el.style.color = "purple";
+        el.style.color = "black";
       },
     },
   },
@@ -64,19 +64,21 @@ export default {
   },
 
   methods: {
-    removeTodo(id) {
-      this.todos = this.todos.filter((t) => t.id !== id);
+    addTodo(todo) {
+      this.todos.push(todo);
     },
+
     completeTodo(id) {
       this.todos.filter((t) => t.id === id)[0].completed = !this.todos.filter(
         (t) => t.id === id
       )[0].completed;
     },
-    addTodo(todo) {
-      this.todos.push(todo);
+
+    removeTodo(id) {
+      this.todos = this.todos.filter((t) => t.id !== id);
     },
   },
-  
+
   computed: {
     filteredTodos() {
       if (this.filter === "all") {
@@ -95,7 +97,7 @@ export default {
 
 <style>
 ul {
-  padding: 0.5em;
+  padding: 0.1em;
   margin: 0;
 }
 p {
@@ -113,7 +115,7 @@ p {
   grid-gap: 1px;
   font-size: calc(11px + 0.3vw);
   border: 1px solid rgb(183, 181, 186);
-  margin: 0.2rem;
+  margin: 0.1rem;
   vertical-align: baseline;
 }
 .urgent-todos {
@@ -124,7 +126,7 @@ p {
 }
 .notes {
   text-align: center;
-  padding: 0.5rem;
+  padding: 0.1em;
 }
 .two-months {
   text-align: center;
