@@ -22,9 +22,9 @@
         />
       </div>
 
-      <div>
+      <div class="daily-todo">
         <input
-          class="daily-todo"
+          class="input-todo"
           type="text"
           v-on:change="updateinput($event.target.value)"
           v-model="todoValue"
@@ -41,8 +41,6 @@
 import moment from "moment";
 import "moment/locale/ru";
 import { eventBus } from "../main";
-// import mdiVue from 'mdi-vue/v2'
-// import * as mdijs from '@mdi/js';
 
 export default {
   name: "DayAddTodo",
@@ -116,20 +114,23 @@ export default {
   display: flex;
   padding: 0.1rem;
 }
-.input-time {
+/* .input-time {
   font-size: calc(10px + 0.3vw);
-}
+} */
 .daily-todo {
+  width: calc(97% + 0.3vw);
+}
+.input-todo {
   width: calc(90% + 0.3vw);
   font-size: calc(9px + 0.3vw);
   font-family:'Source Sans Pro', sans-serif;
   font-weight: 600;
   font-style: normal;
   font-display: auto;
-  text-align: left;
+  /* text-align: left; */
   border: hidden;
   border-bottom: 1px dotted rgb(162, 160, 160);
-  float: left;
+  /* float: left; */
   margin-left: 0.5em;
   outline-color: rgb(220, 211, 211);
 }

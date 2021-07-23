@@ -54,7 +54,7 @@
           />
         </div>
         <div v-else>
-          <p v-on:click="miniCalendar = false">Календарь</p>
+          <p class="p-calendar" v-on:click="miniCalendar = false">Календарь</p>
           <MiniCalendar class="mini-calendar1" />
         </div>
       </section>
@@ -165,9 +165,11 @@ p {
 
 .icon-menu {
   color: rgb(162, 160, 160);
+  cursor: pointer;
 }
 .icon-calendar {
   color: rgb(162, 160, 160);
+  cursor: pointer;
 }
 
 /* .urgent-todos {
@@ -197,7 +199,9 @@ p {
   display: flex;
   flex-direction: column;
 }
-
+.p-calendar {
+  cursor: pointer;
+}
 .calendar-buttons {
   display: flex;
   /* height: 100%; */

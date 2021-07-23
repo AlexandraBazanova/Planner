@@ -161,7 +161,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(7, minmax(80px, 1fr));
   grid-gap: 2px;
-  border-bottom: 1px solid rgb(183, 181, 186);
+  border-bottom: 1px solid rgb(222, 220, 224);
 }
 .day-card {
   border: 1px dotted rgb(222, 220, 224);
