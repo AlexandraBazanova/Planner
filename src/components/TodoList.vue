@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="widget-bar">
-      <section class="urgent-todos">
+      <!-- <section class="urgent-todos">
         <p>Очень срочные дела</p>
         <select class="select-todo" v-model="filter">
           <option value="all">Все</option>
@@ -20,14 +20,43 @@
           >
           </TodoItem>
         </ul>
+      </section> -->
+
+      <section class="menu">
+        <!-- <p class="p-menu">Меню</p> -->
+        <div class="icon-menu" tabindex="0">
+          <mdicon name="menu" width="35" height="35" />
+        </div>
+        <Menu />
+
+        <div class="calendar-buttons">
+          <button class="button-past" @click="toPast">
+            <mdicon name="arrow-up-bold" width="20" height="20" />
+          </button>
+          <button class="button-future" @click="toFuture">
+            <mdicon name="arrow-down-bold" width="20" height="20" />
+          </button>
+        </div>
       </section>
+
       <section class="notes">
         <p v-purple>Заметки</p>
         <Notes />
       </section>
+
       <section class="two-months">
-        <p>Календарь</p>
-        <MiniCalendar class="mini-calendar1" />
+        <div v-if="!miniCalendar" v-on:click="miniCalendar = true">
+          <mdicon
+            class="icon-calendar"
+            name="calendar-range"
+            width="35"
+            height="35"
+          />
+        </div>
+        <div v-else>
+          <p v-on:click="miniCalendar = false">Календарь</p>
+          <MiniCalendar class="mini-calendar1" />
+        </div>
       </section>
     </section>
   </div>
@@ -38,6 +67,7 @@ import TodoItem from "@/components/TodoItem";
 import AddTodo from "@/components/AddTodo";
 import MiniCalendar from "@/components/MiniCalendar";
 import Notes from "@/components/Notes";
+import { eventBus } from "../main";
 
 export default {
   name: "TodoList",
@@ -45,6 +75,7 @@ export default {
     return {
       todos: [],
       filter: "all",
+      miniCalendar: false,
     };
   },
 
@@ -64,6 +95,14 @@ export default {
   },
 
   methods: {
+    toPast() {
+      eventBus.$emit("changeWeekToPast");
+    },
+
+    toFuture() {
+      eventBus.$emit("changeWeekToFuture");
+    },
+
     addTodo(todo) {
       this.todos.push(todo);
     },
@@ -95,43 +134,106 @@ export default {
 };
 </script>
 
-<style>
-ul {
+<style scoped>
+/* ul {
   padding: 0.1em;
   margin: 0;
-}
+} */
 p {
   font-size: calc(11px + 0.3vw);
-  text-decoration: underline;
-  align-self: center;
+  /* align-self: center; */
   margin: 0.1rem;
 }
-.select-todo {
+/* .select-todo {
   font-size: calc(9px + 0.3vw);
-}
+} */
 .widget-bar {
   display: grid;
-  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  grid-template-columns: 0.12fr 2fr 1fr;
   grid-gap: 1px;
   font-size: calc(11px + 0.3vw);
-  border: 1px solid rgb(183, 181, 186);
+  border: none;
   margin: 0.1rem;
-  vertical-align: baseline;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-display: auto;
+  /* vertical-align: baseline;
+
+  justify-content: space-around; */
 }
-.urgent-todos {
+
+.icon-menu {
+  color: rgb(162, 160, 160);
+}
+.icon-calendar {
+  color: rgb(162, 160, 160);
+}
+
+/* .urgent-todos {
   font-size: calc(11px + 0.3vw);
   border: 1px solid rgb(183, 181, 186);
   text-align: center;
   background-color: rgb(253, 242, 248);
+} */
+
+.menu {
+  /* text-align: center; */
+  /* margin: 0.1rem; */
+  padding: 0.2em;
+  display: flex;
+  /* height: 100%; */
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-self: end; */
 }
 .notes {
   text-align: center;
-  padding: 0.1em;
+  /* padding: 0.2em; */
 }
 .two-months {
   text-align: center;
-  border: 1px solid rgb(183, 181, 186);
+  border: none;
   display: flex;
   flex-direction: column;
+}
+
+.calendar-buttons {
+  display: flex;
+  /* height: 100%; */
+  flex-direction: column;
+}
+
+.button-past {
+  background-color: #b2d9d0;
+  border-color: white;
+  border: none;
+  font-size: calc(10px + 0.3vw);
+  border-radius: 4px;
+  color: white;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  margin: 0.1rem;
+}
+
+.button-future {
+  background-color: #b2d9d0;
+  border-color: white;
+  border: none;
+  font-size: calc(10px + 0.3vw);
+  border-radius: 4px;
+  color: white;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  margin: 0.1rem;
+}
+.button-future:hover {
+  background-color: #93c9bd;
+  color: white;
+}
+.button-past:hover {
+  background-color: #93c9bd;
+  color: white;
+  /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 </style>

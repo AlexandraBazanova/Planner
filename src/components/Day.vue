@@ -60,6 +60,10 @@ export default {
 .date-of-the-day {
   text-align: center;
   font-size: calc(10px + 0.3vw);
+  font-family:'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-display: auto;
 }
 .daytoday {
   background-color: #b2d9d0;

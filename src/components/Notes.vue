@@ -51,4 +51,7 @@ export default {
 </script>  
 
 <style scoped>
+.notes-list {
+  margin: 0.1rem;
+}
 </style>

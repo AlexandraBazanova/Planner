@@ -1,14 +1,16 @@
 <template>
   <div>
-    <button class="button-past" @click="viewWeekShift -= 1">
-      Назад &#11014;
+    <!-- <button class="button-past" @click="viewWeekShift -= 1">
+      <mdicon name="arrow-up-bold" width="20" height="20" />
     </button>
     <button class="button-future" @click="viewWeekShift += 1">
-      Вперёд &#11015;
-    </button>
-    <br />
+      <mdicon name="arrow-down-bold" width="20" height="20" />
+    </button> -->
     <section class="calendar">
-      <div class="calendar-grid">
+      <div
+       class="calendar-grid"
+       v-on:scroll="handleScroll"
+       >
         <div class="weekday-card" v-for="element in weekday" :key="element">
           {{ element }}
         </div>
@@ -37,6 +39,7 @@ export default {
     return {
       viewWeekShift: 0,
       todos: [],
+      scrollPosition: 0,
     };
   },
   components: {
@@ -44,6 +47,14 @@ export default {
   },
 
   created() {
+    eventBus.$on("changeWeekToPast", () => {
+      this.viewWeekShift -= 1;
+    });
+
+    eventBus.$on("changeWeekToFuture", () => {
+      this.viewWeekShift += 1;
+    });
+
     eventBus.$on("updateTodoList", (todo) => {
       this.todos.push(todo);
       this.sortTimeValue;
@@ -120,26 +131,42 @@ export default {
       }
       return weekdays;
     },
+
+    handleScroll(e) {
+       const currentScrollPosition = e.srcElement.scrollTop;
+    if (currentScrollPosition > this.scrollPosition) {
+        console.log("Scrolling down");
+    }
+    this.scrollPosition = currentScrollPosition;
+    },
   },
 };
 </script>
 
 <style >
+.calendar {
+
+  border-top: 1px solid rgb(222, 220, 224);
+}
+
 .weekday-card {
-  /* border: 1px solid rgb(222, 220, 224); */
   text-align: center;
-  font-size: calc(10px + 0.3vw);
+  font-size: calc(11px + 0.3vw);
+  font-family:'Source Sans Pro', sans-serif;
+  font-weight: 900;
+  font-style: normal;
+  font-display: auto
 }
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(80px, 1fr));
   grid-gap: 2px;
-  border: 1px solid rgb(183, 181, 186);
+  border-bottom: 1px solid rgb(183, 181, 186);
 }
 .day-card {
   border: 1px dotted rgb(222, 220, 224);
   padding: 5px;
-  height: 9rem;
+  min-height: 9rem;
 }
 .button-past {
   background-color: #b2d9d0;
@@ -171,6 +198,5 @@ export default {
 .button-past:hover {
   background-color: #93c9bd;
   color: white;
-  /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 </style>

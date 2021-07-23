@@ -43,10 +43,15 @@ form {
   display: flex;
 }
 .note-text {
-  width: 100%;
+  width: 90%;
   font-size: calc(10px + 0.3vw);
+  font-family:'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-display: auto;
   outline: none;
   resize: none;
   overflow: hidden;
+  border: 1px solid rgb(183, 181, 186);
 }
 </style>

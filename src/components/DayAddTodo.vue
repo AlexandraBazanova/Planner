@@ -1,8 +1,25 @@
 <template>
   <div>
     <div class="day-form">
-      <div>
-        <input class="input-time" type="time" v-model="timeValue" required />
+      <div
+        class="icon-clock"
+        v-if="!fillTime"
+        v-on:click="fillTime = true"
+        v-on:keyup.tab="fillTime = true"
+        tabindex="0"
+      >
+        <mdicon name="clock-outline" width="20" height="20" />
+      </div>
+
+      <div v-else>
+        <input
+          class="input-time"
+          type="time"
+          v-if="day.todos.length < 6"
+          v-model="timeValue"
+          v-focus="fillTime = true"
+          required
+        />
       </div>
 
       <div>
@@ -11,8 +28,9 @@
           type="text"
           v-on:change="updateinput($event.target.value)"
           v-model="todoValue"
-          v-if="day.todos.length < 7"
+          v-if="day.todos.length < 6"
           v-focus="day.dayMonth._d"
+          @blur="fillTime = false"
         />
       </div>
     </div>
@@ -23,12 +41,15 @@
 import moment from "moment";
 import "moment/locale/ru";
 import { eventBus } from "../main";
+// import mdiVue from 'mdi-vue/v2'
+// import * as mdijs from '@mdi/js';
 
 export default {
   name: "DayAddTodo",
 
   data: function () {
     return {
+      fillTime: false,
       todoValue: "",
       timeValue: "",
     };
@@ -55,14 +76,14 @@ export default {
           el.focus();
         }
       },
-      update: function (el, binding) {
-        if (
-          binding.value.toString().substr(0, 15) ==
-          moment()._d.toString().substr(0, 15)
-        ) {
-          el.focus();
-        }
-      },
+      // update: function (el, binding) {
+      //   if (
+      //     binding.value.toString().substr(0, 15) ==
+      //     moment()._d.toString().substr(0, 15)
+      //   ) {
+      //     el.focus();
+      //   }
+      // },
     },
   },
 
@@ -101,6 +122,10 @@ export default {
 .daily-todo {
   width: calc(90% + 0.3vw);
   font-size: calc(9px + 0.3vw);
+  font-family:'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-display: auto;
   text-align: left;
   border: hidden;
   border-bottom: 1px dotted rgb(162, 160, 160);
@@ -115,7 +140,7 @@ export default {
 
 input[type="time"] {
   border: none;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   font-size: calc(9px + 0.3vw);
   outline-color: rgb(220, 211, 211);
 }
@@ -126,5 +151,10 @@ input[type="time"] {
 
 input[type="time"]::-webkit-clear-button {
   display: none;
+}
+
+.icon-clock {
+  color: rgb(162, 160, 160);
+  outline-color: rgb(220, 211, 211);
 }
 </style>

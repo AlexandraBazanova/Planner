@@ -33,14 +33,19 @@ export default {
 <style scoped>
 .notes-item {
   display: flex;
-  border-bottom: 1px dotted rgb(162, 160, 160);
-  border: 2px dashed #b2d9d0;
+  border: none;
   border-radius: 4px;
   cursor: move;
   background-color: #dff2ef;
-  padding: 0.1em;
-  margin: 1.5px;
+  /* padding: 0.1em; */
+  margin: 0.1em;
   overflow: hidden;
+  width: 90%;
+  font-family:'Source Sans Pro', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+
 }
 .notes-item:hover {
 background-color: #d0ebe7

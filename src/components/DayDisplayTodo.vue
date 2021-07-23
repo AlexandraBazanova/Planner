@@ -13,6 +13,7 @@
             type="time"
             v-bind:class="{ done: todo.isComplete }"
             v-model="todo.timeValue"
+            v-on:keyup.13="editTimeValue"
             v-on:click="editTimeValue"
             required
           />
@@ -21,6 +22,7 @@
            class="input-todovalue"
            v-if="!editTodo"
            v-on:dblclick="editTodo = true"
+           tabindex="0"
            >
           {{ todo.todoValue }}
           </span>
@@ -31,6 +33,7 @@
             v-focus
             v-model="todo.todoValue"
             v-on:change="editValue"
+            @blur="editTodo = false"
           >
 
 
@@ -111,19 +114,27 @@ li {
 }
 .todo-value {
   font-size: calc(9px + 0.3vw);
+  font-family:'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-display: auto;
   margin-left: 0.1em;
   align-self: flex-start;
   text-overflow: clip;
 }
 
+.input-todovalue:focus {
+  outline-color: rgb(220, 211, 211);
+}
 input[type="time"] {
   border: none;
   font-size: calc(9px + 0.3vw);
   font-family: 'Times New Roman', Times, serif;
   align-self: flex-start;
+}
+input[type="time"]:focus {
   outline-color: rgb(220, 211, 211);
 }
-
 ::-webkit-calendar-picker-indicator {
   display: none;
 }
@@ -133,6 +144,7 @@ input[type="time"] {
   border: none;
   align-self: flex-end;
   font-size: calc(5px + 0.3vw);
+  outline-color: rgb(220, 211, 211);
 }
 
 .done {

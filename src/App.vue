@@ -1,65 +1,70 @@
 <template>
-  <div id='app'>
-    <head>
-    </head>
-    <section class="main-calendar" >
-      <Menu/>
-      <TodoList/>
-      <Calendar/>
-    <section class="footer-calendar">
-   
-    </section>
+  <div id="app">
+    <section class="main-calendar">
+      <TodoList />
+      <Calendar />
+      <section class="footer-calendar">
+        <p class="footer-text">
+          &copy; 2021 АВ || Демоверсия приложения «Планировщик дел "4 недели"»
+        </p>
+      </section>
     </section>
   </div>
 </template>
 
 <script>
+import moment from "moment";
+import "moment/locale/ru";
+import Menu from "@/components/Menu";
+import TodoList from "@/components/TodoList";
+import Calendar from "@/components/Calendar";
 
-  import moment from 'moment'
-  import 'moment/locale/ru';
-  import Menu from '@/components/Menu'
-  import TodoList from '@/components/TodoList' 
-  import Calendar from '@/components/Calendar' 
+export default {
+  name: "app",
+  data() {
+    return {
+      now: "",
+    };
+  },
 
-  export default {
-    name: 'app',
-    data() {
-      return {
-        now: '',
-      }
+  computed: {},
+  methods: {
+    logthis: function () {
+      console.log(this);
     },
-  
-    computed: {
-  
-    },
-    methods: {
-      logthis: function() {
-        console.log(this)
-      },
-     
-    },
-   
-    components: {
-      Menu, TodoList, Calendar
-    },
-  }
+  },
 
+  components: {
+    Menu,
+    TodoList,
+    Calendar,
+  },
+};
 </script>
 
-<style>
-  .main-calendar {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    border: 2px solid rgb(233, 104, 238);
-  }
-  .footer-calendar {
-    width: flex;
-    vertical-align: bottom;
-    border: 3px solid rgb(209, 196, 92);
-    font-size: 11px;
-    height: 1rem;
-  }
+<style scoped>
+.main-calendar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  border: none;
+}
+.footer-calendar {
+  display: flex;
+  width: 100%;
+  border: none;
+  justify-content: flex-end;
+}
+.footer-text {
+  font-size: 13px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-display: auto;
+  width: 30%;
+  padding: 0.2em;
+  margin: 0.2em; 
+}
 </style>
 ``
