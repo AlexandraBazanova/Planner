@@ -47,6 +47,10 @@ export default {
   },
 
   created() {
+    eventBus.$on("changeWeekToNow", () => {
+      this.viewWeekShift = 0;
+    });
+
     eventBus.$on("changeWeekToPast", () => {
       this.viewWeekShift -= 1;
     });
@@ -151,9 +155,9 @@ export default {
 
 .weekday-card {
   text-align: center;
-  font-size: calc(11px + 0.3vw);
+  font-size: calc(10px + 0.3vw);
   font-family:'Source Sans Pro', sans-serif;
-  font-weight: 900;
+  font-weight: 400;
   font-style: normal;
   font-display: auto
 }
@@ -166,7 +170,7 @@ export default {
 .day-card {
   border: 1px dotted rgb(222, 220, 224);
   padding: 5px;
-  min-height: 9rem;
+  min-height: 7rem;
 }
 .button-past {
   background-color: #b2d9d0;

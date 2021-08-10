@@ -5,7 +5,7 @@
       <Calendar />
       <section class="footer-calendar">
         <p class="footer-text">
-          &copy; 2021 АВ || Демоверсия приложения «Планировщик дел "4 недели"»
+          &copy; 2021 Александра Базанова || Демоверсия приложения «Планировщик дел "4 недели"»
         </p>
       </section>
     </section>
@@ -57,12 +57,12 @@ export default {
   justify-content: flex-end;
 }
 .footer-text {
-  font-size: 13px;
+  font-size: 9px;
   font-family: "Source Sans Pro", sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-style: normal;
   font-display: auto;
-  width: 30%;
+  width: 20%;
   padding: 0.2em;
   margin: 0.2em; 
 }

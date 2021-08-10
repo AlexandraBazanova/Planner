@@ -8,7 +8,8 @@
         v-on:keyup.tab="fillTime = true"
         tabindex="0"
       >
-        <mdicon name="clock-outline" width="20" height="20" />
+        <mdicon name="clock-outline" width="20" height="20" 
+        v-if="day.todos.length < 6"/>
       </div>
 
       <div v-else>
@@ -94,6 +95,7 @@ export default {
       const dateOfTodo = this.displayDateNumberFormat(this.day.dayMonth._d);
       const idTodo = moment().format("x");
       const isComplete = false;
+      const isImportant = false;
       const timeValue = this.timeValue;
       eventBus.$emit("updateTodoList", {
         dateOfTodo,
@@ -101,6 +103,7 @@ export default {
         idTodo,
         isComplete,
         timeValue,
+        isImportant,
       });
       this.todoValue = "";
       this.timeValue = "";
@@ -124,7 +127,7 @@ export default {
   width: calc(90% + 0.3vw);
   font-size: calc(9px + 0.3vw);
   font-family:'Source Sans Pro', sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-style: normal;
   font-display: auto;
   /* text-align: left; */
@@ -141,8 +144,11 @@ export default {
 
 input[type="time"] {
   border: none;
-  font-family: "Times New Roman", Times, serif;
   font-size: calc(9px + 0.3vw);
+  font-family:'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
   outline-color: rgb(220, 211, 211);
 }
 

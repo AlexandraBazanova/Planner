@@ -59,9 +59,9 @@ export default {
 <style scoped>
 .date-of-the-day {
   text-align: center;
-  font-size: calc(10px + 0.3vw);
+  font-size: calc(9px + 0.3vw);
   font-family:'Source Sans Pro', sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-style: normal;
   font-display: auto;
 }

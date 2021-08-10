@@ -91,6 +91,7 @@
 import moment from "moment";
 import "moment/locale/ru";
 export default {
+  name: "MiniCalendar",
   data: function () {
     return {
       viewMonthShift: 0,
@@ -245,7 +246,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, minmax(20px, 2fr));
   grid-gap: 1px;
-  margin: 0.2rem;
+  margin: 0.1em;
   border: none;
 }
 .current-month {
@@ -264,9 +265,9 @@ export default {
   justify-content: space-around;
   grid-template-columns: repeat(3, minmax(20px, 1fr));
   grid-gap: 1px;
-  font-size: calc(10px + 0.3vw);
+  font-size: calc(9px + 0.3vw);
   font-family:'Source Sans Pro', sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-style: normal;
   font-display: auto;
   margin: 0.1rem;
@@ -282,18 +283,19 @@ export default {
   display: flex;
   justify-content: space-around;
   font-family:'Source Sans Pro', sans-serif;
-  font-weight: 600;
+  font-size: calc(9px + 0.3vw);
+  font-weight: 400;
   font-style: normal;
   font-display: auto;
 }
 .mini-weekday {
-  border-bottom: 1px solid rgb(183, 181, 186);
+  border-bottom: 1px solid rgb(222, 220, 224);
   flex-grow: 1;
   text-align: center;
 }
 
 .mini-days-grid {
-  font-size: calc(9px + 0.3vw);
+  font-size: calc(8px + 0.3vw);
   display: grid;
   grid-template-columns: repeat(7, minmax(20px, 1fr));
   grid-gap: 1px;

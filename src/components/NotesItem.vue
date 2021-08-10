@@ -1,14 +1,14 @@
 <template>
-  <li class="notes-item">
-    <div class="notes-value">
-      {{ note.message }}
+  <ul id="my-list" class="ul-notes">
+    <li class="notes-item">
+      <div class="notes-value">
+        {{ note.message }}
       </div>
-    <button
-     class="rm-note" 
-     v-on:click="$emit('remove-note', note.id)">
-      &times;
-    </button>
-  </li>
+      <button class="rm-note" v-on:click="$emit('remove-note', note.id)">
+        &times;
+      </button>
+    </li>
+  </ul>
 </template>
 
 <script type = "text/javascript">
@@ -31,24 +31,29 @@ export default {
 </script>  
 
 <style scoped>
+.ul-notes {
+  padding: 0.1em;
+  margin: 0.15em;
+  margin-left: 5px;
+  margin-right: 1px;
+}
+
 .notes-item {
   display: flex;
   border: none;
   border-radius: 4px;
   cursor: move;
   background-color: #dff2ef;
-  /* padding: 0.1em; */
-  margin: 0.1em;
   overflow: hidden;
-  width: 90%;
-  font-family:'Source Sans Pro', sans-serif;
+  width: 99%;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: normal;
   font-style: normal;
   font-display: auto;
-
 }
+
 .notes-item:hover {
-background-color: #d0ebe7
+  background-color: #d0ebe7;
 }
 
 .notes-value {
