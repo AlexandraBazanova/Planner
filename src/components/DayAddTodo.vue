@@ -130,10 +130,8 @@ export default {
   font-weight: 400;
   font-style: normal;
   font-display: auto;
-  /* text-align: left; */
   border: hidden;
-  border-bottom: 1px dotted rgb(162, 160, 160);
-  /* float: left; */
+  border-bottom: 1px solid rgb(222, 220, 224);
   margin-left: 0.5em;
   outline-color: rgb(220, 211, 211);
 }

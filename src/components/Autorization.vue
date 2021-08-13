@@ -1,47 +1,59 @@
 <template>
-<div class="autorization-modal">
-  <div
-    v-if="showAutorization"
-    class="a-modal-shadow"
-    @click.self="closeModalAutorization"
-  >
-    <div class="a-modal">
-      <div class="a-modal-close" @click="closeModalAutorization">&#10006;</div>
-
-      <slot name="bodyAutorizatuion">
-        <div class="a-modal-content">
-          <p class="p-authorization">Авторизация</p>
-          <form class="a-form">
-            <input class="a-email" type="email" name="email" placeholder="Введите email" />
-            <input
-              class="a-password"
-              type="password"
-              name="password"
-              minlength="8"
-              placeholder="Введите пароль"
-            />
-            <input
-              class="custom-checkbox"
-              type="checkbox"
-              name="remember"
-              id="remember"
-              checked
-            />
-            <label for="remember"> Запомнить меня </label>
-            <div class="a-submit">
-              <button class="a-button" type="submit">Вход</button>
-            </div>
-          </form>
-          <div class="registration"
-          @click="showModalRegistration"
-              tabindex="0">
-          <p class="p-registration"><i>Регистрация пользователя</i></p>
-          </div>
+  <div class="autorization-modal">
+    <div
+      v-if="showAutorization"
+      class="a-modal-shadow"
+      @click.self="closeModalAutorization"
+    >
+      <div class="a-modal">
+        <div class="a-modal-close" @click="closeModalAutorization">
+          &#10006;
         </div>
-      </slot>
-    </div>
 
-  </div>
+        <slot name="bodyAutorizatuion">
+          <div class="a-modal-content">
+            <p class="p-authorization">Авторизация</p>
+            <form class="a-form">
+              
+              <input
+                class="a-email"
+                type="email"
+                name="email"
+                placeholder="Введите email"
+              />
+              <input
+                class="a-password"
+                type="password"
+                name="password"
+                minlength="8"
+                placeholder="Введите пароль"
+              />
+              <input
+                class="custom-checkbox"
+                type="checkbox"
+                name="remember"
+                id="remember"
+                checked
+              />
+              <label for="remember"> Запомнить меня </label>
+              <div class="a-submit">
+                <button class="a-button" type="submit">Вход</button>
+              </div>
+            </form>
+            <div
+              class="registration"
+              @click="showModalRegistration"
+              tabindex="0"
+            >
+              <div class="icon-registration">
+                <mdicon name="account-plus-outline" width="20" height="20" />
+              </div>
+              <p class="p-registration">Регистрация пользователя</p>
+            </div>
+          </div>
+        </slot>
+      </div>
+    </div>
     <Registration ref="modalRegistration"> </Registration>
   </div>
 </template>
@@ -57,7 +69,7 @@ export default {
     };
   },
 
-components: {
+  components: {
     Registration,
   },
 
@@ -89,23 +101,23 @@ components: {
 .a-modal {
   background: #fff;
   padding: 15px;
-  min-width: 180px;
+  min-width: 210px;
   max-width: 180px;
   min-height: 220px;
   position: absolute;
   top: 25%;
   left: 15%;
   transform: translate(-50%, -50%);
+  z-index: 3;
 }
 .a-modal-content {
-  /* display: flex; */
   margin-top: 1.8rem;
+  margin-left: 0.9rem;
   font-family: "Source Sans Pro", sans-serif;
   font-size: calc(11px + 0.3vw);
   font-weight: 400;
   font-style: normal;
   font-display: auto;
-  /* justify-content: space-around; */
 }
 .a-modal-close {
   cursor: pointer;
@@ -113,7 +125,8 @@ components: {
   float: right;
 }
 .p-authorization {
-  margin: 0.1em;
+  margin-left: 0;
+  margin-right: 20px;
   text-align: center;
 }
 
@@ -132,11 +145,11 @@ input {
   transition-duration: 0.4s;
   cursor: pointer;
   outline-color: rgb(220, 211, 211);
-  margin-top: 12px;
+  margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
   min-width: 20px;
- padding: 0.5em;
+  padding: 0.5em;
   min-height: 22px;
 }
 
@@ -177,13 +190,20 @@ input {
 }
 
 .p-registration {
-    font-family: "Source Sans Pro", sans-serif;
-  font-size: calc(9px + 0.2vw);
-  font-weight: 200;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: calc(10px + 0.2vw);
+  font-weight: 400;
   font-style: normal;
   font-display: auto;
-  margin: 0;
+  margin-bottom: 1px;
+  margin-left: 30px;
   margin-top: 12px;
-cursor: pointer;
+  padding-top: 3px;
+  cursor: pointer;
+}
+.icon-registration {
+  color: rgb(162, 160, 160);
+  float: left;
+  margin-right: 5px;
 }
 </style>

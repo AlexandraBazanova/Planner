@@ -3,26 +3,25 @@
     <section class="mini-calendar">
       <section class="current-month">
         <div class="minicalendar-top">
-          <button
-            class="mini-button-past"
-           @click="viewMonthShift -= 1" >
+          <button class="mini-button-future" @click="viewMonthShift -= 12">
+            <mdicon name="chevron-double-left" width="20" height="20" />
+          </button>
+          <button class="mini-button-past" @click="viewMonthShift -= 1">
             <mdicon name="chevron-left" width="20" height="20" />
           </button>
-          <div class="month-card"
-           v-for="(el, index) in showMonth" :key="index">
+          <div class="month-card" v-for="(el, index) in showMonth" :key="index">
             {{ el.format("MMMM YYYY") }}
           </div>
-          <button
-            class="mini-button-future"
-           @click="viewMonthShift += 1" >
+          <button class="mini-button-future" @click="viewMonthShift += 1">
             <mdicon name="chevron-right" width="20" height="20" />
+          </button>
+          <button class="mini-button-future" @click="viewMonthShift += 12">
+            <mdicon name="chevron-double-right" width="20" height="20" />
           </button>
         </div>
 
         <div class="minicontainer-weekday">
-          <div 
-          class="mini-weekday" 
-          v-for="element in weekday" :key="element">
+          <div class="mini-weekday" v-for="element in weekday" :key="element">
             {{ element }}
           </div>
         </div>
@@ -42,11 +41,12 @@
         </div>
       </section>
 
-      <section class="next-month">
+      <section class="next-month" v-if="this.largeWindow">
         <div class="minicalendar-top">
-          <button
-            class="mini-button-past"
-           @click="viewMonthShift -= 1" >
+          <button class="mini-button-future" @click="viewMonthShift -= 12">
+            <mdicon name="chevron-double-left" width="20" height="20" />
+          </button>
+          <button class="mini-button-past" @click="viewMonthShift -= 1">
             <mdicon name="chevron-left" width="20" height="20" />
           </button>
           <div
@@ -56,16 +56,15 @@
           >
             {{ el.format("MMMM YYYY") }}
           </div>
-          <button
-            class="mini-button-future"
-           @click="viewMonthShift += 1" >
+          <button class="mini-button-future" @click="viewMonthShift += 1">
             <mdicon name="chevron-right" width="20" height="20" />
+          </button>
+          <button class="mini-button-future" @click="viewMonthShift += 12">
+            <mdicon name="chevron-double-right" width="20" height="20" />
           </button>
         </div>
         <div class="minicontainer-weekday">
-          <div
-           class="mini-weekday" 
-           v-for="element in weekday" :key="element">
+          <div class="mini-weekday" v-for="element in weekday" :key="element">
             {{ element }}
           </div>
         </div>
@@ -95,6 +94,7 @@ export default {
   data: function () {
     return {
       viewMonthShift: 0,
+      largeWindow: false,
     };
   },
   computed: {
@@ -124,7 +124,21 @@ export default {
     },
   },
 
+  created() {
+    window.addEventListener("resize", this.isLargeWindow);
+    this.isLargeWindow();
+  },
+
+  destroyed() {
+    window.removeEventListener("resize", this.isLargeWindow);
+  },
+
+
   methods: {
+    isLargeWindow() {
+      this.largeWindow = window.innerWidth >= 1000;
+    },
+
     isThisMonth(date) {
       return (
         date._d.toString().substr(4, 3) ===
@@ -244,7 +258,7 @@ export default {
 <style >
 .mini-calendar {
   display: grid;
-  grid-template-columns: repeat(2, minmax(20px, 2fr));
+  grid-template-columns: repeat(2, minmax(40px, 2fr));
   grid-gap: 1px;
   margin: 0.1em;
   border: none;
@@ -252,12 +266,12 @@ export default {
 .current-month {
   display: grid;
   margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 }
 .next-month {
   display: grid;
   margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 }
 .minicalendar-top {
   border: none;
@@ -266,11 +280,12 @@ export default {
   grid-template-columns: repeat(3, minmax(20px, 1fr));
   grid-gap: 1px;
   font-size: calc(9px + 0.3vw);
-  font-family:'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-display: auto;
-  margin: 0.1rem;
+  margin-left: 0;
+  padding-left: 0;
 }
 .month-card {
   border: none;
@@ -282,7 +297,7 @@ export default {
   border-bottom: none;
   display: flex;
   justify-content: space-around;
-  font-family:'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: calc(9px + 0.3vw);
   font-weight: 400;
   font-style: normal;
@@ -300,8 +315,8 @@ export default {
   grid-template-columns: repeat(7, minmax(20px, 1fr));
   grid-gap: 1px;
   border: none;
-  height: 100%; 
-  line-height: 1.5em; 
+  height: 100%;
+  line-height: 1.5em;
 }
 
 .notactualymonth {
@@ -312,20 +327,22 @@ export default {
   background-color: #b2d9d0;
   /* clip-path: circle(36%);
    */
-   border-radius: 4px;
+  border-radius: 4px;
   color: white;
 }
 .mini-button-future {
   background-color: white;
   border: none;
-  width: 4rem;
+  padding: 0;
   color: rgb(183, 181, 186);
+  cursor: pointer;
 }
 
 .mini-button-past {
   background-color: white;
   border: none;
-  width: 4rem;
+  padding: 0;
   color: rgb(183, 181, 186);
+  cursor: pointer;
 }
 </style>

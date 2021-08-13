@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import moment from "moment";
 import "moment/locale/ru";
 import Menu from "@/components/Menu";
 import TodoList from "@/components/TodoList";
@@ -57,14 +56,15 @@ export default {
   justify-content: flex-end;
 }
 .footer-text {
-  font-size: 9px;
+  font-size: calc(9px + 0.2vw);
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-display: auto;
-  width: 20%;
-  padding: 0.2em;
-  margin: 0.2em; 
+  text-align: end;
+  padding: 0.1em;
+  padding-right: 1em;
+  margin: 0.1em; 
 }
 </style>
 ``

@@ -19,7 +19,7 @@
           />
 
           <span
-            class="input-todovalue"
+            class="span-todovalue"
             v-if="!editTodo"
             v-on:dblclick="editTodo = true"
             tabindex="0"
@@ -28,6 +28,7 @@
           </span>
 
           <input
+            class="input-todovalue"
             type="text"
             v-else
             v-focus
@@ -66,8 +67,6 @@ export default {
   name: "DayDisplayTodo",
   data: function () {
     return {
-      // todoValue: "",
-      // timeValue: "",
       editTodo: false,
     };
   },
@@ -118,17 +117,23 @@ export default {
 <style scoped>
 li {
   display: flex;
-  border-bottom: 1px dotted rgb(231, 226, 226);
+  border-bottom: 1px dotted rgb(222, 220, 224);
   font-size: calc(10px + 0.2vw);
 }
 .todo-span {
   font-family: "Source Sans Pro", sans-serif;
-  /* font-weight: 400; */
   font-display: auto;
   margin-left: 0.1em;
 }
-
+.input-todovalue {
+  outline-color: rgb(220, 211, 211);
+  border: hidden;
+}
 .input-todovalue:focus {
+  outline-color: rgb(220, 211, 211);
+  border: hidden;
+}
+.span-todovalue{
   outline-color: rgb(220, 211, 211);
 }
 .input-time {
@@ -147,17 +152,14 @@ input[type="time"]:focus {
 }
 .important {
   /* font-size: calc(13px + 0.1vw); */
-  background-color: rgb(251, 250, 250);
+  background-color: rgb(251, 251, 251);
   font-weight: 600;
-  /* font-style: italic; */
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 .important-todo {
-  /* color: rgb(32, 28, 28); */
   background: none;
   border: none;
   border-radius: 4px;
-  /* align-self: flex-end; */
   font-size: calc(7px + 0.2vw);
   outline-color: rgb(220, 211, 211);
   margin-left: auto;

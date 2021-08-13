@@ -9,7 +9,12 @@
 
       <slot name="bodySettings">
         <div class="s-modal-content">
+
+        <div class="icon-settings">
+          <mdicon name="cog-outline" class="icon" width="20" height="20" />
+        </div>
           <p class="p-settings">Настройки</p>
+
           <ul>
             <li class="theme">
               <p>Тема оформления</p>
@@ -94,6 +99,7 @@ export default {
   top: 30%;
   left: 15%;
   transform: translate(-50%, -50%);
+  z-index: 3;
 }
 .s-modal-content {
   margin-top: 1.8rem;
@@ -109,8 +115,14 @@ export default {
   float: right;
 }
 .p-settings {
-  margin: 0.1em;
-  text-align: center;
+  margin: 0;
+  margin-left: 50px;
+  text-align: start;
+}
+.icon-settings {
+  color: rgb(162, 160, 160);
+  float: left;
+  margin-left: 25px;
 }
 
 li::marker {

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="all-notes">
     <section class="add-note">
-      <AddNote @add-note="addNote" v-if="notes.length < 12"> </AddNote>
+      <AddNote @add-note="addNote" v-if="notes.length < 5"> </AddNote>
+    </section>
 
-      </section>
-    <section class="notes-list">
+    <div class="notes-list">
         <NotesItem
           v-for="(note, index) in notes"
           :key="note.id"
@@ -13,8 +13,9 @@
           v-on:remove-note="removeNote"
         >
         </NotesItem>
-
-    </section>
+     
+      
+    </div>
   </div>
 </template>
 
@@ -36,7 +37,7 @@ export default {
     AddNote,
     NotesItem,
   },
-
+  computed: {},
   methods: {
     removeNote(id) {
       this.notes = this.notes.filter((t) => t.id !== id);
@@ -52,14 +53,13 @@ export default {
 <style scoped>
 .add-note {
   display: flex;
-  justify-content: center;
 }
+
 .notes-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  /* grid-gap: 1px; */
-  /* margin: 0.1rem; */
-  padding: 0.1em;
+  display: flex;
+  justify-content: center;
+  margin: 0.1em;
 }
+
 
 </style>

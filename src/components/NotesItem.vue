@@ -1,14 +1,24 @@
 <template>
-  <ul id="my-list" class="ul-notes">
-    <li class="notes-item">
-      <div class="notes-value">
-        {{ note.message }}
-      </div>
-      <button class="rm-note" v-on:click="$emit('remove-note', note.id)">
-        &times;
-      </button>
-    </li>
-  </ul>
+  <div class="all-notes">
+    <ul id="ul-list" class="ul-notes">
+      <li class="notes-item">
+        <a>
+          <button
+            class="rm-note"
+            v-on:click="$emit('remove-note', note.id)"
+            tabindex="0"
+          >
+            <div class="icon-pin">
+              <mdicon name="pin" width="15" height="20" />
+            </div>
+          </button>
+          <div class="notes-value">
+            {{ note.message }}
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script type = "text/javascript">
@@ -31,48 +41,63 @@ export default {
 </script>  
 
 <style scoped>
-.ul-notes {
-  padding: 0.1em;
-  margin: 0.15em;
-  margin-left: 5px;
-  margin-right: 1px;
-}
 
-.notes-item {
-  display: flex;
-  border: none;
-  border-radius: 4px;
-  cursor: move;
-  background-color: #dff2ef;
-  overflow: hidden;
-  width: 99%;
-  font-family: "Source Sans Pro", sans-serif;
+a {
+  font-size: 100%;
   font-weight: normal;
-  font-style: normal;
-  font-display: auto;
+}
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.notes-item:hover {
-  background-color: #d0ebe7;
-}
-
-.notes-value {
-  width: 95%;
-  text-align: start;
-  text-overflow: clip;
-  white-space: pre-line;
+ul li {
+  margin: 0.5em;
+  margin-bottom: 0.5em;
   float: left;
-  padding-left: 0.5rem;
+  z-index: -100;
 }
 
+ul li a {
+  text-decoration: none;
+  background-color: #dff2ef;
+  display: block;
+  height: 6em;
+  width: 11em;
+  padding: 0.2em;
+  /* box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7); */
+  transition: 0.15s linear;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+ul li a:hover,
+ul li a:focus {
+  box-shadow: 8px 8px 5px rgba(0, 0, 0, 0.258);
+  position: relative;
+  transform: rotate(-1deg);
+  z-index: 5;
+}
+
+.icon-pin {
+  color: rgb(162, 160, 160);
+  transform: rotate(19deg);
+  z-index: -1;
+}
 .rm-note {
-  color: rgb(32, 28, 28);
   background: none;
   border: none;
   float: right;
+  padding: 0.1em;
+  cursor: pointer;
+  z-index: -1;
+  padding-top: 0;
+  padding-right: 0;
 }
-
-.selected {
-  opacity: 0.6;
+.icon-pin:hover {
+  color: rgba(99, 97, 97, 0.7);
 }
 </style>

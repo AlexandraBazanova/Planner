@@ -53,7 +53,7 @@ form{
 
 .note-text {
   width: 70%;
-  font-size: calc(10px + 0.3vw);
+  font-size: calc(10px + 0.2vw);
   font-family:'Source Sans Pro', sans-serif;
   font-weight: 400;
   font-style: normal;

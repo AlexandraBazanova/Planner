@@ -96,9 +96,6 @@ export default {
       this.$refs.modal.show = true;
     },
 
-    // sendDataFunction: function () {
-    //   // обработчик отправки данных
-    // },
   },
 
   computed: {
@@ -118,21 +115,18 @@ export default {
 </script>
 
 <style scoped>
-/* ul {
-  padding: 0.1em;
-  margin: 0;
-} */
 p {
-  font-size: calc(9px + 0.3vw);
-  margin: 0.1rem;
+  margin: 0.1em;
+  margin-top: 0.3em;
+  font-size: calc(11px + 0.2vw);
 }
 .widget-bar {
   display: grid;
-  grid-template-columns: 0.12fr 2fr 1fr;
-  grid-gap: 1px;
-  font-size: calc(9px + 0.3vw);
+  grid-template-columns: 0.1fr 1.6fr 1fr;
+  grid-gap: 2px;
   border: none;
   margin: 0.1rem;
+  font-size: calc(10px + 0.2vw);
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -149,18 +143,13 @@ p {
 }
 
 .menu {
-  /* text-align: center; */
-  /* margin: 0.1rem; */
   padding: 0.2em;
   display: flex;
-  /* height: 100%; */
   flex-direction: column;
   justify-content: space-between;
-  /* align-self: end; */
 }
 .notes {
   text-align: center;
-  /* padding: 0.2em; */
 }
 .two-months {
   text-align: center;
@@ -170,7 +159,6 @@ p {
 }
 .calendar-buttons {
   display: flex;
-  /* height: 100%; */
   flex-direction: column;
 }
 

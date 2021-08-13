@@ -91,6 +91,7 @@ export default {
   top: 30%;
   left: 15%;
   transform: translate(-50%, -50%);
+  z-index: 3;
 }
 .r-modal-content {
   /* display: flex; */

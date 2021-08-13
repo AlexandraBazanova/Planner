@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div class="date-of-the-day" v-bind:class="{ daytoday: isToday }">
+    <div class="date-of-the-day"
+     v-bind:class="{ daytoday: isToday}">
       {{ displayDate(day.dayMonth) }}
+      
     </div>
     <DayAddTodo :day="day"> </DayAddTodo>
     <DayDisplayTodo
@@ -17,14 +19,14 @@
 <script type = "text/javascript">
 import moment from "moment";
 import "moment/locale/ru";
-import lodash from "lodash";
 import DayAddTodo from "@/components/DayAddTodo";
 import DayDisplayTodo from "@/components/DayDisplayTodo";
 
 export default {
   name: "Day",
   data: function () {
-    return {};
+    return {
+    };
   },
 
   components: {
@@ -52,6 +54,8 @@ export default {
     displayDate(date, formatType) {
       return moment(date).format("D MMMM");
     },
+
+   
   },
 };
 </script>
@@ -59,15 +63,31 @@ export default {
 <style scoped>
 .date-of-the-day {
   text-align: center;
-  font-size: calc(9px + 0.3vw);
+  font-size: calc(10px + 0.3vw);
   font-family:'Source Sans Pro', sans-serif;
   font-weight: 400;
   font-style: normal;
   font-display: auto;
+   cursor: pointer;
 }
+.date-of-the-day:hover {
+ background-color: #93c9bd;
+ border-radius: 4px;
+ color: white;
+ transition: all 0.5s ease;
+}
+
 .daytoday {
   background-color: #b2d9d0;
   color: white;
   border-radius: 4px;
 }
+
+.dayimportant {
+  background-color: #beb2d9;
+  border-radius: 4px;
+}
+
+
+
 </style>

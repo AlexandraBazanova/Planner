@@ -99,17 +99,18 @@ export default {
 .modal {
   background: #fff;
   padding: 15px;
-  min-width: 180px;
+  min-width: 150px;
   max-width: 480px;
   min-height: 150px;
   position: absolute;
   top: 20%;
   left: 15%;
   transform: translate(-50%, -50%);
+  z-index: 3;
 }
 .modal-content {
   margin-top: 1.8rem;
-  margin-left: 1.8rem;
+  margin-left: 0.8rem;
 }
 .modal-close {
   cursor: pointer;
@@ -129,16 +130,16 @@ p {
   font-display: auto;
 }
 .p-menu-authorization {
-  padding-left: 1.5rem;
+  padding-left: 1.8rem;
   cursor: pointer;
 }
 .p-menu-settings {
-  padding-left: 1.5rem;
+  padding-left: 1.8rem;
   cursor: pointer;
 }
 
 .p-menu-exit {
-  padding-left: 1.5rem;
+  padding-left: 1.8rem;
   cursor: pointer;
 }
 </style>

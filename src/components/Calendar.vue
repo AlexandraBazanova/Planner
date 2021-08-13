@@ -1,16 +1,10 @@
 <template>
   <div>
-    <!-- <button class="button-past" @click="viewWeekShift -= 1">
-      <mdicon name="arrow-up-bold" width="20" height="20" />
-    </button>
-    <button class="button-future" @click="viewWeekShift += 1">
-      <mdicon name="arrow-down-bold" width="20" height="20" />
-    </button> -->
     <section class="calendar">
       <div
        class="calendar-grid"
-       v-on:scroll="handleScroll"
        >
+       <!-- v-on:scroll="handleScroll" -->
         <div class="weekday-card" v-for="element in weekday" :key="element">
           {{ element }}
         </div>
@@ -29,7 +23,6 @@
 <script type = "text/javascript">
 import moment from "moment";
 import "moment/locale/ru";
-import lodash from "lodash";
 import Day from "@/components/Day";
 import { eventBus } from "../main";
 
@@ -39,7 +32,8 @@ export default {
     return {
       viewWeekShift: 0,
       todos: [],
-      scrollPosition: 0,
+      importantDays: [],
+      // scrollPosition: 0,
     };
   },
   components: {
@@ -136,21 +130,20 @@ export default {
       return weekdays;
     },
 
-    handleScroll(e) {
-       const currentScrollPosition = e.srcElement.scrollTop;
-    if (currentScrollPosition > this.scrollPosition) {
-        console.log("Scrolling down");
-    }
-    this.scrollPosition = currentScrollPosition;
-    },
+    // handleScroll(e) {
+    //    const currentScrollPosition = e.srcElement.scrollTop;
+    // if (currentScrollPosition > this.scrollPosition) {
+    //     console.log("Scrolling down");
+    // }
+    // this.scrollPosition = currentScrollPosition;
+    // },
   },
 };
 </script>
 
 <style >
 .calendar {
-
-  border-top: 1px solid rgb(222, 220, 224);
+  border-top: 0.001em solid rgb(222, 220, 224);
 }
 
 .weekday-card {
@@ -159,7 +152,9 @@ export default {
   font-family:'Source Sans Pro', sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-display: auto
+  font-display: auto;
+  height: 1.5em;
+  margin-top: 5px;
 }
 .calendar-grid {
   display: grid;
@@ -172,35 +167,6 @@ export default {
   padding: 5px;
   min-height: 7rem;
 }
-.button-past {
-  background-color: #b2d9d0;
-  border-color: white;
-  border: none;
-  font-size: calc(10px + 0.3vw);
-  border-radius: 4px;
-  color: white;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  margin: 0.1rem;
-}
 
-.button-future {
-  background-color: #b2d9d0;
-  border-color: white;
-  border: none;
-  font-size: calc(10px + 0.3vw);
-  border-radius: 4px;
-  color: white;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  
-}
-.button-future:hover {
-  background-color: #93c9bd;
-  color: white;
-}
-.button-past:hover {
-  background-color: #93c9bd;
-  color: white;
-}
+
 </style>
