@@ -6,15 +6,14 @@
       @click.self="closeModalAutorization"
     >
       <div class="a-modal">
-        <div class="a-modal-close" @click="closeModalAutorization">
-          &#10006;
+        <div class="a-modal-back" @click="returnToMenu">
+          <mdicon name="arrow-left-circle" width="20" height="20" />
         </div>
 
         <slot name="bodyAutorizatuion">
           <div class="a-modal-content">
             <p class="p-authorization">Авторизация</p>
             <form class="a-form">
-              
               <input
                 class="a-email"
                 type="email"
@@ -28,6 +27,16 @@
                 minlength="8"
                 placeholder="Введите пароль"
               />
+               <div
+              class="lostpassword"
+              @click="showModalForgotPassword"
+              tabindex="0"
+            >
+              <div class="icon-forgot">
+                <mdicon name="lock-question" width="20" height="20" />
+              </div>
+               <p class="p-lostpassword">Забыли пароль?</p>
+               </div>
               <input
                 class="custom-checkbox"
                 type="checkbox"
@@ -55,11 +64,14 @@
       </div>
     </div>
     <Registration ref="modalRegistration"> </Registration>
+    <ForgotPassword ref="modalForgotPassword"> </ForgotPassword>
   </div>
 </template>
 
 <script type = "text/javascript" >
+import ForgotPassword from "@/components/ForgotPassword";
 import Registration from "@/components/Registration";
+import { eventBus } from "../main";
 
 export default {
   name: "Autorization",
@@ -71,15 +83,28 @@ export default {
 
   components: {
     Registration,
+    ForgotPassword,
   },
-
+   created() {
+    eventBus.$on("showModalAutorization", () => {
+      this.showAutorization = true;
+    });
+  },
   methods: {
+    returnToMenu: function () {
+      this.showAutorization = false;
+      eventBus.$emit("showModalMenu");
+    },
     closeModalAutorization: function () {
       this.showAutorization = false;
     },
 
     showModalRegistration: function () {
       this.$refs.modalRegistration.showRegistration = true;
+      this.showAutorization = false;
+    },
+    showModalForgotPassword: function () {
+      this.$refs.modalForgotPassword.showForgotPassword = true;
       this.showAutorization = false;
     },
   },
@@ -105,7 +130,7 @@ export default {
   max-width: 180px;
   min-height: 220px;
   position: absolute;
-  top: 25%;
+  top: 29.5%;
   left: 15%;
   transform: translate(-50%, -50%);
   z-index: 3;
@@ -118,8 +143,9 @@ export default {
   font-weight: 400;
   font-style: normal;
   font-display: auto;
+  color: rgb(72, 72, 72);
 }
-.a-modal-close {
+.a-modal-back {
   cursor: pointer;
   color: rgb(162, 160, 160);
   float: right;
@@ -133,6 +159,7 @@ export default {
 input {
   margin-top: 15px;
   outline-color: rgb(220, 211, 211);
+  color: rgb(72, 72, 72);
 }
 .a-button {
   display: block;
@@ -145,8 +172,8 @@ input {
   transition-duration: 0.4s;
   cursor: pointer;
   outline-color: rgb(220, 211, 211);
-  margin-top: 30px;
-  margin-left: auto;
+  margin-top: 25px;
+  margin-left: 65px;
   margin-right: auto;
   min-width: 20px;
   padding: 0.5em;
@@ -196,8 +223,20 @@ input {
   font-style: normal;
   font-display: auto;
   margin-bottom: 1px;
-  margin-left: 30px;
+  margin-left: 26px;
   margin-top: 12px;
+  padding-top: 3px;
+  cursor: pointer;
+}
+.p-lostpassword {
+   font-family: "Source Sans Pro", sans-serif;
+  font-size: calc(10px + 0.2vw);
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  margin-bottom: 1px;
+  margin-left: 25px;
+  margin-top: 5px;
   padding-top: 3px;
   cursor: pointer;
 }
@@ -205,5 +244,11 @@ input {
   color: rgb(162, 160, 160);
   float: left;
   margin-right: 5px;
+}
+.icon-forgot{
+  color: rgb(162, 160, 160);
+  float: left;
+  padding-left: 0;
+  margin-top: 1px;
 }
 </style>

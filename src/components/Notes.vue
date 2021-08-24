@@ -1,7 +1,7 @@
 <template>
   <div class="all-notes">
     <section class="add-note">
-      <AddNote @add-note="addNote" v-if="notes.length < 5"> </AddNote>
+      <AddNote @add-note="addNote" v-if="notes.length < 6"> </AddNote>
     </section>
 
     <div class="notes-list">
@@ -60,6 +60,9 @@ export default {
   justify-content: center;
   margin: 0.1em;
 }
-
+.all-notes {
+  padding: 0;
+  margin: 0;
+}
 
 </style>

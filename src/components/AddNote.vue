@@ -48,6 +48,7 @@ export default {
 
 form{
   justify-content: center;
+  background-color: none;
   /* width: 100%; */
 }
 
@@ -58,10 +59,12 @@ form{
   font-weight: 400;
   font-style: normal;
   font-display: auto;
+  color: rgb(72, 72, 72);
   outline: none;
   resize: none;
   overflow: hidden;
   border: 1px solid rgb(222, 220, 224);
   justify-content: center;
+  background-color: transparent;
 }
 </style>

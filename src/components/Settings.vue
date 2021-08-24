@@ -5,7 +5,9 @@
     @click.self="closeModalSettings"
   >
     <div class="s-modal">
-      <div class="s-modal-close" @click="closeModalSettings">&#10006;</div>
+      <div class="s-modal-back" @click="returnToMenu">
+          <mdicon name="arrow-left-circle" width="20" height="20" />
+        </div>
 
       <slot name="bodySettings">
         <div class="s-modal-content">
@@ -62,6 +64,8 @@
 </template>
 
 <script type = "text/javascript" >
+import { eventBus } from "../main";
+
 export default {
   name: "Settings",
   data: function () {
@@ -70,6 +74,11 @@ export default {
     };
   },
   methods: {
+    returnToMenu: function () {
+      this.showSettings = false;
+      eventBus.$emit("showModalMenu");
+    },
+
     closeModalSettings: function () {
       this.showSettings = false;
     },
@@ -92,11 +101,11 @@ export default {
 .s-modal {
   background: #fff;
   padding: 15px;
-  min-width: 180px;
+  min-width: 200px;
   max-width: 180px;
   min-height: 220px;
   position: absolute;
-  top: 30%;
+  top: 30.5%;
   left: 15%;
   transform: translate(-50%, -50%);
   z-index: 3;
@@ -108,21 +117,22 @@ export default {
   font-weight: 400;
   font-style: normal;
   font-display: auto;
+  color: rgb(72, 72, 72);
 }
-.s-modal-close {
+.s-modal-back  {
   cursor: pointer;
   color: rgb(162, 160, 160);
   float: right;
 }
 .p-settings {
   margin: 0;
-  margin-left: 50px;
+  margin-left: 65px;
   text-align: start;
 }
 .icon-settings {
   color: rgb(162, 160, 160);
   float: left;
-  margin-left: 25px;
+  margin-left: 40px;
 }
 
 li::marker {
@@ -130,7 +140,7 @@ li::marker {
 }
 
 ul {
-    padding-left: 1.5em;
+    padding-left: 2.5em;
 }
 .s-button {
   display: block;

@@ -45,6 +45,7 @@ export default {
 a {
   font-size: 100%;
   font-weight: normal;
+  
 }
 ul,
 li {
@@ -55,7 +56,7 @@ li {
 
 ul li {
   margin: 0.5em;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.1em;
   float: left;
   z-index: -100;
 }
@@ -71,7 +72,7 @@ ul li a {
   transition: 0.15s linear;
   overflow: hidden;
   white-space: pre-wrap;
-  word-break: break-all;
+  /* word-break: break-all; */
 }
 
 ul li a:hover,
@@ -86,6 +87,7 @@ ul li a:focus {
   color: rgb(162, 160, 160);
   transform: rotate(19deg);
   z-index: -1;
+  cursor: pointer;
 }
 .rm-note {
   background: none;
@@ -93,11 +95,15 @@ ul li a:focus {
   float: right;
   padding: 0.1em;
   cursor: pointer;
-  z-index: -1;
+  z-index: 1;
   padding-top: 0;
   padding-right: 0;
 }
-.icon-pin:hover {
-  color: rgba(99, 97, 97, 0.7);
+.rm-note:hover {
+  position: relative;
+  top: -2px;
 }
+.icon-pin:hover {
+  color:rgb(100, 100, 100);
+} 
 </style>

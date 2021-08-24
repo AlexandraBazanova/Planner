@@ -130,10 +130,12 @@ export default {
   font-weight: 400;
   font-style: normal;
   font-display: auto;
+  color: rgb(72, 72, 72);
   border: hidden;
   border-bottom: 1px solid rgb(222, 220, 224);
   margin-left: 0.5em;
   outline-color: rgb(220, 211, 211);
+  background-color: transparent;
 }
 .button-chooseTime {
   background-color: rgb(162, 160, 160);
@@ -147,6 +149,7 @@ input[type="time"] {
   font-weight: 400;
   font-style: normal;
   font-display: auto;
+  color: rgb(72, 72, 72);
   outline-color: rgb(220, 211, 211);
 }
 

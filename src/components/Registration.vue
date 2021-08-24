@@ -5,7 +5,9 @@
     @click.self="closeModalRegistration"
   >
     <div class="r-modal">
-      <div class="r-modal-close" @click="closeModalRegistration">&#10006;</div>
+      <div class="r-modal-back" @click="returnToAutorization">
+          <mdicon name="arrow-left-circle" width="20" height="20" />
+        </div>
 
       <slot name="bodyRegistration">
         <div class="r-modal-content">
@@ -54,6 +56,8 @@
 </template>
 
 <script type = "text/javascript" >
+import { eventBus } from "../main";
+
 export default {
   name: "Registration",
   data: function () {
@@ -62,6 +66,10 @@ export default {
     };
   },
   methods: {
+    returnToAutorization: function () {
+      this.showRegistration = false;
+      eventBus.$emit("showModalAutorization");
+    },
     closeModalRegistration: function () {
       this.showRegistration = false;
     },
@@ -84,26 +92,28 @@ export default {
 .r-modal {
   background: #fff;
   padding: 15px;
-  min-width: 210px;
+  min-width: 200px;
   max-width: 180px;
   min-height: 220px;
   position: absolute;
-  top: 30%;
+  top: 28.25%;
   left: 15%;
   transform: translate(-50%, -50%);
   z-index: 3;
+  color: rgb(72, 72, 72);
 }
 .r-modal-content {
   /* display: flex; */
-  margin-top: 1rem;
+  margin-top: 1.8rem;
+  margin-left: 0.7rem;
   font-family: "Source Sans Pro", sans-serif;
   font-size: calc(11px + 0.3vw);
   font-weight: 400;
   font-style: normal;
   font-display: auto;
-  margin: 1rem;
+  color: rgb(72, 72, 72);
 }
-.r-modal-close {
+.r-modal-back {
   cursor: pointer;
   color: rgb(162, 160, 160);
   float: right;
@@ -116,6 +126,7 @@ export default {
 input {
   margin-top: 15px;
   outline-color: rgb(220, 211, 211);
+  color: rgb(72, 72, 72);
 }
 .r-button {
   display: block;

@@ -1,8 +1,8 @@
 <template>
   <div class="menu-modal">
-    <div v-if="show" class="modal-shadow" @click.self="closeModal">
+    <div v-if="showMenu" class="modal-shadow" @click.self="closeModalMenu">
       <div class="modal">
-        <div class="modal-close" @click="closeModal">&#10006;</div>
+        <div class="modal-close" @click="closeModalMenu">&#10006;</div>
 
         <slot name="body">
           <div class="modal-content">
@@ -57,7 +57,7 @@ export default {
   name: "Menu",
   data: function () {
     return {
-      show: false,
+      showMenu: false,
       authorization: false,
     };
   },
@@ -67,18 +67,18 @@ export default {
   },
 
   methods: {
-    closeModal: function () {
-      this.show = false;
+    closeModalMenu: function () {
+      this.showMenu = false;
     },
 
     showModalAutorization: function () {
       this.$refs.modalAutorization.showAutorization = true;
-      this.show = false;
+      this.showMenu = false;
     },
 
     showModalSettings: function () {
       this.$refs.modalSettings.showSettings = true;
-      this.show = false;
+      this.showMenu = false;
     },
   },
 };
@@ -99,7 +99,7 @@ export default {
 .modal {
   background: #fff;
   padding: 15px;
-  min-width: 150px;
+  min-width: 200px;
   max-width: 480px;
   min-height: 150px;
   position: absolute;
@@ -110,7 +110,7 @@ export default {
 }
 .modal-content {
   margin-top: 1.8rem;
-  margin-left: 0.8rem;
+  margin-left: 2.5rem;
 }
 .modal-close {
   cursor: pointer;
@@ -128,6 +128,7 @@ p {
   font-weight: 400;
   font-style: normal;
   font-display: auto;
+  color: rgb(72, 72, 72);
 }
 .p-menu-authorization {
   padding-left: 1.8rem;

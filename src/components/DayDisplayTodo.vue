@@ -125,16 +125,14 @@ li {
   font-display: auto;
   margin-left: 0.1em;
 }
-.input-todovalue {
-  outline-color: rgb(220, 211, 211);
-  border: hidden;
-}
+
 .input-todovalue:focus {
   outline-color: rgb(220, 211, 211);
   border: hidden;
 }
 .span-todovalue{
   outline-color: rgb(220, 211, 211);
+  color: rgb(72, 72, 72);
 }
 .input-time {
   border: none;
@@ -143,6 +141,7 @@ li {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-display: auto;
+  color: rgb(72, 72, 72);
 }
 input[type="time"]:focus {
   outline-color: rgb(220, 211, 211);
@@ -152,7 +151,8 @@ input[type="time"]:focus {
 }
 .important {
   /* font-size: calc(13px + 0.1vw); */
-  background-color: rgb(251, 251, 251);
+  /* background-color: rgb(251, 251, 251); */
+  background-color: rgb(245, 242, 255);
   font-weight: 600;
   /* text-transform: uppercase; */
 }
@@ -160,11 +160,11 @@ input[type="time"]:focus {
   background: none;
   border: none;
   border-radius: 4px;
-  font-size: calc(7px + 0.2vw);
+  font-size: calc(8px + 0.2vw);
   outline-color: rgb(220, 211, 211);
   margin-left: auto;
-  padding: 0.1em;
-  width: 1.35em;
+  padding-top: 0.2em;
+  width: 1.2em;
 }
 
   .important-todo:hover {
@@ -179,7 +179,7 @@ input[type="time"]:focus {
   font-size: calc(6px + 0.3vw);
   outline-color: rgb(220, 211, 211);
   padding: 0.1em;
-  width: 1.3em;
+  width: 1.2em;
 }
 
 .rm:hover {

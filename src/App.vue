@@ -1,22 +1,15 @@
 <template>
   <div id="app">
-    <section class="main-calendar">
-      <TodoList />
-      <Calendar />
-      <section class="footer-calendar">
-        <p class="footer-text">
-          &copy; 2021 Александра Базанова || Демоверсия приложения «Планировщик дел "4 недели"»
-        </p>
-      </section>
+    <section class="main-planner">
+      <Planner />
+     
     </section>
   </div>
 </template>
 
 <script>
 import "moment/locale/ru";
-import Menu from "@/components/Menu";
-import TodoList from "@/components/TodoList";
-import Calendar from "@/components/Calendar";
+import Planner from "@/components/Planner";
 
 export default {
   name: "app",
@@ -34,37 +27,19 @@ export default {
   },
 
   components: {
-    Menu,
-    TodoList,
-    Calendar,
+    Planner,
   },
 };
 </script>
 
 <style scoped>
-.main-calendar {
+.main-planner {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
+  /* height: 100%; */
   border: none;
 }
-.footer-calendar {
-  display: flex;
-  width: 100%;
-  border: none;
-  justify-content: flex-end;
-}
-.footer-text {
-  font-size: calc(9px + 0.2vw);
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-display: auto;
-  text-align: end;
-  padding: 0.1em;
-  padding-right: 1em;
-  margin: 0.1em; 
-}
+
 </style>
-``

@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="date-of-the-day"
-     v-bind:class="{ daytoday: isToday}">
+     v-bind:class="{ daytoday: isToday}"
+     v-on:click="isImportantday(day.dayMonth._d); isNotImportantday(day.dayMonth._d)"
+     >
       {{ displayDate(day.dayMonth) }}
       
     </div>
@@ -26,6 +28,7 @@ export default {
   name: "Day",
   data: function () {
     return {
+      dateOfImportantDay: "",
     };
   },
 
@@ -54,8 +57,16 @@ export default {
     displayDate(date, formatType) {
       return moment(date).format("D MMMM");
     },
-
-   
+    isImportantday(dateOfImportantDay) {
+      const dayIsImportant = true;
+      // console.log(dateOfImportantDay);
+      // console.log(dayIsImportant);
+      this.$emit('addImportantday', {dateOfImportantDay, dayIsImportant});
+    },
+    isNotImportantday(dateOfImportantDay) {
+        console.log(this.dayIsImportant)
+      
+    }
   },
 };
 </script>
@@ -68,6 +79,7 @@ export default {
   font-weight: 400;
   font-style: normal;
   font-display: auto;
+  color: rgb(72, 72, 72);
    cursor: pointer;
 }
 .date-of-the-day:hover {

@@ -13,7 +13,9 @@
           v-for="(day, indexDays) in shiftWeekDays"
           :key="indexDays"
         >
-          <Day :day="day"> </Day>
+          <Day 
+          v-on:addImportantday="addImportantday"
+          :day="day"> </Day>
         </div>
       </div>
     </section>
@@ -101,6 +103,7 @@ export default {
         (a, b) => convertTime(a.timeValue) - convertTime(b.timeValue)
       );
     },
+    
   },
 
   methods: {
@@ -130,6 +133,15 @@ export default {
       return weekdays;
     },
 
+     addImportantday(importantDay) {
+     return  this.importantDays.push(importantDay)
+    },
+
+    removeImportantday() {
+     return  this.importantDays = this.importantDays.filter(e => e.dayIsImportant === true)
+    },
+
+
     // handleScroll(e) {
     //    const currentScrollPosition = e.srcElement.scrollTop;
     // if (currentScrollPosition > this.scrollPosition) {
@@ -153,6 +165,7 @@ export default {
   font-weight: 400;
   font-style: normal;
   font-display: auto;
+  color: rgb(72, 72, 72);
   height: 1.5em;
   margin-top: 5px;
 }
