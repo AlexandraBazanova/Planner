@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="date-of-the-day"
-     v-bind:class="{ daytoday: isToday}"
-     v-on:click="isImportantday(day.dayMonth._d); isNotImportantday(day.dayMonth._d)"
-     >
+    <div
+      class="date-of-the-day"
+      v-on:click="isImportantday(day.dayMonth._d)"
+      v-bind:class="{ daytoday: isToday, dayimportant: colorImportantDay }"
+    >
       {{ displayDate(day.dayMonth) }}
-      
     </div>
     <DayAddTodo :day="day"> </DayAddTodo>
     <DayDisplayTodo
@@ -51,22 +51,30 @@ export default {
         ? true
         : false;
     },
+    colorImportantDay() {
+      if (this.day.importantDays[0] !== undefined) {
+        return (
+          this.day.dayMonth._d.toString() ===
+          this.day.importantDays[0].dateOfImportantDay.toString()
+        );
+      }
+    },
   },
 
   methods: {
     displayDate(date, formatType) {
       return moment(date).format("D MMMM");
     },
+
     isImportantday(dateOfImportantDay) {
       const dayIsImportant = true;
-      // console.log(dateOfImportantDay);
-      // console.log(dayIsImportant);
-      this.$emit('addImportantday', {dateOfImportantDay, dayIsImportant});
+      const idImportantDay = moment(dateOfImportantDay).format("x");
+      this.$emit("addImportantday", {
+        dateOfImportantDay,
+        idImportantDay,
+        dayIsImportant,
+      });
     },
-    isNotImportantday(dateOfImportantDay) {
-        console.log(this.dayIsImportant)
-      
-    }
   },
 };
 </script>
@@ -75,18 +83,18 @@ export default {
 .date-of-the-day {
   text-align: center;
   font-size: calc(10px + 0.3vw);
-  font-family:'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-display: auto;
   color: rgb(72, 72, 72);
-   cursor: pointer;
+  cursor: pointer;
 }
 .date-of-the-day:hover {
- background-color: #93c9bd;
- border-radius: 4px;
- color: white;
- transition: all 0.5s ease;
+  background-color: #cde0df;
+  border-radius: 4px;
+  color: white;
+  transition: all 0.5s ease;
 }
 
 .daytoday {
@@ -96,10 +104,9 @@ export default {
 }
 
 .dayimportant {
-  background-color: #beb2d9;
+  /* background-color: #beb2d9; */
+  background-color: #D4E7EA;
+  /* background-color: #fffacf; */
   border-radius: 4px;
 }
-
-
-
 </style>

@@ -20,6 +20,7 @@
 
           <span
             class="span-todovalue"
+            v-bind:class="{ done: todo.isComplete }"
             v-if="!editTodo"
             v-on:dblclick="editTodo = true"
             tabindex="0"
@@ -119,6 +120,7 @@ li {
   display: flex;
   border-bottom: 1px dotted rgb(222, 220, 224);
   font-size: calc(10px + 0.2vw);
+  justify-content: space-between;
 }
 .todo-span {
   font-family: "Source Sans Pro", sans-serif;
@@ -131,6 +133,7 @@ li {
   border: hidden;
 }
 .span-todovalue{
+  justify-content: space-between;
   outline-color: rgb(220, 211, 211);
   color: rgb(72, 72, 72);
 }
@@ -142,6 +145,7 @@ li {
   font-weight: 400;
   font-display: auto;
   color: rgb(72, 72, 72);
+  float: left;
 }
 input[type="time"]:focus {
   outline-color: rgb(220, 211, 211);
@@ -152,7 +156,8 @@ input[type="time"]:focus {
 .important {
   /* font-size: calc(13px + 0.1vw); */
   /* background-color: rgb(251, 251, 251); */
-  background-color: rgb(245, 242, 255);
+  /* background-color: rgb(245, 242, 255); */
+  background-color: #edf8fa97;
   font-weight: 600;
   /* text-transform: uppercase; */
 }
@@ -165,10 +170,13 @@ input[type="time"]:focus {
   margin-left: auto;
   padding-top: 0.2em;
   width: 1.2em;
+  align-self: center;
+  min-height: 1.7em;
 }
 
   .important-todo:hover {
-    background-color: rgb(251, 250, 250);
+    background-color: #e7f3f5;
+    transition: all 0.5s ease;
   }
 
 .rm {
@@ -179,11 +187,14 @@ input[type="time"]:focus {
   font-size: calc(6px + 0.3vw);
   outline-color: rgb(220, 211, 211);
   padding: 0.1em;
+  align-self: center;
+  min-height: 1.7em;
   width: 1.2em;
 }
 
 .rm:hover {
-  background-color: rgb(251, 250, 250);
+  background-color: #e7f3f5;
+  transition: all 0.5s ease;
 }
 
 .done {

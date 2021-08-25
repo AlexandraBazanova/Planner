@@ -81,10 +81,11 @@ export default {
 .main-calendar::after {
   content: "";
   /* background-image: url(../../public/images/john-henry-canault-8LnI71txlm4-unsplash.jpg); */
-  /* background-image: url(../../public/images/gilles-lambert-mSK5nNsAsLY-unsplash.jpg);
-  background-size: cover;
-  background-clip: border-box;
-  opacity: 0.8; */
+  /* background-image: url(../../public/images/gilles-lambert-mSK5nNsAsLY-unsplash.jpg); */
+  /* background-size: cover;
+  background-clip: border-box; */
+  /* opacity: 0.8; */
+  /* background-color: #fafeffe5; */
   top: 0;
   left: 0;
   bottom: 0;

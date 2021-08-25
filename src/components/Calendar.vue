@@ -1,10 +1,8 @@
 <template>
   <div>
     <section class="calendar">
-      <div
-       class="calendar-grid"
-       >
-       <!-- v-on:scroll="handleScroll" -->
+      <div class="calendar-grid">
+        <!-- v-on:scroll="handleScroll" -->
         <div class="weekday-card" v-for="element in weekday" :key="element">
           {{ element }}
         </div>
@@ -13,9 +11,7 @@
           v-for="(day, indexDays) in shiftWeekDays"
           :key="indexDays"
         >
-          <Day 
-          v-on:addImportantday="addImportantday"
-          :day="day"> </Day>
+          <Day v-on:addImportantday="addImportantday" :day="day"> </Day>
         </div>
       </div>
     </section>
@@ -61,13 +57,17 @@ export default {
     });
 
     eventBus.$on("editTodoValue", (todo) => {
-      const indexOfEditValue = this.todos.findIndex((t) => t.idTodo === todo.todoId);
-      this.todos[indexOfEditValue].todoValue = todo.todoNewValue
+      const indexOfEditValue = this.todos.findIndex(
+        (t) => t.idTodo === todo.todoId
+      );
+      this.todos[indexOfEditValue].todoValue = todo.todoNewValue;
     });
 
     eventBus.$on("editTodoTime", (todo) => {
-      const indexOfEditTime = this.todos.findIndex((t) => t.idTodo === todo.todoId);
-      this.todos[indexOfEditTime].timeValue = todo.todoNewTime
+      const indexOfEditTime = this.todos.findIndex(
+        (t) => t.idTodo === todo.todoId
+      );
+      this.todos[indexOfEditTime].timeValue = todo.todoNewTime;
       this.sortTimeValue;
     });
 
@@ -80,12 +80,14 @@ export default {
     shiftWeekDays: {
       get: function () {
         const filterTodos = this.filterTodos;
+        const filterImportantdays = this.filterImportantdays;
         const shift = this.viewWeekShift;
         const startOfWeek = moment().startOf("week").add(shift, "week");
         let days = new Array(28).fill(null).map(function (todo, index) {
           return {
             dayMonth: moment(startOfWeek).add(index, "days"),
             todos: filterTodos(startOfWeek, index),
+            importantDays: filterImportantdays(startOfWeek, index),
           };
         });
         return days;
@@ -103,7 +105,6 @@ export default {
         (a, b) => convertTime(a.timeValue) - convertTime(b.timeValue)
       );
     },
-    
   },
 
   methods: {
@@ -115,12 +116,17 @@ export default {
       const compareElements = function (a, b) {
         return parseInt(a, 10) === parseInt(b, 10);
       };
-
       return this.todos.filter((e) =>
         compareElements(
           e.dateOfTodo,
           moment(startOfWeek).add(index, "days").format("DDMMYYYY")
         )
+      );
+    },
+
+    filterImportantdays(startOfWeek, index) {
+      return this.importantDays.filter( (e) =>
+        e.dateOfImportantDay.toString() === moment(startOfWeek).add(index, "days")._d.toString()
       );
     },
 
@@ -133,14 +139,18 @@ export default {
       return weekdays;
     },
 
-     addImportantday(importantDay) {
-     return  this.importantDays.push(importantDay)
+    addImportantday(importantDay) {
+      return this.importantDays.findIndex(
+        (e) => e.idImportantDay === importantDay.idImportantDay
+      ) === -1
+        ? this.importantDays.push(importantDay)
+        : this.importantDays.splice(
+            this.importantDays.findIndex(
+              (e) => e.idImportantDay === importantDay.idImportantDay
+            ),
+            1
+          );
     },
-
-    removeImportantday() {
-     return  this.importantDays = this.importantDays.filter(e => e.dayIsImportant === true)
-    },
-
 
     // handleScroll(e) {
     //    const currentScrollPosition = e.srcElement.scrollTop;
@@ -161,7 +171,7 @@ export default {
 .weekday-card {
   text-align: center;
   font-size: calc(10px + 0.3vw);
-  font-family:'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-display: auto;
@@ -180,6 +190,4 @@ export default {
   padding: 5px;
   min-height: 7rem;
 }
-
-
 </style>
