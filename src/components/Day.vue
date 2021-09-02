@@ -1,9 +1,14 @@
 <template>
-  <div>
+  <div class="day">
     <div
       class="date-of-the-day"
       v-on:click="isImportantday(day.dayMonth._d)"
-      v-bind:class="{ daytoday: isToday, dayimportant: colorImportantDay }"
+      v-bind:class="{
+        daytoday: isToday,
+        dayimportant: colorImportantDay,
+        sunday: isSunday,
+        holliday: isHolliday,
+      }"
     >
       {{ displayDate(day.dayMonth) }}
     </div>
@@ -29,6 +34,26 @@ export default {
   data: function () {
     return {
       dateOfImportantDay: "",
+      hollidays: [
+        "08/03/2021",
+        "08/03/2022",
+        "08/03/2023",
+        "23/02/2021",
+        "23/02/2022",
+        "23/02/2023",
+        "09/05/2021",
+        "09/05/2022",
+        "09/05/2023",
+        "01/01/2022",
+        "01/01/2023",
+        "01/05/2021",
+        "01/05/2022",
+        "01/05/2023",
+        "24/04/2022",
+        "07/01/2022",
+        "07/01/2021",
+        "07/01/202",
+      ],
     };
   },
 
@@ -50,6 +75,13 @@ export default {
         moment()._d.toString().substr(0, 15)
         ? true
         : false;
+    },
+
+    isSunday() {
+      return this.day.dayMonth._d.toString().substr(0, 3) === "Sun";
+    },
+    isHolliday() {
+      return this.hollidays.some( e => e === moment(this.day.dayMonth).format("DD/MM/YYYY"))
     },
     colorImportantDay() {
       if (this.day.importantDays[0] !== undefined) {
@@ -91,22 +123,28 @@ export default {
   cursor: pointer;
 }
 .date-of-the-day:hover {
-  background-color: #cde0df;
+  background-color: #a8cdd3d0;
   border-radius: 4px;
   color: white;
   transition: all 0.5s ease;
 }
 
 .daytoday {
-  background-color: #b2d9d0;
-  color: white;
+  background-color: #D5ECE7;
+  /* background-color: #b2d9d0; */
+  /* color: white; */
   border-radius: 4px;
 }
 
 .dayimportant {
-  /* background-color: #beb2d9; */
-  background-color: #D4E7EA;
-  /* background-color: #fffacf; */
+  /* background-color: #D4E7EA; */
+  background-color: #a8cdd353;
   border-radius: 4px;
+}
+.sunday {
+  color: #4f7a80;
+}
+.holliday {
+  color: #4f7a80;
 }
 </style>

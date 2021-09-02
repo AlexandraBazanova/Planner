@@ -5,7 +5,7 @@
     @click.self="closeModalSettings"
   >
     <div class="s-modal">
-      <div class="s-modal-back" @click="returnToMenu">
+      <div class="s-modal-back" @click="returnToMenu" tabindex="0">
           <mdicon name="arrow-left-circle" width="20" height="20" />
         </div>
 
@@ -123,6 +123,7 @@ export default {
   cursor: pointer;
   color: rgb(162, 160, 160);
   float: right;
+  outline-color: rgb(220, 211, 211);
 }
 .p-settings {
   margin: 0;

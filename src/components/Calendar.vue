@@ -3,7 +3,12 @@
     <section class="calendar">
       <div class="calendar-grid">
         <!-- v-on:scroll="handleScroll" -->
-        <div class="weekday-card" v-for="element in weekday" :key="element">
+        <div
+          class="weekday-card"
+          v-for="element in weekday"
+          :key="element"
+          v-bind:class="{ sunday: element === 'воскресенье' }"
+        >
           {{ element }}
         </div>
         <div
@@ -31,6 +36,7 @@ export default {
       viewWeekShift: 0,
       todos: [],
       importantDays: [],
+
       // scrollPosition: 0,
     };
   },
@@ -125,8 +131,10 @@ export default {
     },
 
     filterImportantdays(startOfWeek, index) {
-      return this.importantDays.filter( (e) =>
-        e.dateOfImportantDay.toString() === moment(startOfWeek).add(index, "days")._d.toString()
+      return this.importantDays.filter(
+        (e) =>
+          e.dateOfImportantDay.toString() ===
+          moment(startOfWeek).add(index, "days")._d.toString()
       );
     },
 
@@ -165,7 +173,11 @@ export default {
 
 <style >
 .calendar {
-  border-top: 0.001em solid rgb(222, 220, 224);
+  /* border: 0.001em solid rgb(222, 220, 224); */
+  /* margin-left: 0.1em;
+  margin-right: 0.1em; */
+  padding-left: 0.2em;
+  padding-right: 0.2em;
 }
 
 .weekday-card {
@@ -175,19 +187,27 @@ export default {
   font-weight: 400;
   font-style: normal;
   font-display: auto;
-  color: rgb(72, 72, 72);
+  /* color: rgb(72, 72, 72); */
+  color: white;
+  background-color: #a8cdd3d0;
   height: 1.5em;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(80px, 1fr));
   grid-gap: 2px;
-  border-bottom: 1px solid rgb(222, 220, 224);
+  /* border-bottom: 0.001em solid rgb(222, 220, 224); */
+  padding-bottom: 2px;
 }
 .day-card {
   border: 1px dotted rgb(222, 220, 224);
   padding: 5px;
-  min-height: 7rem;
+  min-height: 7.15rem;
+  background-color: white;
+}
+.sunday {
+  /* color: #d08467; */
+  color: #4f7a80;
 }
 </style>

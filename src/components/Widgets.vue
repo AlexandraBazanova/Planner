@@ -2,7 +2,7 @@
   <div>
     <section class="widget-bar">
       <section class="notes">
-        <p>Заметки</p>
+        <!-- <p>Заметки</p> -->
         <Notes />
       </section>
 
@@ -53,6 +53,7 @@ p {
 }
 .notes {
   text-align: center;
+  margin-top: 1em;
 }
 .two-months {
   text-align: center;

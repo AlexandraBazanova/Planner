@@ -20,7 +20,8 @@
       </div>
 
       <div class="minicontainer-weekday">
-        <div class="mini-weekday" v-for="element in weekday" :key="element">
+        <div class="mini-weekday" v-for="element in weekday" :key="element"
+         v-bind:class="{ sunday: element === 'вс'}">
           {{ element }}
         </div>
       </div>
@@ -31,8 +32,11 @@
           v-for="(day, index) in showDays"
           :key="index"
           v-bind:class="{
-            notactualymonth: !isThisMonth(day),
+            
             minidaytoday: isToday(day),
+            sunday: isSunday(day),
+            notactualymonth: !isThisMonth(day),
+            holliday: isHolliday(day),
           }"
         >
           {{ day.format("D") }}
@@ -63,7 +67,8 @@
         </button>
       </div>
       <div class="minicontainer-weekday">
-        <div class="mini-weekday" v-for="element in weekday" :key="element">
+        <div class="mini-weekday" v-for="element in weekday" :key="element"
+        v-bind:class="{ sunday: element === 'вс'}">
           {{ element }}
         </div>
       </div>
@@ -75,6 +80,8 @@
           v-bind:class="{
             notactualymonth: !isNextMonth(day),
             minidaytoday: isToday(day),
+            sunday: isSunday(day),
+            holliday: isHolliday(day),
           }"
         >
           {{ day.format("D") }}
@@ -93,6 +100,26 @@ export default {
     return {
       viewMonthShift: 0,
       largeWindow: false,
+       hollidays: [
+        "08/03/2021",
+        "08/03/2022",
+        "08/03/2023",
+        "23/02/2021",
+        "23/02/2022",
+        "23/02/2023",
+        "09/05/2021",
+        "09/05/2022",
+        "09/05/2023",
+        "01/01/2022",
+        "01/01/2023",
+        "01/05/2021",
+        "01/05/2022",
+        "01/05/2023",
+        "24/04/2022",
+        "07/01/2022",
+        "07/01/2021",
+        "07/01/2023",
+      ],
     };
   },
   computed: {
@@ -158,7 +185,12 @@ export default {
         ? true
         : false;
     },
-
+  isSunday(date) {
+    return date._d.toString().substr(0, 3) === 'Sun'
+  },
+  isHolliday(date) {
+      return this.hollidays.some( e => e === moment(date).format("DD/MM/YYYY"))
+    },
     getMonthShift(viewMonthShift) {
       const getMonth = function (viewMonthShift) {
         const startOfMonth = moment()
@@ -315,15 +347,21 @@ export default {
   height: 100%;
   line-height: 1.5em;
 }
-
+.sunday {
+  color: #4f7a80;
+}
+.holliday {
+  color: #4f7a80;
+}
 .notactualymonth {
-  color: rgb(223, 219, 219);
+  color: rgb(223, 219, 219) !important;
 }
 
 .minidaytoday {
-  background-color: #b2d9d0;
+  /* background-color: #b2d9d0; */
+  background-color:#c7d4d690;
   border-radius: 4px;
-  color: white;
+  color: white !important;
 }
 .mini-button-future {
   background-color: white;
@@ -347,4 +385,5 @@ export default {
   flex-grow: 1;
   background-color: transparent;
 }
+
 </style>

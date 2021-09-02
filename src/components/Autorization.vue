@@ -6,7 +6,7 @@
       @click.self="closeModalAutorization"
     >
       <div class="a-modal">
-        <div class="a-modal-back" @click="returnToMenu">
+        <div class="a-modal-back" @click="returnToMenu" tabindex="0">
           <mdicon name="arrow-left-circle" width="20" height="20" />
         </div>
 
@@ -149,6 +149,7 @@ export default {
   cursor: pointer;
   color: rgb(162, 160, 160);
   float: right;
+  outline-color: rgb(220, 211, 211);
 }
 .p-authorization {
   margin-left: 0;
@@ -227,6 +228,7 @@ input {
   margin-top: 12px;
   padding-top: 3px;
   cursor: pointer;
+  outline-color: rgb(220, 211, 211);
 }
 .p-lostpassword {
    font-family: "Source Sans Pro", sans-serif;
@@ -239,6 +241,12 @@ input {
   margin-top: 5px;
   padding-top: 3px;
   cursor: pointer;
+}
+.registration {
+  outline-color: rgb(220, 211, 211) !important;
+}
+.lostpassword {
+  outline-color: rgb(220, 211, 211) !important;
 }
 .icon-registration {
   color: rgb(162, 160, 160);

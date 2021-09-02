@@ -1,15 +1,29 @@
 <template>
-<div class="note-form">
-  <form @submit.prevent="getNote">
-    <textarea
-      class="note-text"
-      type="text"
-      v-on:change="getNote"
-      v-model="message"
-      wrap="soft"
-    >
-    </textarea>
-  </form>
+  <div class="note-form">
+    <form @submit.prevent="getNote">
+      <div
+        class="div-notes"
+        v-on:click="startTyping = true"
+        v-on:keyup.tab="startTyping = true"
+      >
+        <div class="div-textarea">
+          <textarea
+            class="note-text"
+            type="text"
+            v-if="startTyping"
+            v-on:change="getNote"
+            v-model="message"
+            wrap="soft"
+            maxlength="122"
+          >
+          </textarea>
+        </div>
+
+        <div class="icon-notes" v-if="!startTyping">
+          <mdicon name="lead-pencil" width="20" height="20" />
+        </div>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -19,6 +33,7 @@ export default {
   data: function () {
     return {
       message: "",
+      startTyping: false,
     };
   },
 
@@ -34,6 +49,7 @@ export default {
         };
         this.$emit("add-note", newNote);
         this.message = "";
+        this.startTyping = false;
       }
     },
   },
@@ -42,29 +58,44 @@ export default {
 
 <style scoped>
 .note-form {
-  /* justify-content: center; */
-  width: 100%;
+  background-color: #a8cdd353;
 }
-
-form{
-  justify-content: center;
-  background-color: none;
-  /* width: 100%; */
+.div-notes {
+  border: none;
+  width: 10.5em;
+  height: 10em;
+  outline: none;
+  overflow: hidden;
 }
-
+.div-textarea {
+  margin: 0.3em;
+  padding-left: 1px;
+  padding-top: 0.2em;
+}
 .note-text {
-  width: 70%;
   font-size: calc(10px + 0.2vw);
-  font-family:'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-display: auto;
   color: rgb(72, 72, 72);
   outline: none;
   resize: none;
-  overflow: hidden;
-  border: 1px solid rgb(222, 220, 224);
-  justify-content: center;
   background-color: transparent;
+  border: none;
+  height: 10em;
+  padding: 0.2em;
+  padding-top: 0.2em;
+  width: 95%;
+  white-space: pre-wrap;
+  overflow: hidden;
+  cursor: text;
+}
+
+.icon-notes {
+  float: right;
+  padding-right: 0.3rem;
+  color: rgb(183, 181, 186);
+  width: 2em;
 }
 </style>

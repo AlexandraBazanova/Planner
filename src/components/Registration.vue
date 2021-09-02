@@ -5,7 +5,7 @@
     @click.self="closeModalRegistration"
   >
     <div class="r-modal">
-      <div class="r-modal-back" @click="returnToAutorization">
+      <div class="r-modal-back" @click="returnToAutorization" tabindex="0">
           <mdicon name="arrow-left-circle" width="20" height="20" />
         </div>
 
@@ -117,6 +117,7 @@ export default {
   cursor: pointer;
   color: rgb(162, 160, 160);
   float: right;
+  outline-color: rgb(220, 211, 211);
 }
 .p-registration {
   margin: 0.1em;

@@ -85,7 +85,6 @@ export default {
   /* background-size: cover;
   background-clip: border-box; */
   /* opacity: 0.8; */
-  /* background-color: #fafeffe5; */
   top: 0;
   left: 0;
   bottom: 0;
@@ -119,13 +118,16 @@ export default {
   border: none;
 }
 .icon-menu {
-  color: rgb(162, 160, 160);
+  color: rgb(183, 181, 186);
   cursor: pointer;
   float: left;
 }
 .calendar-buttons {
   float: left;
   margin-bottom: 0.2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 .menu {
   padding: 0;
@@ -135,11 +137,11 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: auto;
+  margin-left: 0.2em;
   outline-color: rgb(220, 211, 211);
 }
 .button-past {
-  background-color: #b2d9d0;
+  background-color:#c7d4d690;
   border-color: white;
   border: none;
   font-size: calc(9px + 0.3vw);
@@ -152,7 +154,7 @@ export default {
 }
 
 .button-future {
-  background-color: #b2d9d0;
+  background-color: #c7d4d690;
   border-color: white;
   border: none;
   font-size: calc(9px + 0.3vw);
@@ -164,11 +166,11 @@ export default {
   outline-color: rgb(220, 211, 211);
 }
 .button-future:hover {
-  background-color: #93c9bd;
+  background-color: #a8cdd3d0;
   color: white;
 }
 .button-past:hover {
-  background-color: #93c9bd;
+  background-color: #a8cdd3d0;
   color: white;
 }
 </style>

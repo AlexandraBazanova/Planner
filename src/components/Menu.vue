@@ -2,7 +2,7 @@
   <div class="menu-modal">
     <div v-if="showMenu" class="modal-shadow" @click.self="closeModalMenu">
       <div class="modal">
-        <div class="modal-close" @click="closeModalMenu">&#10006;</div>
+        <div class="modal-close" @click="closeModalMenu" tabindex="0">&#10006;</div>
 
         <slot name="body">
           <div class="modal-content">
@@ -31,7 +31,7 @@
               <p class="p-menu-settings">Настройки</p>
             </div>
             
-            <div class="menu-exit">
+            <div class="menu-exit" tabindex="0">
               <mdicon
                 name="location-exit"
                 class="icon"
@@ -116,6 +116,7 @@ export default {
   cursor: pointer;
   color: rgb(162, 160, 160);
   float: right;
+  outline-color: rgb(220, 211, 211);
 }
 .icon {
   color: rgb(162, 160, 160);
@@ -134,13 +135,23 @@ p {
   padding-left: 1.8rem;
   cursor: pointer;
 }
+.menu-authorization {
+  outline-color: rgb(220, 211, 211);
+}
 .p-menu-settings {
   padding-left: 1.8rem;
   cursor: pointer;
+  outline-color: rgb(220, 211, 211);
 }
-
+.menu-settings {
+  outline-color: rgb(220, 211, 211);
+}
 .p-menu-exit {
   padding-left: 1.8rem;
   cursor: pointer;
+  outline-color: rgb(220, 211, 211);
+}
+.menu-exit {
+  outline-color: rgb(220, 211, 211);
 }
 </style>

@@ -5,7 +5,7 @@
     @click.self="closeModalForgotPassword"
   >
     <div class="f-modal">
-      <div class="f-modal-back" @click="returnToAutorization">
+      <div class="f-modal-back" @click="returnToAutorization" tabindex="0">
           <mdicon name="arrow-left-circle" width="20" height="20" />
         </div>
 
@@ -94,6 +94,7 @@ export default {
   cursor: pointer;
   color: rgb(162, 160, 160);
   float: right;
+  outline-color: rgb(220, 211, 211);
 }
 .f-registration {
   margin: 0.1em;
