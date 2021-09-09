@@ -1,6 +1,6 @@
 <template>
-  <div class="mini-calendar">
-    <section class="current-month">
+  <div class="mini-calendar" ref="widthNextMonth">
+    <section class="current-month" >
       <div class="minicalendar-top">
         <button class="mini-button-past" @click="viewMonthShift -= 12">
           <mdicon name="chevron-double-left" width="20" height="20" />
@@ -20,8 +20,12 @@
       </div>
 
       <div class="minicontainer-weekday">
-        <div class="mini-weekday" v-for="element in weekday" :key="element"
-         v-bind:class="{ sunday: element === 'вс'}">
+        <div
+          class="mini-weekday"
+          v-for="element in weekday"
+          :key="element"
+          v-bind:class="{ sunday: element === 'вс' }"
+        >
           {{ element }}
         </div>
       </div>
@@ -32,7 +36,6 @@
           v-for="(day, index) in showDays"
           :key="index"
           v-bind:class="{
-            
             minidaytoday: isToday(day),
             sunday: isSunday(day),
             notactualymonth: !isThisMonth(day),
@@ -44,7 +47,7 @@
       </div>
     </section>
 
-    <section class="next-month" id="nextmonth" v-show="largeWindow">
+    <section class="next-month" id="nextmonth" v-if="largeWindow">
       <div class="minicalendar-top">
         <button class="mini-button-future" @click="viewMonthShift -= 12">
           <mdicon name="chevron-double-left" width="20" height="20" />
@@ -67,8 +70,12 @@
         </button>
       </div>
       <div class="minicontainer-weekday">
-        <div class="mini-weekday" v-for="element in weekday" :key="element"
-        v-bind:class="{ sunday: element === 'вс'}">
+        <div
+          class="mini-weekday"
+          v-for="element in weekday"
+          :key="element"
+          v-bind:class="{ sunday: element === 'вс' }"
+        >
           {{ element }}
         </div>
       </div>
@@ -94,13 +101,16 @@
 <script>
 import moment from "moment";
 import "moment/locale/ru";
+import { eventBus } from "../main";
+import { mapState } from "vuex";
+
 export default {
   name: "MiniCalendar",
   data: function () {
     return {
       viewMonthShift: 0,
-      largeWindow: false,
-       hollidays: [
+      largeWindow: true,
+      hollidays: [
         "08/03/2021",
         "08/03/2022",
         "08/03/2023",
@@ -147,14 +157,28 @@ export default {
       const days = this.getShiftDays(shiftMonth + 1);
       return days;
     },
+    // store() {
+    //   return this.$store
+    // },
+    // // mapState({
+    //   count: state => state.count
+    // })
   },
 
   mounted() {
-    
+    const widthNextMonth = this.$refs.widthNextMonth;
+    console.log('nextMonth width: ' + widthNextMonth.clientWidth);
+    console.log('window width ' + window.innerWidth);
+    this.isLargeWindow()
   },
   created() {
     window.addEventListener("resize", this.isLargeWindow);
-    this.isLargeWindow();
+    
+
+    eventBus.$on("showNextMonthContainer", () => {
+      this.isLargeWindow()
+    });
+     
   },
   destroyed() {
     window.removeEventListener("resize", this.isLargeWindow);
@@ -162,7 +186,10 @@ export default {
 
   methods: {
     isLargeWindow() {
-      this.largeWindow = window.innerWidth >= 880;
+      this.largeWindow = this.$refs.widthNextMonth.clientWidth > 357
+      console.log(this.largeWindow)
+      console.log(this.$refs.widthNextMonth.clientWidth)
+      return this.largeWindow = this.$refs.widthNextMonth.clientWidth > 373
     },
 
     isThisMonth(date) {
@@ -185,11 +212,13 @@ export default {
         ? true
         : false;
     },
-  isSunday(date) {
-    return date._d.toString().substr(0, 3) === 'Sun'
-  },
-  isHolliday(date) {
-      return this.hollidays.some( e => e === moment(date).format("DD/MM/YYYY"))
+    isSunday(date) {
+      return date._d.toString().substr(0, 3) === "Sun";
+    },
+    isHolliday(date) {
+      return this.hollidays.some(
+        (e) => e === moment(date).format("DD/MM/YYYY")
+      );
     },
     getMonthShift(viewMonthShift) {
       const getMonth = function (viewMonthShift) {
@@ -217,42 +246,42 @@ export default {
     getShiftDays(viewMonthShift) {
       const daysPush = function (viewMonthShift) {
         const allDays = [];
-        const endOfMonth = moment().endOf("month").add(viewMonthShift, "month");
+        // const endOfMonth = moment().endOf("month").add(viewMonthShift, "month");
         const weekDayOfFirstDay = moment()
           .startOf("month")
           .add(viewMonthShift, "month")
           .isoWeekday();
-        let subt = 0;
+        let numberOfLastMonthDays = 0;
         const startOfMonth = moment()
           .startOf("month")
-          .subtract(subt, "day")
+          .subtract(numberOfLastMonthDays, "day")
           .add(viewMonthShift, "month");
         switch (weekDayOfFirstDay) {
           case 1:
-            subt = 0;
+            numberOfLastMonthDays = 0;
             break;
           case 2:
-            subt = 1;
+            numberOfLastMonthDays = 1;
             break;
           case 3:
-            subt = 2;
+            numberOfLastMonthDays = 2;
             break;
           case 4:
-            subt = 3;
+            numberOfLastMonthDays = 3;
             break;
           case 5:
-            subt = 4;
+            numberOfLastMonthDays = 4;
             break;
           case 6:
-            subt = 5;
+            numberOfLastMonthDays = 5;
             break;
           case 7:
-            subt = 6;
+            numberOfLastMonthDays = 6;
         }
         if (startOfMonth.daysInMonth() === 28) {
           for (let i = 0; i <= 41; i++) {
             allDays.push(
-              moment(startOfMonth).subtract(subt, "day").add(i, "days")
+              moment(startOfMonth).subtract(numberOfLastMonthDays, "day").add(i, "days")
             );
           }
         } else if (
@@ -261,19 +290,19 @@ export default {
         ) {
           for (let i = 0; i <= 41; i++) {
             allDays.push(
-              moment(startOfMonth).subtract(subt, "day").add(i, "days")
+              moment(startOfMonth).subtract(numberOfLastMonthDays, "day").add(i, "days")
             );
           }
         } else if (weekDayOfFirstDay === 7) {
           for (let i = 0; i <= 41; i++) {
             allDays.push(
-              moment(startOfMonth).subtract(subt, "day").add(i, "days")
+              moment(startOfMonth).subtract(numberOfLastMonthDays, "day").add(i, "days")
             );
           }
         } else {
           for (let i = 0; i <= 41; i++) {
             allDays.push(
-              moment(startOfMonth).subtract(subt, "day").add(i, "days")
+              moment(startOfMonth).subtract(numberOfLastMonthDays, "day").add(i, "days")
             );
           }
         }
@@ -289,11 +318,13 @@ export default {
 <style >
 .mini-calendar {
   display: grid;
-  grid-template-columns: repeat(2, minmax(40px, 2fr));
+  grid-auto-flow: row dense;
+  grid-template-columns: repeat(2, auto);
   grid-gap: 1px;
   margin: 0.1em;
   border: none;
 }
+  
 .current-month {
   display: grid;
   margin-left: 0.5rem;
@@ -359,7 +390,7 @@ export default {
 
 .minidaytoday {
   /* background-color: #b2d9d0; */
-  background-color:#c7d4d690;
+  background-color: #c7d4d690;
   border-radius: 4px;
   color: white !important;
 }
@@ -385,5 +416,4 @@ export default {
   flex-grow: 1;
   background-color: transparent;
 }
-
 </style>

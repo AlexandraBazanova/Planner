@@ -58,8 +58,8 @@ p {
 .two-months {
   text-align: center;
   border: none;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
 }
 .calendar-buttons {
   display: flex;

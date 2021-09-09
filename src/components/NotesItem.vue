@@ -102,6 +102,7 @@ a {
 .notes-value {
   padding: 0.5em;
   padding-left: 0.7em;
+  outline-color: rgb(220, 211, 211);
 }
 
 .icon-pin {

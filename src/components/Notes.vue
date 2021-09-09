@@ -1,12 +1,17 @@
 <template>
-  <div class="all-notes">
-    <section class="add-note">
-      <AddNote @add-note="addNote" v-if="notes.length < 6"> </AddNote>
+  <div class="all-notes" 
+  @click="getNumberOfNotes($event.target.clientWidth)"
+     @change="getNumberOfNotes($event.target.clientWidth)"
+  >
+    <section class="add-note"  >
+      <AddNote @add-note="addNote" v-if="shownnotes.length < maxNumberOfNotes"> </AddNote>
     </section>
 
-    <div class="notes-list">
+    <div class="notes-list"
+     >
+        <!-- v-show="notes.length <= maxNumberOfNotes" -->
       <NotesItem
-        v-for="(note, index) in notes"
+        v-for="(note, index) in shownnotes"
         :key="note.id"
         v-bind:note="note"
         v-bind:index="index"
@@ -20,12 +25,15 @@
 <script type = "text/javascript">
 import NotesItem from "@/components/NotesItem";
 import AddNote from "@/components/AddNote";
+import { eventBus } from "../main";
 
 export default {
   name: "Notes",
   data: function () {
     return {
       notes: [],
+      maxNumberOfNotes: 6,
+      shownnotes: [],
     };
   },
 
@@ -35,8 +43,32 @@ export default {
     AddNote,
     NotesItem,
   },
+  mounted() {
+    console.log('кол-во записок ' + this.notes.length);
+    this.getNumberOfNotes()
+  },
+
+  created() {
+    this.getNumberOfNotes()
+    window.addEventListener("resize", this.getNumberOfNotes);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.getNumberOfNotes);
+  },
   computed: {},
   methods: {
+    getNumberOfNotes() {
+      console.log('maxNumber Of Notes ' + this.maxNumberOfNotes);
+      console.log('window width ' + window.innerWidth);
+      eventBus.$emit("showNextMonthContainer");
+       window.innerWidth < 600? this.maxNumberOfNotes = 2 : 
+      window.innerWidth < 730? this.maxNumberOfNotes = 3 : 
+      window.innerWidth < 870? this.maxNumberOfNotes = 4 : 
+      window.innerWidth < 1020? this.maxNumberOfNotes = 5 : this.maxNumberOfNotes = 6;
+      this.shownnotes = this.notes.slice(0);
+       return this.shownnotes.splice(this.maxNumberOfNotes)
+    },
+
     removeNote(id) {
       this.notes = this.notes.filter((t) => t.id !== id);
     },
@@ -48,6 +80,8 @@ export default {
     },
     addNote(note) {
       this.notes.push(note);
+      // const param = 1;
+      // store.commit('changeCount', param)
     },
   },
 };
@@ -58,7 +92,7 @@ export default {
   padding: 0;
   margin: 0;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 .add-note {
   display: flex;
