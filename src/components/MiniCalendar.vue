@@ -167,8 +167,8 @@ export default {
 
   mounted() {
     const widthNextMonth = this.$refs.widthNextMonth;
-    console.log('nextMonth width: ' + widthNextMonth.clientWidth);
-    console.log('window width ' + window.innerWidth);
+    // console.log('nextMonth width: ' + widthNextMonth.clientWidth);
+    // console.log('window width ' + window.innerWidth);
     this.isLargeWindow()
   },
   created() {
@@ -186,9 +186,9 @@ export default {
 
   methods: {
     isLargeWindow() {
-      this.largeWindow = this.$refs.widthNextMonth.clientWidth > 357
-      console.log(this.largeWindow)
-      console.log(this.$refs.widthNextMonth.clientWidth)
+      // this.largeWindow = this.$refs.widthNextMonth.clientWidth > 357
+      // console.log(this.largeWindow)
+      // console.log(this.$refs.widthNextMonth.clientWidth)
       return this.largeWindow = this.$refs.widthNextMonth.clientWidth > 373
     },
 
@@ -203,6 +203,7 @@ export default {
       return (
         date._d.toString().substr(4, 3) ===
         this.showNextMonth[0]._d.toString().substr(4, 3)
+        
       );
     },
 
@@ -327,13 +328,15 @@ export default {
   
 .current-month {
   display: grid;
-  margin-left: 0.5rem;
+  margin-left: 1rem;
   margin-right: 1rem;
+  max-width: 18rem;
 }
 .next-month {
   display: grid;
-  margin-left: 0.5rem;
+  /* margin-left: 0.5rem; */
   margin-right: 1rem;
+  max-width: 18rem;
 }
 .minicalendar-top {
   border: none;
@@ -395,7 +398,6 @@ export default {
   color: white !important;
 }
 .mini-button-future {
-  background-color: white;
   border: none;
   padding: 0;
   color: rgb(183, 181, 186);
@@ -407,7 +409,6 @@ export default {
 }
 
 .mini-button-past {
-  background-color: white;
   border: none;
   padding: 0;
   color: rgb(183, 181, 186);

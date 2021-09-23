@@ -42,6 +42,7 @@
 </template>
 
 <script type = "text/javascript">
+import { eventBus } from "../main";
 export default {
   name: "NotesItem",
   data: function () {
@@ -117,7 +118,7 @@ a {
   float: right;
   padding: 0.1em;
   cursor: pointer;
-  z-index: 1;
+  z-index: 2;
   padding-top: 0;
   padding-right: 0;
   outline-color: rgb(220, 211, 211);
@@ -157,4 +158,5 @@ a {
   box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.204);
   position: relative;
 }
+
 </style>
