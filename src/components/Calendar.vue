@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="calendar">
+    <section class="calendar" @click="closeModalColor">
       <div class="calendar-grid">
         <!-- v-on:scroll="handleScroll" -->
         <div
@@ -16,7 +16,9 @@
           v-for="(day, indexDays) in shiftWeekDays"
           :key="indexDays"
         >
-          <Day v-on:addImportantday="addImportantday" :day="day"> </Day>
+          <Day v-on:addImportantday="addImportantday" :day="day" 
+          :colorOfImportantDay="colorOfImportantDay"
+          > </Day>
         </div>
       </div>
     </section>
@@ -36,6 +38,7 @@ export default {
       viewWeekShift: 0,
       todos: [],
       importantDays: [],
+      colorOfImportantDay: "#a8cdd353",
 
       // scrollPosition: 0,
     };
@@ -114,6 +117,10 @@ export default {
   },
 
   methods: {
+    closeModalColor: function () {
+      eventBus.$emit("closeModalColors");
+    },
+
     convertTime(stringTime) {
       return stringTime !== "" ? Number(stringTime.split(":").join("")) : 0;
     },

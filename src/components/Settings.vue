@@ -93,7 +93,7 @@ export default {
   left: 0;
   min-height: 100%;
   width: 100%;
-  background: rgba(0, 0, 0, 0.39);
+  background: rgba(218, 218, 218, 0.39);
   display: flex;
   padding: 0.1rem;
 }

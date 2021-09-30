@@ -3,6 +3,7 @@
     <div
       class="date-of-the-day"
       v-on:click="isImportantday(day.dayMonth._d)"
+      v-on:dblclick="showModalColors"
       v-bind:class="{
         daytoday: isToday,
         dayimportant: colorImportantDay,
@@ -20,6 +21,8 @@
       :key="index"
     >
     </DayDisplayTodo>
+
+    <Colors ref="modalColors" :colorOfImportantDay="colorOfImportantDay"> </Colors>
   </div>
 </template>
 
@@ -28,12 +31,14 @@ import moment from "moment";
 import "moment/locale/ru";
 import DayAddTodo from "@/components/DayAddTodo";
 import DayDisplayTodo from "@/components/DayDisplayTodo";
+import Colors from "@/components/Colors";
 
 export default {
   name: "Day",
   data: function () {
     return {
       dateOfImportantDay: "",
+      // colorOfImportantDay: "#a8cdd353",
       hollidays: [
         "08/03/2021",
         "08/03/2022",
@@ -60,6 +65,7 @@ export default {
   components: {
     DayAddTodo,
     DayDisplayTodo,
+    Colors
   },
 
   props: {
@@ -67,6 +73,9 @@ export default {
       type: Object,
       required: true,
     },
+    colorOfImportantDay: {
+          type: String,
+      }
   },
 
   computed: {
@@ -81,7 +90,9 @@ export default {
       return this.day.dayMonth._d.toString().substr(0, 3) === "Sun";
     },
     isHolliday() {
-      return this.hollidays.some( e => e === moment(this.day.dayMonth).format("DD/MM/YYYY"))
+      return this.hollidays.some(
+        (e) => e === moment(this.day.dayMonth).format("DD/MM/YYYY")
+      );
     },
     colorImportantDay() {
       if (this.day.importantDays[0] !== undefined) {
@@ -101,11 +112,16 @@ export default {
     isImportantday(dateOfImportantDay) {
       const dayIsImportant = true;
       const idImportantDay = moment(dateOfImportantDay).format("x");
+      const colorOfImportantDay = this.colorOfImportantDay;
       this.$emit("addImportantday", {
         dateOfImportantDay,
         idImportantDay,
         dayIsImportant,
+        colorOfImportantDay,
       });
+    },
+    showModalColors: function () {
+      this.$refs.modalColors.showColors = true;
     },
   },
 };
@@ -130,7 +146,7 @@ export default {
 }
 
 .daytoday {
-  background-color: #D5ECE7;
+  background-color: #d5ece7;
   /* background-color: #b2d9d0; */
   /* color: white; */
   border-radius: 4px;
@@ -142,7 +158,7 @@ export default {
   border-radius: 4px;
 }
 .sunday {
-  color: #4f7a80;
+  color: #377F89;
 }
 .holliday {
   color: #4f7a80;

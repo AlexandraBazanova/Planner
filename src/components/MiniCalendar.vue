@@ -382,7 +382,7 @@ export default {
   line-height: 1.5em;
 }
 .sunday {
-  color: #4f7a80;
+  color: #377F89;
 }
 .holliday {
   color: #4f7a80;

@@ -9,12 +9,21 @@
       </AddNote>
     </section>
 
-    <button class="button-first" @click="toPrevNote"
-    v-show="notes.length > maxNumberOfNotes"
+    <button
+      class="button-first"
+      @click="toPrevNote"
+      v-show="notes.length > maxNumberOfNotes"
     >
       <mdicon name="chevron-left" width="40" height="40" />
     </button>
-    <transition-group class="list-complete" name="list-complete" mode="out-in">
+    <transition-group
+      class="list-complete"
+      name="list-complete"
+      mode="in-out"
+      move-class="transform 2s"
+      type="transition"
+      duration="650"
+    >
       <NotesItem
         class="notes-item"
         v-for="(note, index) in shownnotes"
@@ -25,7 +34,9 @@
       >
       </NotesItem>
     </transition-group>
-    <button class="button-last" @click="toNextNote"
+    <button
+      class="button-last"
+      @click="toNextNote"
       v-show="notes.length > maxNumberOfNotes"
     >
       <mdicon name="chevron-right" width="40" height="40" />
@@ -73,22 +84,31 @@ export default {
       // console.log('maxNumber Of Notes ' + this.maxNumberOfNotes);
       // console.log('window width ' + window.innerWidth);
       eventBus.$emit("showNextMonthContainer");
-      window.innerWidth < 604
+
+      window.innerWidth < 570
+        ? (this.maxNumberOfNotes = 1)
+        : window.innerWidth < 750
         ? (this.maxNumberOfNotes = 2)
-        : window.innerWidth < 730
+        : window.innerWidth < 880
         ? (this.maxNumberOfNotes = 3)
-        : window.innerWidth < 890
+        : window.innerWidth < 1040
         ? (this.maxNumberOfNotes = 4)
-        : window.innerWidth < 1030
+        : window.innerWidth < 1170
         ? (this.maxNumberOfNotes = 5)
         : (this.maxNumberOfNotes = 6);
       this.shownnotes = this.notes.slice(0);
-      if (this.maxNumberOfNotes > this.notes.length ) {
+      if (this.maxNumberOfNotes > this.notes.length) {
         return this.shownnotes.splice(this.maxNumberOfNotes);
       } else {
-        this.maxNumberOfNotes + this.viewNoteShift >= this.notes.length ? (this.lastIndex = this.maxNumberOfNotes + this.viewNoteShift - this.notes.length) : (this.lastIndex = 0);
+        this.maxNumberOfNotes + this.viewNoteShift >= this.notes.length
+          ? (this.lastIndex =
+              this.maxNumberOfNotes + this.viewNoteShift - this.notes.length)
+          : (this.lastIndex = 0);
         this.maxNumberOfNotes + this.viewNoteShift <= this.notes.length
-          ? (this.shownnotes = this.notes.slice(this.viewNoteShift, this.maxNumberOfNotes + this.viewNoteShift))
+          ? (this.shownnotes = this.notes.slice(
+              this.viewNoteShift,
+              this.maxNumberOfNotes + this.viewNoteShift
+            ))
           : (this.shownnotes = [
               ...this.notes.slice(this.viewNoteShift),
               ...this.notes.slice(0, this.lastIndex),
@@ -118,7 +138,7 @@ export default {
         : this.viewNoteShift--;
     },
     toNextNote() {
-      this.viewNoteShift >= this.notes.length 
+      this.viewNoteShift >= this.notes.length
         ? (this.viewNoteShift = 0)
         : this.viewNoteShift++;
     },
@@ -137,27 +157,27 @@ export default {
   display: flex;
   float: left;
   padding-left: 0.5em;
+  margin-right: 11px;
   /* margin:0;
   padding-top: 0.3em;
   padding-left: 0.3em; */
 }
 
-
 .button-first {
   position: relative;
   top: 2.25em;
-  left: 1em;
+  left: 0.3em;
   height: 50%;
   background-color: transparent;
   border-color: white;
   border: none;
   color: rgba(183, 181, 186, 0.265);
-  transition-duration: 0.4s;
+  transition: 0.4s;
   cursor: pointer;
   margin: 0;
   padding: 0;
   outline-color: rgb(220, 211, 211);
-  z-index: 1;
+  z-index: 0;
 }
 .button-last {
   position: relative;
@@ -183,17 +203,56 @@ export default {
 }
 
 .notes-item {
-  transition:  ease 2s;
+  transition: 1s ease;
   display: inline-block;
   margin-right: 10px;
 }
-.list-complete-enter, .list-complete-leave-to
-/* .list-complete-leave-active до версии 2.1.8 */ {
+
+.list-complete-enter {
   opacity: 0;
- 
+  /* transform: translateX(100%) ; */
+  transition: tranform 2s ease;
+  transition-duration: 1s;
+  background: red;
+}
+list-complete-enter-to {
+  /* opacity: 0; */
+  /* transform: translateX(100%) ; */
+  /* transition-duration:  2s ; */
+  transition: tranfm 2s ease;
+  border: solid 3px green;
+  background: green;
+}
+list-complete-enter-active {
+  /* opacity: 0; */
+  transform: translateX(100%);
+  transition-duration: 2s;
+  background: blue;
+}
+
+list-complete-leave {
+  position: absolute;
+  /* opacity: 0; */
+  /* transform: translateX(-100%) ; */
+  transition-duration: 2s;
+  background: yellow;
+}
+.list-complete-leave-to {
+  /* transform: translateX(-100%) ; */
+  /* opacity: 0; */
+  transition: 2s ease;
+  background: rgb(55, 197, 202);
 }
 .list-complete-leave-active {
   position: absolute;
-  /* transform: translateX(-10%); */
+  opacity: 0;
+  /* transform: translateX(-100%) ; */
+  transition: tranform 2s ease;
+  transition-duration: 2s;
+  background: rgb(206, 21, 190);
 }
+
+/* .list-complete-move {
+  transition: transform 2s;
+  } */
 </style>
