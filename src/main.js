@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import App from './App.vue'
 import mdiVue from 'mdi-vue/v2'
 import * as mdijs from '@mdi/js'
+import UUID from 'vue-uuid'
 
 
 Vue.config.devtools = true
@@ -15,10 +16,11 @@ Vue.use(
   Vuex
 )
 
-Vue.use(
-  mdiVue, {
-    icons: mdijs
-  }
+Vue.use(UUID)
+
+Vue.use(mdiVue, {
+  icons: mdijs
+}
 )
 
 new Vue({
