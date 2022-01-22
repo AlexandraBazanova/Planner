@@ -16,9 +16,12 @@
           v-for="(day, indexDays) in shiftWeekDays"
           :key="indexDays"
         >
-          <Day v-on:addImportantday="addImportantday" :day="day" 
-          :colorOfImportantDay="colorOfImportantDay"
-          > </Day>
+          <Day
+            v-on:addImportantday="addImportantday"
+            :day="day"
+            :colorOfImportantDay="colorOfImportantDay"
+          >
+          </Day>
         </div>
       </div>
     </section>
@@ -30,6 +33,7 @@ import moment from "moment";
 import "moment/locale/ru";
 import Day from "@/components/Day";
 import { eventBus } from "../main";
+import axios from "axios";
 
 export default {
   name: "Calendar",
@@ -48,6 +52,9 @@ export default {
   },
 
   created() {
+    axios
+      .get("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo")
+      .then((response) => (this.todos = response.data));
     eventBus.$on("changeWeekToNow", () => {
       this.viewWeekShift = 0;
     });
@@ -67,35 +74,46 @@ export default {
 
     eventBus.$on("editTodoValue", (todo) => {
       const indexOfEditValue = this.todos.findIndex(
-        (t) => t.idTodo === todo.todoId
+        (t) => t.id === todo.id
       );
-      this.todos[indexOfEditValue].todoValue = todo.todoNewValue;
+      this.todos[indexOfEditValue].value = todo.todoNewValue;
     });
 
     eventBus.$on("editTodoTime", (todo) => {
       const indexOfEditTime = this.todos.findIndex(
-        (t) => t.idTodo === todo.todoId
+        (t) => t.id === todo.id
       );
-      this.todos[indexOfEditTime].timeValue = todo.todoNewTime;
+      this.todos[indexOfEditTime].time = todo.todoNewTime;
       this.sortTimeValue;
     });
 
     eventBus.$on("removeTodo", (id) => {
-      this.todos = this.todos.filter((t) => t.idTodo !== id);
+      this.todos = this.todos.filter((t) => t.id !== id);
     });
   },
 
   computed: {
     shiftWeekDays: {
       get: function () {
+        const todos = this.todos;
         const filterTodos = this.filterTodos;
         const filterImportantdays = this.filterImportantdays;
         const shift = this.viewWeekShift;
         const startOfWeek = moment().startOf("week").add(shift, "week");
+        // const currentDay = (startOfWeek, index) => {
+        //   moment(startOfWeek).add(index, "days");
+        // };
+
         let days = new Array(28).fill(null).map(function (todo, index) {
           return {
             dayMonth: moment(startOfWeek).add(index, "days"),
-            todos: filterTodos(startOfWeek, index),
+            todos: todos
+              ? todos.filter(
+                  (t) =>
+                    t.date ==
+                    moment(startOfWeek).add(index, "days").format("YYYY-MM-DD")
+                )
+              : [],
             importantDays: filterImportantdays(startOfWeek, index),
           };
         });
@@ -111,7 +129,7 @@ export default {
     sortTimeValue() {
       const convertTime = this.convertTime;
       return this.todos.sort(
-        (a, b) => convertTime(a.timeValue) - convertTime(b.timeValue)
+        (a, b) => convertTime(a.time) - convertTime(b.time)
       );
     },
   },
@@ -122,19 +140,25 @@ export default {
     },
 
     convertTime(stringTime) {
-      return stringTime !== "" ? Number(stringTime.split(":").join("")) : 0;
+      return stringTime;
+      // return stringTime !== "" ? Number(stringTime.split(":").join("")) : 0;
     },
 
-    filterTodos(startOfWeek, index) {
-      const compareElements = function (a, b) {
-        return parseInt(a, 10) === parseInt(b, 10);
-      };
-      return this.todos.filter((e) =>
-        compareElements(
-          e.dateOfTodo,
-          moment(startOfWeek).add(index, "days").format("DDMMYYYY")
-        )
-      );
+    filterTodos(startOfWeek, index, todos) {
+      return;
+      // console.log(todos[0].date);
+      // console.log(todos.filter(t => t.date === currentDay))
+      // console.log(moment(startOfWeek).add(index, "days").format("YYYY-MM-DD"))
+      // return todos.filter(t => t.date === moment(startOfWeek).add(index, "days").format("YYYY-MM-DD"))
+      // const compareElements = function (a, b) {
+      //   return parseInt(a, 10) === parseInt(b, 10);
+      // };
+      // return this.todos.filter((e) =>
+      //   compareElements(
+      //     e.date,
+      //     moment(startOfWeek).add(index, "days").format("YYYY-MM-DD")
+      //   )
+      // );
     },
 
     filterImportantdays(startOfWeek, index) {

@@ -12,12 +12,12 @@
             class="input-time"
             type="time"
             v-bind:class="{ done: todo.isComplete }"
-            v-model="todo.timeValue"
-            v-on:keyup.enter="editTimeValue"
-            v-on:click="editTimeValue"
+            v-model="todo.time"
+            v-on:keyup.enter="editTime"
+            v-on:click="editTime"
             required
           />
-
+<!-- v-model todo.time - попытка присвоения в пропс - ну нельзя так!! -->
           <span
             class="span-todovalue"
             v-bind:class="{ done: todo.isComplete }"
@@ -25,7 +25,7 @@
             v-on:dblclick="editTodo = true"
             tabindex="0"
           >
-            {{ todo.todoValue }}
+            {{ todo.value }}
           </span>
 
           <input
@@ -33,7 +33,7 @@
             type="text"
             v-else
             v-focus
-            v-model="todo.todoValue"
+            v-model="todo.value"
             v-on:change="editValue"
             @blur="editTodo = false"
           />
@@ -51,7 +51,7 @@
 
     <button
       class="rm"
-      v-on:click="removeOneTodo(todo.idTodo)"
+      v-on:click="removeOneTodo(todo.id)"
       v-bind:class="{ done: todo.isComplete }"
     >
     X
@@ -85,19 +85,20 @@ export default {
       todo.isComplete = !todo.isComplete;
     },
 
-    editTimeValue() {
-      const todoNewTime = this.todo.timeValue;
-      const todoId = this.todo.idTodo;
+    editTime() {
+      const todoNewTime = this.todo.time;
+      const todoId = this.todo.id;
       eventBus.$emit("editTodoTime", { todoId, todoNewTime });
     },
 
     editValue() {
-      const todoNewValue = this.todo.todoValue;
-      const todoId = this.todo.idTodo;
+      const todoNewValue = this.todo.value;
+      const todoId = this.todo.id;
       eventBus.$emit("editTodoValue", { todoId, todoNewValue });
       this.editTodo = false;
     },
     importantTodo(todo) {
+      // попытка присвоить в пропс - так делать не нужно пропс может измениться в том месте откуда он передается а здесь нельзя
       todo.isImportant = !todo.isImportant;
     },
 

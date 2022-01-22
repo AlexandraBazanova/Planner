@@ -12,7 +12,7 @@
           name="clock-outline"
           width="20"
           height="20"
-          v-if="day.todos.length < 6"
+          v-if="day.todos && day.todos.length < 6"
         />
       </div>
 
@@ -20,8 +20,8 @@
         <input
           class="input-time"
           type="time"
-          v-if="day.todos.length < 6"
-          v-model="timeValue"
+          v-if="day.todos && day.todos.length < 6"
+          v-model="time"
           v-focus="(fillTime = true)"
           required
         />
@@ -32,8 +32,8 @@
           class="input-todo"
           type="text"
           v-on:change="updateinput($event.target.value)"
-          v-model="todoValue"
-          v-if="day.todos.length < 6"
+          v-model="value"
+          v-if="day.todos && day.todos.length < 6"
           v-focus="day.dayMonth._d"
           @blur="fillTime = false"
         />
@@ -53,8 +53,8 @@ export default {
   data: function () {
     return {
       fillTime: false,
-      todoValue: "",
-      timeValue: "",
+      value: "",
+      time: "",
     };
   },
 
@@ -92,27 +92,27 @@ export default {
 
   methods: {
     displayDateNumberFormat(date, formatType) {
-      return moment(date).format("DDMMYYYY");
+      return moment(date).format("YYYY-MM-DD");
     },
 
-    updateinput(todoValue) {
-      const uuid = this.$uuid.v1()
-      const dateOfTodo = this.displayDateNumberFormat(this.day.dayMonth._d);
-      const idTodo = moment().format("x");
+    updateinput(value) {
+      const id = this.$uuid.v1()
+      const date = this.displayDateNumberFormat(this.day.dayMonth._d);
+      // const idTodo = moment().format("x");
       const isComplete = false;
       const isImportant = false;
-      const timeValue = this.timeValue;
+      const time = this.time;
       eventBus.$emit("updateTodoList", {
-        uuid,
-        dateOfTodo,
-        todoValue,
-        idTodo,
+        id,
+        date,
+        time,
+        value,
+        // idTodo,
         isComplete,
-        timeValue,
         isImportant,
       });
-      this.todoValue = "";
-      this.timeValue = "";
+      this.value = "";
+      this.time = "";
     },
   },
 };
