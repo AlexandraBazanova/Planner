@@ -73,22 +73,30 @@ export default {
     });
 
     eventBus.$on("editTodoValue", (todo) => {
-      const indexOfEditValue = this.todos.findIndex(
-        (t) => t.id === todo.id
-      );
+      const indexOfEditValue = this.todos.findIndex((t) => t.id === todo.id);
       this.todos[indexOfEditValue].value = todo.todoNewValue;
     });
 
     eventBus.$on("editTodoTime", (todo) => {
-      const indexOfEditTime = this.todos.findIndex(
-        (t) => t.id === todo.id
-      );
+      const indexOfEditTime = this.todos.findIndex((t) => t.id === todo.id);
       this.todos[indexOfEditTime].time = todo.todoNewTime;
       this.sortTimeValue;
     });
 
     eventBus.$on("removeTodo", (id) => {
       this.todos = this.todos.filter((t) => t.id !== id);
+      fetch(`https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo?id=${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     });
   },
 
