@@ -70,27 +70,84 @@ export default {
     eventBus.$on("updateTodoList", (todo) => {
       this.todos.push(todo);
       this.sortTimeValue;
+      fetch("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: `{"uuid": ${todo.id},
+          "date":${todo.date},
+          "time":${todo.time},
+          "value":${todo.value},
+          "is_complete":${todo.is_complete},
+          "is_important":${todo.is_important}}`,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     });
 
     eventBus.$on("editTodoValue", (todo) => {
       const indexOfEditValue = this.todos.findIndex((t) => t.id === todo.id);
       this.todos[indexOfEditValue].value = todo.todoNewValue;
+      fetch("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: `{"uuid": ${todo.id},
+          "date":${todo.date},
+          "time":${todo.time},
+          "value":${todo.todoNewValue},
+          "is_complete":${todo.is_complete},
+          "is_important":${todo.is_important}}`,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     });
 
-    eventBus.$on("editTodoTime", (todo) => {
+    eventBus.$on("editTodoTime", (id, todoNewValue) => {
       const indexOfEditTime = this.todos.findIndex((t) => t.id === todo.id);
       this.todos[indexOfEditTime].time = todo.todoNewTime;
       this.sortTimeValue;
+      fetch("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: `{"uuid": ${todo.id},
+          "date":${todo.date},
+          "time":${todo.todoNewTime},
+          "value":${todo.value},
+          "is_complete":${todo.is_complete},
+          "is_important":${todo.is_important}}`,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     });
 
     eventBus.$on("removeTodo", (id) => {
       this.todos = this.todos.filter((t) => t.id !== id);
-      fetch(`https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo?id=${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      fetch(
+        `https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo?id=${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then((response) => {
           console.log(response);
         })
