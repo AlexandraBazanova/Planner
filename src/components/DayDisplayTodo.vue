@@ -1,6 +1,6 @@
 <template>
   <li v-bind:class="{ important: todo.isImportant }">
-    <span v-bind:class="{ done: todo.isComplete}">
+    <span v-bind:class="{ done: todo.isComplete }">
       <label class="custom-checkbox">
         <input
           type="checkbox"
@@ -13,11 +13,11 @@
             type="time"
             v-bind:class="{ done: todo.isComplete }"
             v-model="todo.time"
-            v-on:keyup.enter="editTime"
-            v-on:click="editTime"
+            v-on:keyup.enter="editTime(todo)"
+            v-on:click="editTime(todo)"
             required
           />
-<!-- v-model todo.time - попытка присвоения в пропс - ну нельзя так!! -->
+          <!-- v-model todo.time - попытка присвоения в пропс - ну нельзя так!! -->
           <span
             class="span-todovalue"
             v-bind:class="{ done: todo.isComplete }"
@@ -34,7 +34,7 @@
             v-else
             v-focus
             v-model="todo.value"
-            v-on:change="editValue"
+            v-on:change="editValue(todo)"
             @blur="editTodo = false"
           />
         </span>
@@ -44,7 +44,7 @@
     <button
       class="important-todo"
       v-on:click="importantTodo(todo)"
-      v-bind:class="{ done: todo.isComplete}"
+      v-bind:class="{ done: todo.isComplete }"
     >
       !
     </button>
@@ -54,7 +54,7 @@
       v-on:click="removeOneTodo(todo.id)"
       v-bind:class="{ done: todo.isComplete }"
     >
-    X
+      X
       <!-- &cross; -->
     </button>
   </li>
@@ -81,25 +81,71 @@ export default {
   },
 
   methods: {
-    completeTodo(todo) {
-      todo.isComplete = !todo.isComplete;
-    },
-
-    editTime() {
+    editTime(todo) {
+      const todoDate = this.todo.date;
+      const todoId = this.todo.id;
       const todoNewTime = this.todo.time;
-      const todoId = this.todo.id;
-      eventBus.$emit("editTodoTime", { todoId, todoNewTime });
+      const todoNewValue = this.todo.value;
+      const todoImportant = this.todo.isImportant;
+      const todoComplete = this.todo.isComplete;
+      eventBus.$emit("editPropertiesTodo", {
+        todoId,
+        todoDate,
+        todoNewTime,
+        todoNewValue,
+        todoComplete,
+        todoImportant,
+      });
     },
 
-    editValue() {
-      const todoNewValue = this.todo.value;
+    editValue(todo) {
+      const todoDate = this.todo.date;
       const todoId = this.todo.id;
-      eventBus.$emit("editTodoValue", { todoId, todoNewValue });
+      const todoNewTime = this.todo.time;
+      const todoNewValue = this.todo.value;
+      const todoImportant = this.todo.isImportant;
+      const todoComplete = this.todo.isComplete;
+      eventBus.$emit("editPropertiesTodo", {
+        todoId,
+        todoDate,
+        todoNewTime,
+        todoNewValue,
+        todoComplete,
+        todoImportant,
+      });
       this.editTodo = false;
     },
     importantTodo(todo) {
-      // попытка присвоить в пропс - так делать не нужно пропс может измениться в том месте откуда он передается а здесь нельзя
-      todo.isImportant = !todo.isImportant;
+      const todoDate = this.todo.date;
+      const todoId = this.todo.id;
+      const todoNewTime = this.todo.time;
+      const todoNewValue = this.todo.value;
+      const todoImportant = !this.todo.isImportant;
+      const todoComplete = this.todo.isComplete;
+      eventBus.$emit("editPropertiesTodo", {
+        todoId,
+        todoDate,
+        todoNewTime,
+        todoNewValue,
+        todoComplete,
+        todoImportant,
+      });
+    },
+    completeTodo(todo) {
+      const todoDate = this.todo.date;
+      const todoId = this.todo.id;
+      const todoNewTime = this.todo.time;
+      const todoNewValue = this.todo.value;
+      const todoImportant = this.todo.isImportant;
+      const todoComplete = !this.todo.isComplete;
+      eventBus.$emit("editPropertiesTodo", {
+        todoId,
+        todoDate,
+        todoNewTime,
+        todoNewValue,
+        todoComplete,
+        todoImportant,
+      });
     },
 
     removeOneTodo(idTodo) {
@@ -135,7 +181,7 @@ li {
   outline-color: rgb(220, 211, 211);
   border: hidden;
 }
-.span-todovalue{
+.span-todovalue {
   justify-content: space-between;
   outline-color: rgb(220, 211, 211);
 }
@@ -157,8 +203,9 @@ input[type="time"]:focus {
 }
 .important {
   font-weight: 900;
-  color: #377F89;
-  /* text-transform: uppercase; */
+  /* color: #377f89; */
+  color: #6e260a;
+  text-transform: uppercase;
 }
 .important-todo {
   background: none;
@@ -173,10 +220,10 @@ input[type="time"]:focus {
   min-height: 1.7em;
 }
 
-  .important-todo:hover {
-    font-weight: 900;
-    transition: all 0.5s ease;
-  }
+.important-todo:hover {
+  font-weight: 900;
+  transition: all 0.5s ease;
+}
 
 .rm {
   /* color: rgb(32, 28, 28); */

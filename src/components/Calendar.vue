@@ -55,6 +55,7 @@ export default {
     axios
       .get("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo")
       .then((response) => (this.todos = response.data));
+
     eventBus.$on("changeWeekToNow", () => {
       this.viewWeekShift = 0;
     });
@@ -68,29 +69,60 @@ export default {
     });
 
     eventBus.$on("updateTodoList", (todo) => {
-      this.todos.push(todo);
-      this.sortTimeValue;
-    });
-
-    eventBus.$on("editTodoValue", (todo) => {
-      const indexOfEditValue = this.todos.findIndex((t) => t.id === todo.id);
-      this.todos[indexOfEditValue].value = todo.todoNewValue;
-    });
-
-    eventBus.$on("editTodoTime", (todo) => {
-      const indexOfEditTime = this.todos.findIndex((t) => t.id === todo.id);
-      this.todos[indexOfEditTime].time = todo.todoNewTime;
-      this.sortTimeValue;
-    });
-
-    eventBus.$on("removeTodo", (id) => {
-      this.todos = this.todos.filter((t) => t.id !== id);
-      fetch(`https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo?id=${id}`, {
-        method: "DELETE",
+      fetch("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: `${todo.id, todo.date, todo.time, todo.value, todo.isComplete, todo.isImportant}`
       })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+      axios
+        .get("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo")
+        .then((response) => (this.todos = response.data));
+      // this.todos.push(todo);
+      // this.sortTimeValue;
+      // console.log(todo.id)
+    });
+    eventBus.$on("editPropertiesTodo", (todo) => {
+      const indexOfEditTodo = this.todos.findIndex((t) => t.id === todo.todoId);
+      this.todos[indexOfEditTodo].date = todo.todoDate;
+      this.todos[indexOfEditTodo].time = todo.todoNewTime;
+      this.todos[indexOfEditTodo].value = todo.todoNewValue;
+      this.sortTimeValue;
+      this.todos[indexOfEditTodo].isComplete = todo.todoComplete;
+      this.todos[indexOfEditTodo].isImportant = todo.todoImportant;
+      console.log(todo);
+    });
+    // eventBus.$on("editTodoValue", (todo) => {
+    //   const indexOfEditValue = this.todos.findIndex((t) => t.id === todo.todoId);
+    //   this.todos[indexOfEditValue].value = todo.todoNewValue;
+    //   console.log(todo)
+    // });
+
+    // eventBus.$on("editTodoTime", (todo) => {
+    //   const indexOfEditTime = this.todos.findIndex((t) => t.id === todo.todoId);
+    //   this.todos[indexOfEditTime].time = todo.todoNewTime;
+    //   this.sortTimeValue;
+    //   console.log(todo)
+    // });
+
+    eventBus.$on("removeTodo", (id) => {
+      this.todos = this.todos.filter((t) => t.id !== id);
+      fetch(
+        `https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo?id=${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then((response) => {
           console.log(response);
         })
