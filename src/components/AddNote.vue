@@ -6,6 +6,17 @@
         v-on:click="startTyping = true"
         v-on:keyup.tab="startTyping = true"
       >
+        <!-- <div class="lines">
+          <span
+            v-for="i in Array.apply(null, { length: 7 }).map(
+              Number.call,
+              Number
+            )"
+            :key="i"
+            class="grid-element"
+          >
+          </span>
+        </div> -->
         <div class="div-textarea">
           <textarea
             class="note-text"
@@ -19,9 +30,9 @@
           </textarea>
         </div>
 
-        <div class="icon-notes" v-if="!startTyping">
+        <!-- <div class="icon-notes" v-if="!startTyping">
           <mdicon name="lead-pencil" width="20" height="20" />
-        </div>
+        </div> -->
       </div>
     </form>
   </div>
@@ -58,22 +69,44 @@ export default {
 
 <style scoped>
 .note-form {
-  background-color: #a8cdd353;
+  background-color: #ffff;
+  border-radius: 4px;
 }
 .div-notes {
+  position: relative;
   border: none;
   width: 10.5em;
   height: 10em;
   outline: none;
   overflow: hidden;
 }
-.div-textarea {
-  margin: 0.3em;
-  padding-left: 1px;
+
+/* .lines {
+  position: absolute;
+  z-index: 0;
+  display: grid;
+  grid-template-rows: 1fr;
+  width:  10.5em;
+  margin-top: 0.4em;
+  /* padding-left: 1px; 
   padding-top: 0.2em;
 }
+.grid-element {
+  height: calc(10px + 0.32vw);
+  border-bottom: 1px solid blue;
+}  */
+.div-textarea {
+  /* position: absolute;
+  z-index: 1;  */
+  height: 100%;
+  background-image: repeating-linear-gradient(#ffffff 0px, #ffffff 13px, #a8cdd3d0 14px);
+  border-radius: 4px;
+  /* margin: 0.3em;
+  padding-left: 1px;
+  padding-top: 0.2em; */
+}
 .note-text {
-  font-size: calc(10px + 0.2vw);
+  font-size: calc(11px + 0.2vw);
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -92,10 +125,10 @@ export default {
   cursor: text;
 }
 
-.icon-notes {
+/* .icon-notes {
   float: right;
   padding-right: 0.3rem;
   color: rgb(183, 181, 186);
   width: 2em;
-}
+} */
 </style>

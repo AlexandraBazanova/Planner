@@ -342,7 +342,7 @@ export default {
   border: none;
   display: flex;
   justify-content: space-around;
-  font-size: calc(9px + 0.3vw);
+  font-size: calc(11px + 0.3vw);
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -360,7 +360,7 @@ export default {
   display: flex;
   justify-content: space-around;
   font-family: "Source Sans Pro", sans-serif;
-  font-size: calc(9px + 0.3vw);
+  font-size: calc(11px + 0.3vw);
   font-weight: 400;
   font-style: normal;
   font-display: auto;
@@ -373,7 +373,7 @@ export default {
 }
 
 .mini-days-grid {
-  font-size: calc(8px + 0.3vw);
+  font-size: calc(11px + 0.3vw);
   display: grid;
   grid-template-columns: repeat(7, minmax(20px, 1fr));
   grid-gap: 1px;
@@ -393,9 +393,9 @@ export default {
 
 .minidaytoday {
   /* background-color: #b2d9d0; */
-  background-color: #c7d4d690;
+  background: #c7d4d690 !important;
   border-radius: 4px;
-  color: white !important;
+  color: rgb(255, 255, 255) !important;
 }
 .mini-button-future {
   border: none;

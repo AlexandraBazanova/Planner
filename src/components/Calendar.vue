@@ -3,18 +3,15 @@
     <section class="calendar" @click="closeModalColor">
       <div class="calendar-grid">
         <!-- v-on:scroll="handleScroll" -->
-        <div
-          class="weekday-card"
-          v-for="element in weekday"
-          :key="element"
-          v-bind:class="{ sunday: element === 'воскресенье' }"
-        >
+        <div class="weekday-card" v-for="element in weekday" :key="element">
+          <!-- v-bind:class="{ sunday: element === 'воскресенье' }" -->
           {{ element }}
         </div>
         <div
           class="day-card"
           v-for="(day, indexDays) in shiftWeekDays"
           :key="indexDays"
+          v-bind:class="{ sunday: isSunday(day) }"
         >
           <Day
             v-on:addImportantday="addImportantday"
@@ -43,7 +40,6 @@ export default {
       todos: [],
       importantDays: [],
       colorOfImportantDay: "#a8cdd353",
-
       // scrollPosition: 0,
     };
   },
@@ -69,12 +65,19 @@ export default {
     });
 
     eventBus.$on("updateTodoList", (todo) => {
+      this.todos.push(todo);
+      this.sortTimeValue;
       fetch("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: `${todo.id, todo.date, todo.time, todo.value, todo.isComplete, todo.isImportant}`
+        body: `{"uuid": ${todo.id},
+          "date":${todo.date},
+          "time":${todo.time},
+          "value":${todo.value},
+          "is_complete":${todo.is_complete},
+          "is_important":${todo.is_important}}`,
       })
         .then((response) => {
           console.log(response);
@@ -82,35 +85,54 @@ export default {
         .catch((err) => {
           console.error(err);
         });
-      axios
-        .get("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo")
-        .then((response) => (this.todos = response.data));
-      // this.todos.push(todo);
-      // this.sortTimeValue;
-      // console.log(todo.id)
     });
-    eventBus.$on("editPropertiesTodo", (todo) => {
-      const indexOfEditTodo = this.todos.findIndex((t) => t.id === todo.todoId);
-      this.todos[indexOfEditTodo].date = todo.todoDate;
-      this.todos[indexOfEditTodo].time = todo.todoNewTime;
-      this.todos[indexOfEditTodo].value = todo.todoNewValue;
-      this.sortTimeValue;
-      this.todos[indexOfEditTodo].isComplete = todo.todoComplete;
-      this.todos[indexOfEditTodo].isImportant = todo.todoImportant;
-      console.log(todo);
-    });
-    // eventBus.$on("editTodoValue", (todo) => {
-    //   const indexOfEditValue = this.todos.findIndex((t) => t.id === todo.todoId);
-    //   this.todos[indexOfEditValue].value = todo.todoNewValue;
-    //   console.log(todo)
-    // });
 
-    // eventBus.$on("editTodoTime", (todo) => {
-    //   const indexOfEditTime = this.todos.findIndex((t) => t.id === todo.todoId);
-    //   this.todos[indexOfEditTime].time = todo.todoNewTime;
-    //   this.sortTimeValue;
-    //   console.log(todo)
-    // });
+    eventBus.$on("editTodoValue", (todo) => {
+      const indexOfEditValue = this.todos.findIndex((t) => t.id === todo.id);
+      this.todos[indexOfEditValue].value = todo.todoNewValue;
+      fetch("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: `{"uuid": ${todo.id},
+          "date":${todo.date},
+          "time":${todo.time},
+          "value":${todo.todoNewValue},
+          "is_complete":${todo.is_complete},
+          "is_important":${todo.is_important}}`,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    });
+
+    eventBus.$on("editTodoTime", (id, todoNewValue) => {
+      const indexOfEditTime = this.todos.findIndex((t) => t.id === todo.id);
+      this.todos[indexOfEditTime].time = todo.todoNewTime;
+      this.sortTimeValue;
+      fetch("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: `{"uuid": ${todo.id},
+          "date":${todo.date},
+          "time":${todo.todoNewTime},
+          "value":${todo.value},
+          "is_complete":${todo.is_complete},
+          "is_important":${todo.is_important}}`,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    });
 
     eventBus.$on("removeTodo", (id) => {
       this.todos = this.todos.filter((t) => t.id !== id);
@@ -172,14 +194,21 @@ export default {
         (a, b) => convertTime(a.time) - convertTime(b.time)
       );
     },
+
+   
   },
 
   methods: {
+     isSunday(date) {
+      return  date.dayMonth._d.toString().substr(0, 3) === "Sun" ||
+      date.dayMonth._d.toString().substr(0, 3) === "Sat"
+    },
     closeModalColor: function () {
       eventBus.$emit("closeModalColors");
     },
 
     convertTime(stringTime) {
+      console.log(stringTime)
       return stringTime;
       // return stringTime !== "" ? Number(stringTime.split(":").join("")) : 0;
     },
@@ -253,13 +282,13 @@ export default {
 
 .weekday-card {
   text-align: center;
-  font-size: calc(10px + 0.3vw);
+  font-size: calc(11px + 0.3vw);
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-display: auto;
   /* color: rgb(72, 72, 72); */
-  color: white;
+  color: #ffff;
   background-color: #a8cdd3d0;
   height: 1.5em;
   margin-top: 2px;
@@ -279,6 +308,8 @@ export default {
 }
 .sunday {
   /* color: #d08467; */
-  color: #4f7a80;
+  /* color: #4f7a80; */
+  background-color: #fbfbfb;
+
 }
 </style>

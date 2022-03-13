@@ -97,9 +97,8 @@ export default {
 .color1 {
   display: block;
   background-color: #AFC1D8;
-  border-color: rgb(162, 160, 160);
-  font-size: calc(9px + 0.3vw);
-  /* color: white; */
+  border: none;
+  box-shadow: 1px 1px 1px rgb(162, 160, 160);
   transition-duration: 0.4s;
   cursor: pointer;
   outline-color: rgb(220, 211, 211);
@@ -112,9 +111,8 @@ export default {
 .color2 {
   display: block;
   background-color: #AEDBC8;
-  border-color: rgb(162, 160, 160);
-  font-size: calc(9px + 0.3vw);
-  /* color: white; */
+  border: none;
+  box-shadow: 1px 1px 1px rgb(162, 160, 160);
   transition-duration: 0.4s;
   cursor: pointer;
   outline-color: rgb(220, 211, 211);
@@ -126,9 +124,8 @@ export default {
 .color3 {
   display: block;
   background-color: #FFE3CA;
-  border-color: rgb(162, 160, 160);
-  font-size: calc(9px + 0.3vw);
-  /* color: white; */
+  border: none;
+  box-shadow: 1px 1px 1px rgb(162, 160, 160);
   transition-duration: 0.4s;
   cursor: pointer;
   outline-color: rgb(220, 211, 211);
@@ -138,6 +135,6 @@ export default {
   min-height: 22px;
 }
 button:hover {
-   zoom: 1.2; 
+  box-shadow: none;
 }
 </style>

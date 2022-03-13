@@ -7,8 +7,8 @@
       v-bind:class="{
         daytoday: isToday,
         dayimportant: colorImportantDay,
-        sunday: isSunday,
         holliday: isHolliday,
+        sunday: isSunday,
       }"
     >
       {{ displayDate(day.dayMonth) }}
@@ -22,7 +22,8 @@
     >
     </DayDisplayTodo>
 
-    <Colors ref="modalColors" :colorOfImportantDay="colorOfImportantDay"> </Colors>
+    <Colors ref="modalColors" :colorOfImportantDay="colorOfImportantDay">
+    </Colors>
   </div>
 </template>
 
@@ -65,7 +66,7 @@ export default {
   components: {
     DayAddTodo,
     DayDisplayTodo,
-    Colors
+    Colors,
   },
 
   props: {
@@ -74,8 +75,8 @@ export default {
       required: true,
     },
     colorOfImportantDay: {
-          type: String,
-      }
+      type: String,
+    },
   },
 
   computed: {
@@ -87,7 +88,11 @@ export default {
     },
 
     isSunday() {
-      return this.day.dayMonth._d.toString().substr(0, 3) === "Sun";
+      // console.log(this.day)
+      return (
+        this.day.dayMonth._d.toString().substr(0, 3) === "Sun" ||
+        this.day.dayMonth._d.toString().substr(0, 3) === "Sat"
+      );
     },
     isHolliday() {
       return this.hollidays.some(
@@ -130,7 +135,7 @@ export default {
 <style scoped>
 .date-of-the-day {
   text-align: center;
-  font-size: calc(10px + 0.3vw);
+  font-size: calc(11px + 0.3vw);
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -158,7 +163,7 @@ export default {
   border-radius: 4px;
 }
 .sunday {
-  color: #377F89;
+  /* color: #377f89; */
 }
 .holliday {
   color: #4f7a80;

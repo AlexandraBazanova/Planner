@@ -213,7 +213,6 @@ export default {
   /* transform: translateX(100%) ; */
   transition: tranform 2s ease;
   transition-duration: 1s;
-  background: red;
 }
 list-complete-enter-to {
   /* opacity: 0; */
@@ -227,7 +226,6 @@ list-complete-enter-active {
   /* opacity: 0; */
   transform: translateX(100%);
   transition-duration: 2s;
-  background: blue;
 }
 
 list-complete-leave {
@@ -235,13 +233,11 @@ list-complete-leave {
   /* opacity: 0; */
   /* transform: translateX(-100%) ; */
   transition-duration: 2s;
-  background: yellow;
 }
 .list-complete-leave-to {
   /* transform: translateX(-100%) ; */
   /* opacity: 0; */
   transition: 2s ease;
-  background: rgb(55, 197, 202);
 }
 .list-complete-leave-active {
   position: absolute;
@@ -249,7 +245,6 @@ list-complete-leave {
   /* transform: translateX(-100%) ; */
   transition: tranform 2s ease;
   transition-duration: 2s;
-  background: rgb(206, 21, 190);
 }
 
 /* .list-complete-move {

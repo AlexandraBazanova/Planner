@@ -24,8 +24,7 @@
     <Calendar />
     <section class="footer-calendar">
       <p class="footer-text">
-        &copy; 2021 Александра Базанова || Демоверсия приложения «Планировщик
-        дел "4 недели"»
+        &copy; 2021 Ed&Alex || Демоверсия приложения «Планировщик дел "4 недели"»
       </p>
     </section>
   </div>
@@ -76,7 +75,7 @@ export default {
 
 <style scoped>
 .main-calendar {
-  z-index: 1; 
+  z-index: 1;
 }
 .main-calendar::after {
   content: "";
@@ -90,7 +89,7 @@ export default {
   bottom: 0;
   right: 0;
   position: absolute;
-  z-index: -1;   
+  z-index: -1;
 }
 
 .footer-calendar {
@@ -100,7 +99,7 @@ export default {
   justify-content: flex-end;
 }
 .footer-text {
-  font-size: calc(9px + 0.2vw);
+  font-size: calc(10px + 0.2vw);
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -141,15 +140,18 @@ export default {
   outline-color: rgb(220, 211, 211);
 }
 .button-past {
-  background-color:#c7d4d690;
+  background-color: #c7d4d690;
   border-color: white;
   border: none;
-  font-size: calc(9px + 0.3vw);
-  border-radius: 4px;
+  /* font-size: calc(9px + 0.3vw); */
+  height: calc(26px + 0.3vw);
+  width: calc(26px + 0.3vw);
+  border-radius: 100%;
   color: white;
   transition-duration: 0.4s;
   cursor: pointer;
   margin: 0.1rem;
+  padding: 0;
   outline-color: rgb(220, 211, 211);
 }
 
@@ -157,12 +159,15 @@ export default {
   background-color: #c7d4d690;
   border-color: white;
   border: none;
-  font-size: calc(9px + 0.3vw);
-  border-radius: 4px;
+  /* font-size: calc(10px + 0.3vw); */
+  height: calc(26px + 0.3vw);
+  width: calc(26px + 0.3vw);
+  border-radius: 100%;
   color: white;
   transition-duration: 0.4s;
   cursor: pointer;
   margin: 0.1rem;
+  padding: 0;
   outline-color: rgb(220, 211, 211);
 }
 .button-future:hover {

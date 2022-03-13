@@ -131,7 +131,7 @@ export default {
 }
 .input-todo {
   width: calc(90% + 0.3vw);
-  font-size: calc(9px + 0.3vw);
+  font-size: calc(11px + 0.3vw);
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -150,7 +150,7 @@ export default {
 
 input[type="time"] {
   border: none;
-  font-size: calc(9px + 0.3vw);
+  font-size: calc(11px + 0.3vw);
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -168,7 +168,7 @@ input[type="time"]::-webkit-clear-button {
 }
 
 .icon-clock {
-  color: rgb(162, 160, 160);
+  color: rgb(183, 181, 186);
   outline-color: rgb(220, 211, 211);
 }
 </style>

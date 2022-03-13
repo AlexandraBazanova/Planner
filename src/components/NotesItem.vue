@@ -10,7 +10,7 @@
             v-if="!editNote"
           >
             <div class="icon-pin">
-              <mdicon name="pin" width="15" height="20" />
+              <mdicon name="close" width="12" height="20" />
             </div>
           </button>
 
@@ -72,25 +72,35 @@ export default {
 
 <style scoped>
 a {
-  font-size: 100%;
+  /* font-size: 100%; */
   font-weight: normal;
+  height: 100%;
+  border-radius: 4px;
+  background-color: #fdfdfd;
+   background-image:
+   linear-gradient(90deg, transparent 101px, transparent 100px),
+   linear-gradient(#e8e7e7 1px, transparent 0px),
+   linear-gradient(90deg, #e8e7e7 1px, transparent 0px);
+   background-size:100% 100%, 15px 15px, 15px 15px;
+   background-position: 0 0, -1px -1px, -1px 1px;
+  /* background-image: repeating-linear-gradient(#f6f4f4 0px, #ffffff 13px, #a8cdd3d0 14px); */
 }
 ul,
 li {
   list-style: none;
   padding: 0;
   margin: 0;
+ 
 }
 
 ul li {
-  margin-left: 0.5em;
-  margin-bottom: 0.1em;
+  
+  margin-left: 3px;
   float: left;
   z-index: -100;
 }
 
 a {
-  background-color: #d5ece7;
   display: block;
   text-align: start;
   height: 10em;
@@ -99,19 +109,15 @@ a {
   overflow: hidden;
   white-space: pre-wrap;
   /* word-break: break-all; */
+  
 }
 .notes-value {
-  padding: 0.5em;
-  padding-left: 0.7em;
+  padding: 3px;
+  padding-left: 7px;
   outline-color: rgb(220, 211, 211);
 }
 
-.icon-pin {
-  color: rgb(183, 181, 186);
-  transform: rotate(19deg);
-  z-index: -1;
-  cursor: pointer;
-}
+
 .rm-note {
   background: none;
   border: none;
@@ -120,18 +126,17 @@ a {
   cursor: pointer;
   z-index: 2;
   padding-top: 0;
-  padding-right: 0;
+  padding-right: 6px;
   outline-color: rgb(220, 211, 211);
+  color: rgb(183, 181, 186);
 }
 .rm-note:hover {
-  position: relative;
-  top: -2px;
+  color: rgb(72, 72, 72);
+
 }
-.icon-pin:hover {
-  color: rgb(162, 160, 160);
-}
+
 .input-notevalue {
-  font-size: calc(10px + 0.2vw);
+  font-size: 14px;
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -145,18 +150,18 @@ a {
   overflow: hidden;
   white-space: pre-wrap;
   outline: none;
-  background-color: #a8cdd353;
+  background-color: #ffff;
   padding: 0.5em;
   margin: 0;
   cursor: text;
 }
 .editnotes {
-  background-color: #d5ece7 !important;
+  background-color: #ffff !important;
 }
-.editnotes:hover {
+/* .editnotes:hover {
   background-color: #f6f6f6;
   box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.204);
   position: relative;
-}
+} */
 
 </style>

@@ -44,7 +44,7 @@ p {
   grid-gap: 2px;
   border: none;
   margin: 0.1rem;
-  font-size: calc(10px + 0.2vw);
+  font-size: calc(11px + 0.2vw);
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-style: normal;

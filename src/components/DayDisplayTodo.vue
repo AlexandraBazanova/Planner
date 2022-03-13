@@ -4,9 +4,10 @@
       <label class="custom-checkbox">
         <input
           type="checkbox"
+          v-model="todo.isComplete"
           v-on:change="completeTodo(todo)"
-          v-bind:checked="todo.isCommplete"
         />
+          <!-- v-bind:checked="todo.isCommplete" -->
         <span class="todo-span">
           <input
             class="input-time"
@@ -167,7 +168,7 @@ export default {
 li {
   display: flex;
   border-bottom: 1px dotted rgb(222, 220, 224);
-  font-size: calc(10px + 0.2vw);
+  font-size: calc(11px + 0.2vw);
   justify-content: space-between;
   color: rgb(72, 72, 72);
 }
@@ -211,7 +212,7 @@ input[type="time"]:focus {
   background: none;
   border: none;
   border-radius: 4px;
-  font-size: calc(8px + 0.2vw);
+  font-size: calc(11px + 0.2vw);
   outline-color: rgb(220, 211, 211);
   margin-left: auto;
   padding: 0;
@@ -230,7 +231,7 @@ input[type="time"]:focus {
   background: none;
   border: none;
   border-radius: 4px;
-  font-size: calc(6px + 0.2vw);
+  font-size: calc(7px + 0.2vw);
   font-weight: 200;
   outline-color: rgb(220, 211, 211);
   padding: 0;
