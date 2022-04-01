@@ -1,18 +1,18 @@
 <template>
-  <li v-bind:class="{ important: todo.isImportant }">
-    <span v-bind:class="{ done: todo.isComplete }">
+  <li v-bind:class="{ important: todo.is_important }">
+    <span v-bind:class="{ done: todo.is_complete }">
       <label class="custom-checkbox">
         <input
           type="checkbox"
-          v-model="todo.isComplete"
+          v-model="todo.is_complete"
           v-on:change="completeTodo(todo)"
         />
-          <!-- v-bind:checked="todo.isCommplete" -->
+        <!-- v-bind:checked="todo.isCommplete" -->
         <span class="todo-span">
           <input
             class="input-time"
             type="time"
-            v-bind:class="{ done: todo.isComplete }"
+            v-bind:class="{ done: todo.is_complete }"
             v-model="todo.time"
             v-on:keyup.enter="editTime(todo)"
             v-on:click="editTime(todo)"
@@ -21,7 +21,7 @@
           <!-- v-model todo.time - попытка присвоения в пропс - ну нельзя так!! -->
           <span
             class="span-todovalue"
-            v-bind:class="{ done: todo.isComplete }"
+            v-bind:class="{ done: todo.is_complete }"
             v-if="!editTodo"
             v-on:dblclick="editTodo = true"
             tabindex="0"
@@ -45,7 +45,7 @@
     <button
       class="important-todo"
       v-on:click="importantTodo(todo)"
-      v-bind:class="{ done: todo.isComplete }"
+      v-bind:class="{ done: todo.is_complete }"
     >
       !
     </button>
@@ -53,7 +53,7 @@
     <button
       class="rm"
       v-on:click="removeOneTodo(todo.id)"
-      v-bind:class="{ done: todo.isComplete }"
+      v-bind:class="{ done: todo.is_complete }"
     >
       X
       <!-- &cross; -->
@@ -62,7 +62,6 @@
 </template>
 
 <script type = "text/javascript">
-import moment from "moment";
 import "moment/locale/ru";
 import { eventBus } from "../main";
 
@@ -83,70 +82,27 @@ export default {
 
   methods: {
     editTime(todo) {
-      const todoDate = this.todo.date;
-      const todoId = this.todo.id;
-      const todoNewTime = this.todo.time;
-      const todoNewValue = this.todo.value;
-      const todoImportant = this.todo.isImportant;
-      const todoComplete = this.todo.isComplete;
-      eventBus.$emit("editPropertiesTodo", {
-        todoId,
-        todoDate,
-        todoNewTime,
-        todoNewValue,
-        todoComplete,
-        todoImportant,
-      });
+      const id = todo.id;
+      const time = this.todo.time;
+      eventBus.$emit("updateTodo", { id, time });
     },
 
     editValue(todo) {
-      const todoDate = this.todo.date;
-      const todoId = this.todo.id;
-      const todoNewTime = this.todo.time;
-      const todoNewValue = this.todo.value;
-      const todoImportant = this.todo.isImportant;
-      const todoComplete = this.todo.isComplete;
-      eventBus.$emit("editPropertiesTodo", {
-        todoId,
-        todoDate,
-        todoNewTime,
-        todoNewValue,
-        todoComplete,
-        todoImportant,
-      });
+      const id = todo.id;
+      const value = this.todo.value;
+      eventBus.$emit("updateTodo", { id, value });
+
       this.editTodo = false;
     },
     importantTodo(todo) {
-      const todoDate = this.todo.date;
-      const todoId = this.todo.id;
-      const todoNewTime = this.todo.time;
-      const todoNewValue = this.todo.value;
-      const todoImportant = !this.todo.isImportant;
-      const todoComplete = this.todo.isComplete;
-      eventBus.$emit("editPropertiesTodo", {
-        todoId,
-        todoDate,
-        todoNewTime,
-        todoNewValue,
-        todoComplete,
-        todoImportant,
-      });
+      const id = todo.id;
+      const is_important = !this.todo.is_important;
+      eventBus.$emit("updateTodo", { id, is_important });
     },
     completeTodo(todo) {
-      const todoDate = this.todo.date;
-      const todoId = this.todo.id;
-      const todoNewTime = this.todo.time;
-      const todoNewValue = this.todo.value;
-      const todoImportant = this.todo.isImportant;
-      const todoComplete = !this.todo.isComplete;
-      eventBus.$emit("editPropertiesTodo", {
-        todoId,
-        todoDate,
-        todoNewTime,
-        todoNewValue,
-        todoComplete,
-        todoImportant,
-      });
+      const id = todo.id;
+      const is_complete = !!this.todo.is_complete;
+      eventBus.$emit("updateTodo", { id, is_complete });
     },
 
     removeOneTodo(idTodo) {

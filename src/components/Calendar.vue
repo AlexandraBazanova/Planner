@@ -87,9 +87,12 @@ export default {
         });
     });
 
-    eventBus.$on("editTodoValue", (todo) => {
-      const indexOfEditValue = this.todos.findIndex((t) => t.id === todo.id);
-      this.todos[indexOfEditValue].value = todo.todoNewValue;
+    eventBus.$on("updateTodo", (value) => {
+      const indexOfEditValue = this.todos.findIndex((t) => t.id === value.id);
+      const todo = this.todos[indexOfEditValue];
+      this.sortTimeValue;
+      Object.assign(todo, value);
+
       fetch("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo", {
         method: "POST",
         headers: {
@@ -98,30 +101,6 @@ export default {
         body: `{"uuid": ${todo.id},
           "date":${todo.date},
           "time":${todo.time},
-          "value":${todo.todoNewValue},
-          "is_complete":${todo.is_complete},
-          "is_important":${todo.is_important}}`,
-      })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    });
-
-    eventBus.$on("editTodoTime", (id, todoNewValue) => {
-      const indexOfEditTime = this.todos.findIndex((t) => t.id === todo.id);
-      this.todos[indexOfEditTime].time = todo.todoNewTime;
-      this.sortTimeValue;
-      fetch("https://stoplight.io/mocks/fak/chronos/34033455/api/v1/todo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: `{"uuid": ${todo.id},
-          "date":${todo.date},
-          "time":${todo.todoNewTime},
           "value":${todo.value},
           "is_complete":${todo.is_complete},
           "is_important":${todo.is_important}}`,
@@ -194,21 +173,21 @@ export default {
         (a, b) => convertTime(a.time) - convertTime(b.time)
       );
     },
-
-   
   },
 
   methods: {
-     isSunday(date) {
-      return  date.dayMonth._d.toString().substr(0, 3) === "Sun" ||
-      date.dayMonth._d.toString().substr(0, 3) === "Sat"
+    isSunday(date) {
+      return (
+        date.dayMonth._d.toString().substr(0, 3) === "Sun" ||
+        date.dayMonth._d.toString().substr(0, 3) === "Sat"
+      );
     },
     closeModalColor: function () {
       eventBus.$emit("closeModalColors");
     },
 
     convertTime(stringTime) {
-      console.log(stringTime)
+      console.log(stringTime);
       return stringTime;
       // return stringTime !== "" ? Number(stringTime.split(":").join("")) : 0;
     },
@@ -310,6 +289,5 @@ export default {
   /* color: #d08467; */
   /* color: #4f7a80; */
   background-color: #fbfbfb;
-
 }
 </style>

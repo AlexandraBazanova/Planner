@@ -99,8 +99,8 @@ export default {
       const id = this.$uuid.v1()
       const date = this.displayDateNumberFormat(this.day.dayMonth._d);
       // const idTodo = moment().format("x");
-      const isComplete = false;
-      const isImportant = false;
+      const is_complete = false;
+      const is_important = false;
       const time = this.time;
       eventBus.$emit("updateTodoList", {
         id,
@@ -108,8 +108,8 @@ export default {
         time,
         value,
         // idTodo,
-        isComplete,
-        isImportant,
+        is_complete,
+        is_important,
       });
       this.value = "";
       this.time = "";
